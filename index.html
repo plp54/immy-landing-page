@@ -14,8 +14,8 @@
             --immy-orange-light: #FF6B3D;
             --immy-orange-dark: #E03D00;
             --immy-coral: #FF7A59;
-            --cream: #FFFBF7;
-            --cream-dark: #FFF5ED;
+            --cream: #FFFFFF;
+            --cream-dark: #FAFAFA;
             --ink: #0D0D0D;
             --ink-light: #1A1A1A;
             --ink-muted: #4A4A4A;
@@ -3189,8 +3189,12 @@
         .cross-icon { width: 26px; height: 26px; background: rgba(0,0,0,0.05); color: var(--ink-subtle); border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 14px; }
 
         /* Footer */
-        footer { background: var(--ink); color: white; padding: 0; }
-        [data-theme="dark"] footer { background: #050505; }
+        footer {
+            background: linear-gradient(135deg, #1a1a2e 0%, #16213e 50%, #0f0f23 100%);
+            color: white;
+            padding: 0;
+        }
+        [data-theme="dark"] footer { background: linear-gradient(135deg, #0a0a0f 0%, #12121a 50%, #080810 100%); }
         .footer-top { padding: 80px 48px 40px; }
         .footer-grid { max-width: 1200px; margin: 0 auto; display: grid; grid-template-columns: 2fr 1fr 1fr 1fr 1fr; gap: 60px; }
         .footer-grid-simple { grid-template-columns: 2fr 1fr 1fr; }
@@ -4254,7 +4258,7 @@
         /* ==================== FINAL CTA SIMPLE ==================== */
         .final-cta-simple {
             padding: 120px 48px;
-            background: var(--ink);
+            background: linear-gradient(135deg, #1a1a2e 0%, #16213e 50%, #0f0f23 100%);
             position: relative;
             overflow: hidden;
             text-align: center;
@@ -4454,56 +4458,98 @@
 
         /* ==================== MOBILE CUSTOM STYLES ==================== */
         @media (max-width: 768px) {
-            /* 1. Logo affiché complètement */
-            .logo { flex-shrink: 0; }
-            .logo-text { font-size: 28px; }
+            /* 1. Logo affiché complètement - pas de coupure */
+            .logo {
+                flex-shrink: 0;
+                overflow: visible !important;
+                padding: 4px 8px;
+            }
+            .logo-text {
+                font-size: 30px;
+                letter-spacing: 0px;
+            }
 
-            /* 2. Bouton langue plus petit */
-            .lang-toggle { transform: scale(0.85); }
-            .lang-btn { padding: 6px 10px; font-size: 10px; }
+            /* 2. Bouton langue légèrement plus grand */
+            .lang-toggle { transform: scale(0.9); }
+            .lang-btn { padding: 7px 11px; font-size: 11px; }
 
             /* 3. Headline "On gère, on publie, on reloue" plus grand */
-            .hero-headline { font-size: clamp(32px, 10vw, 52px) !important; }
+            .hero-headline { font-size: clamp(34px, 11vw, 56px) !important; }
 
-            /* 4. Bouton WhatsApp fond plus blanc/clair */
-            .cta-primary {
-                background: rgba(255, 255, 255, 0.95) !important;
-                backdrop-filter: blur(10px);
-                box-shadow: 0 4px 20px rgba(37, 211, 102, 0.2);
+            /* 4. Sous-titre plus lisible */
+            .hero-subheadline {
+                font-size: 16px !important;
+                line-height: 1.7 !important;
+                color: var(--ink-muted);
+                max-width: 90%;
             }
 
-            /* 5. Tableau de bord rectangulaire comme desktop */
+            /* 5. Bouton WhatsApp plus petit et fond blanc */
+            .cta-primary {
+                background: #FFFFFF !important;
+                padding: 14px 24px !important;
+                font-size: 14px !important;
+                box-shadow: 0 2px 12px rgba(37, 211, 102, 0.15);
+            }
+            .cta-primary svg {
+                width: 18px !important;
+                height: 18px !important;
+            }
+
+            /* 6. Tableau de bord - pleine largeur, pas de scroll */
             .hero-visual {
+                width: 100%;
                 max-width: 100%;
-                overflow-x: auto;
-                -webkit-overflow-scrolling: touch;
-                padding-bottom: 10px;
+                overflow: hidden !important;
+                padding: 0;
             }
             .crm-dashboard {
-                min-width: 600px;
-                transform: scale(0.85);
-                transform-origin: top left;
+                width: 100% !important;
+                min-width: unset !important;
+                transform: scale(1) !important;
+                transform-origin: center;
+                border-radius: 16px;
             }
+            .crm-header { padding: 10px 12px; }
+            .crm-url-bar { font-size: 9px; }
+            .crm-body { padding: 10px; gap: 8px; }
+            .crm-nav { padding: 6px; gap: 4px; }
+            .crm-nav-item { padding: 6px 8px; font-size: 9px; gap: 4px; }
+            .crm-nav-item svg { width: 12px; height: 12px; }
+            .crm-main { padding: 10px; }
+            .crm-welcome { font-size: 12px; margin-bottom: 10px; }
+            .crm-stats-row { gap: 6px; }
+            .crm-stat-card { padding: 10px 8px; border-radius: 10px; }
+            .crm-stat-value { font-size: 18px; }
+            .crm-stat-label { font-size: 8px; }
+            .crm-content-row { gap: 8px; }
+            .crm-section-title { font-size: 10px; margin-bottom: 6px; }
+            .crm-table { border-radius: 8px; }
+            .crm-table-header, .crm-table-row { padding: 6px 8px; font-size: 8px; }
 
-            /* 6. Fonctionnalités affichées 2 par 2 */
+            /* 7. Fonctionnalités affichées 2 par 2 */
             .features-grid {
                 grid-template-columns: repeat(2, 1fr) !important;
                 gap: 12px !important;
             }
-            .feature-card { padding: 20px 16px; }
-            .feature-card h4 { font-size: 14px; }
-            .feature-card p { font-size: 11px; }
+            .feature-card { padding: 18px 14px; }
+            .feature-card h4 { font-size: 13px; }
+            .feature-card p { font-size: 10px; }
         }
 
         @media (max-width: 400px) {
             /* Ajustements pour très petits écrans */
-            .logo-text { font-size: 24px; }
-            .lang-toggle { transform: scale(0.75); }
-            .hero-headline { font-size: clamp(28px, 9vw, 44px) !important; }
-            .crm-dashboard {
-                min-width: 500px;
-                transform: scale(0.7);
+            .logo-text { font-size: 26px; }
+            .lang-toggle { transform: scale(0.85); }
+            .hero-headline { font-size: clamp(30px, 10vw, 48px) !important; }
+            .hero-subheadline { font-size: 14px !important; }
+            .cta-primary {
+                padding: 12px 20px !important;
+                font-size: 13px !important;
             }
+            /* Dashboard encore plus compact */
+            .crm-stat-value { font-size: 16px; }
+            .crm-stat-card { padding: 8px 6px; }
         }
 
         /* CRM Interactive Pages */
@@ -5602,22 +5648,22 @@
         <div class="cta-bg-glow"></div>
         
         <div class="cta-simple-container reveal">
-            <span class="cta-eyebrow lang-fr">Prêt à simplifier votre gestion ?</span>
-            <span class="cta-eyebrow lang-nl">Klaar om uw beheer te vereenvoudigen?</span>
-            <span class="cta-eyebrow lang-en">Ready to simplify your management?</span>
-            
+            <span class="cta-eyebrow lang-fr">Fini le stress de la gestion</span>
+            <span class="cta-eyebrow lang-nl">Gedaan met de stress van beheer</span>
+            <span class="cta-eyebrow lang-en">No more management stress</span>
+
             <h2 class="cta-simple-title">
-                <span class="lang-fr">Commencez</span>
-                <span class="lang-nl">Start</span>
-                <span class="lang-en">Start</span>
-                <span class="serif highlight-word lang-fr">gratuitement.</span>
-                <span class="serif highlight-word lang-nl">gratis.</span>
-                <span class="serif highlight-word lang-en">for free.</span>
+                <span class="lang-fr">Passez en mode</span>
+                <span class="lang-nl">Schakel over naar</span>
+                <span class="lang-en">Switch to</span>
+                <span class="serif highlight-word lang-fr">autopilote.</span>
+                <span class="serif highlight-word lang-nl">automatische piloot.</span>
+                <span class="serif highlight-word lang-en">autopilot.</span>
             </h2>
-            
-            <p class="cta-simple-desc lang-fr">Essai gratuit. Sans carte bancaire. Sans engagement.</p>
-            <p class="cta-simple-desc lang-nl">Gratis proefperiode. Geen creditcard. Geen verplichting.</p>
-            <p class="cta-simple-desc lang-en">Free trial. No credit card. No commitment.</p>
+
+            <p class="cta-simple-desc lang-fr">Centralisez tout. Automatisez le reste. Profitez de vos kots sans les tracas.</p>
+            <p class="cta-simple-desc lang-nl">Centraliseer alles. Automatiseer de rest. Geniet van uw koten zonder zorgen.</p>
+            <p class="cta-simple-desc lang-en">Centralize everything. Automate the rest. Enjoy your rentals hassle-free.</p>
             
             <div class="cta-simple-buttons">
                 <a href="https://wa.me/32471369871?text=Bonjour%20!%20Je%20suis%20intéressé(e)%20par%20immy." target="_blank" class="cta-simple-primary">
