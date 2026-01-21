@@ -4452,6 +4452,60 @@
             .bento-main, .bento-wide { grid-column: span 1; }
         }
 
+        /* ==================== MOBILE CUSTOM STYLES ==================== */
+        @media (max-width: 768px) {
+            /* 1. Logo affiché complètement */
+            .logo { flex-shrink: 0; }
+            .logo-text { font-size: 28px; }
+
+            /* 2. Bouton langue plus petit */
+            .lang-toggle { transform: scale(0.85); }
+            .lang-btn { padding: 6px 10px; font-size: 10px; }
+
+            /* 3. Headline "On gère, on publie, on reloue" plus grand */
+            .hero-headline { font-size: clamp(32px, 10vw, 52px) !important; }
+
+            /* 4. Bouton WhatsApp fond plus blanc/clair */
+            .cta-primary {
+                background: rgba(255, 255, 255, 0.95) !important;
+                backdrop-filter: blur(10px);
+                box-shadow: 0 4px 20px rgba(37, 211, 102, 0.2);
+            }
+
+            /* 5. Tableau de bord rectangulaire comme desktop */
+            .hero-visual {
+                max-width: 100%;
+                overflow-x: auto;
+                -webkit-overflow-scrolling: touch;
+                padding-bottom: 10px;
+            }
+            .crm-dashboard {
+                min-width: 600px;
+                transform: scale(0.85);
+                transform-origin: top left;
+            }
+
+            /* 6. Fonctionnalités affichées 2 par 2 */
+            .features-grid {
+                grid-template-columns: repeat(2, 1fr) !important;
+                gap: 12px !important;
+            }
+            .feature-card { padding: 20px 16px; }
+            .feature-card h4 { font-size: 14px; }
+            .feature-card p { font-size: 11px; }
+        }
+
+        @media (max-width: 400px) {
+            /* Ajustements pour très petits écrans */
+            .logo-text { font-size: 24px; }
+            .lang-toggle { transform: scale(0.75); }
+            .hero-headline { font-size: clamp(28px, 9vw, 44px) !important; }
+            .crm-dashboard {
+                min-width: 500px;
+                transform: scale(0.7);
+            }
+        }
+
         /* CRM Interactive Pages */
         .crm-page { display: none; animation: fadeInPage 0.3s ease; }
         .crm-page.active { display: block; }
