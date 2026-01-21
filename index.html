@@ -4557,13 +4557,60 @@
                 height: 18px !important;
             }
 
-            /* 6. Tableau de bord - pleine largeur, pas de scroll */
+            /* 6. Tableau de bord - avec navigation interactive */
             .hero-visual {
                 width: 100%;
                 max-width: 100%;
-                overflow: hidden !important;
+                overflow: visible !important;
                 padding: 0;
+                display: flex;
+                flex-direction: column;
+                gap: 12px;
             }
+
+            /* Navigation mobile horizontale au-dessus du dashboard */
+            .mobile-crm-nav {
+                display: flex !important;
+                gap: 6px;
+                overflow-x: auto;
+                padding: 4px;
+                background: var(--card);
+                border-radius: 12px;
+                border: 1px solid var(--border);
+                -webkit-overflow-scrolling: touch;
+                scrollbar-width: none;
+            }
+            .mobile-crm-nav::-webkit-scrollbar { display: none; }
+            .mobile-crm-nav-item {
+                flex-shrink: 0;
+                padding: 10px 14px;
+                font-size: 11px;
+                font-weight: 600;
+                color: var(--ink-muted);
+                background: transparent;
+                border: none;
+                border-radius: 8px;
+                cursor: pointer;
+                transition: all 0.3s ease;
+                display: flex;
+                align-items: center;
+                gap: 6px;
+            }
+            .mobile-crm-nav-item svg {
+                width: 14px;
+                height: 14px;
+                stroke: currentColor;
+                stroke-width: 2;
+                fill: none;
+            }
+            .mobile-crm-nav-item.active {
+                background: var(--immy-orange);
+                color: white;
+            }
+            .mobile-crm-nav-item:not(.active):hover {
+                background: var(--cream-dark);
+            }
+
             .crm-dashboard {
                 width: 100% !important;
                 min-width: unset !important;
@@ -4573,20 +4620,19 @@
             }
             .crm-header { padding: 10px 12px; }
             .crm-url-bar { font-size: 9px; }
-            .crm-body { padding: 10px; gap: 8px; }
-            .crm-nav { padding: 6px; gap: 4px; }
-            .crm-nav-item { padding: 6px 8px; font-size: 9px; gap: 4px; }
-            .crm-nav-item svg { width: 12px; height: 12px; }
+            .crm-body { padding: 8px; gap: 6px; }
+            /* Cacher la nav interne sur mobile */
+            .crm-nav { display: none !important; }
             .crm-main { padding: 10px; }
-            .crm-welcome { font-size: 12px; margin-bottom: 10px; }
-            .crm-stats-row { gap: 6px; }
+            .crm-welcome { font-size: 11px; margin-bottom: 8px; }
+            .crm-stats-row { gap: 6px; grid-template-columns: repeat(2, 1fr) !important; }
             .crm-stat-card { padding: 10px 8px; border-radius: 10px; }
-            .crm-stat-value { font-size: 18px; }
-            .crm-stat-label { font-size: 8px; }
+            .crm-stat-value { font-size: 16px; }
+            .crm-stat-label { font-size: 7px; }
             .crm-content-row { gap: 8px; }
-            .crm-section-title { font-size: 10px; margin-bottom: 6px; }
+            .crm-section-title { font-size: 9px; margin-bottom: 6px; }
             .crm-table { border-radius: 8px; }
-            .crm-table-header, .crm-table-row { padding: 6px 8px; font-size: 8px; }
+            .crm-table-header, .crm-table-row { padding: 6px 8px; font-size: 7px; }
 
             /* 7. Fonctionnalités affichées 2 par 2 */
             .features-grid {
@@ -4866,7 +4912,22 @@
             50% { transform: scale(1.2); box-shadow: 0 0 0 8px rgba(16, 185, 129, 0); }
         }
         @media (max-width: 768px) {
-            .fomo-visitors { bottom: 90px; left: 10px; right: 10px; font-size: 12px; padding: 10px 14px; }
+            .fomo-visitors {
+                bottom: 90px;
+                left: 10px;
+                right: auto;
+                width: auto;
+                max-width: calc(100% - 20px);
+                font-size: 12px;
+                padding: 10px 14px;
+            }
+            .theme-toggle {
+                padding: 10px 13px;
+            }
+            .theme-toggle svg {
+                width: 15px;
+                height: 15px;
+            }
         }
 
         /* 7. Parallax Sections */
@@ -5232,6 +5293,29 @@
             
             <!-- CRM Dashboard -->
             <div class="hero-visual reveal">
+                <!-- Mobile Navigation (visible only on mobile) -->
+                <div class="mobile-crm-nav" style="display: none;">
+                    <button class="mobile-crm-nav-item active" data-page="dashboard">
+                        <svg viewBox="0 0 24 24"><rect x="3" y="3" width="7" height="7"/><rect x="14" y="3" width="7" height="7"/><rect x="14" y="14" width="7" height="7"/><rect x="3" y="14" width="7" height="7"/></svg>
+                        Dashboard
+                    </button>
+                    <button class="mobile-crm-nav-item" data-page="kots">
+                        <svg viewBox="0 0 24 24"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg>
+                        Kots
+                    </button>
+                    <button class="mobile-crm-nav-item" data-page="tenants">
+                        <svg viewBox="0 0 24 24"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/></svg>
+                        <span class="lang-fr">Locataires</span><span class="lang-nl">Huurders</span><span class="lang-en">Tenants</span>
+                    </button>
+                    <button class="mobile-crm-nav-item" data-page="contracts">
+                        <svg viewBox="0 0 24 24"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/></svg>
+                        <span class="lang-fr">Contrats</span><span class="lang-nl">Contracten</span><span class="lang-en">Contracts</span>
+                    </button>
+                    <button class="mobile-crm-nav-item" data-page="marketplace">
+                        <svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><line x1="2" y1="12" x2="22" y2="12"/><path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/></svg>
+                        Marketplace
+                    </button>
+                </div>
                 <div class="crm-dashboard">
                     <!-- CRM Header -->
                     <div class="crm-header">
@@ -6460,6 +6544,34 @@
                 if (targetPage) {
                     setTimeout(() => targetPage.classList.add('active'), 30);
                 }
+                // Sync with mobile nav
+                document.querySelectorAll('.mobile-crm-nav-item').forEach(m => {
+                    m.classList.toggle('active', m.dataset.page === page);
+                });
+            });
+        });
+
+        // Mobile CRM Navigation
+        const mobileCrmNavItems = document.querySelectorAll('.mobile-crm-nav-item');
+        mobileCrmNavItems.forEach(item => {
+            item.addEventListener('click', () => {
+                const page = item.dataset.page;
+                if (!page) return;
+                // Update mobile nav active state
+                mobileCrmNavItems.forEach(m => m.classList.remove('active'));
+                item.classList.add('active');
+                // Update URL bar
+                if (crmUrlBar) crmUrlBar.textContent = pageUrls[page] || 'app.immy.be';
+                // Update pages
+                crmPages.forEach(p => p.classList.remove('active'));
+                const targetPage = document.getElementById('page-' + page);
+                if (targetPage) {
+                    setTimeout(() => targetPage.classList.add('active'), 30);
+                }
+                // Sync with desktop nav
+                crmNavItems.forEach(n => {
+                    n.classList.toggle('active', n.dataset.page === page);
+                });
             });
         });
 
