@@ -4618,12 +4618,374 @@
         .crm-pipeline-card-name { font-size: 10px; font-weight: 600; }
         .crm-pipeline-card-prop { font-size: 9px; color: var(--ink-subtle); }
         .crm-pipeline-card-score { font-size: 8px; color: var(--success); font-weight: 600; }
+
+        /* ==================== WOW EFFECTS ==================== */
+
+        /* 1. Floating Particles */
+        .particles-container {
+            position: absolute;
+            inset: 0;
+            overflow: hidden;
+            pointer-events: none;
+            z-index: 1;
+        }
+        .particle {
+            position: absolute;
+            width: 6px;
+            height: 6px;
+            background: var(--immy-orange);
+            border-radius: 50%;
+            opacity: 0.3;
+            animation: particleFloat 20s infinite ease-in-out;
+        }
+        .particle:nth-child(1) { left: 10%; top: 20%; animation-delay: 0s; animation-duration: 25s; }
+        .particle:nth-child(2) { left: 20%; top: 80%; animation-delay: -5s; animation-duration: 20s; width: 4px; height: 4px; }
+        .particle:nth-child(3) { left: 35%; top: 30%; animation-delay: -10s; animation-duration: 28s; width: 8px; height: 8px; opacity: 0.2; }
+        .particle:nth-child(4) { left: 50%; top: 70%; animation-delay: -3s; animation-duration: 22s; }
+        .particle:nth-child(5) { left: 65%; top: 15%; animation-delay: -8s; animation-duration: 26s; width: 5px; height: 5px; }
+        .particle:nth-child(6) { left: 75%; top: 60%; animation-delay: -12s; animation-duration: 24s; width: 7px; height: 7px; opacity: 0.25; }
+        .particle:nth-child(7) { left: 85%; top: 40%; animation-delay: -7s; animation-duration: 21s; width: 4px; height: 4px; }
+        .particle:nth-child(8) { left: 90%; top: 85%; animation-delay: -15s; animation-duration: 27s; }
+        .particle:nth-child(9) { left: 5%; top: 50%; animation-delay: -2s; animation-duration: 23s; width: 5px; height: 5px; }
+        .particle:nth-child(10) { left: 45%; top: 10%; animation-delay: -9s; animation-duration: 19s; width: 6px; height: 6px; opacity: 0.35; }
+
+        @keyframes particleFloat {
+            0%, 100% { transform: translate(0, 0) scale(1); opacity: 0.3; }
+            25% { transform: translate(30px, -50px) scale(1.2); opacity: 0.5; }
+            50% { transform: translate(-20px, -100px) scale(0.8); opacity: 0.2; }
+            75% { transform: translate(40px, -50px) scale(1.1); opacity: 0.4; }
+        }
+
+        /* 2. Ripple Effect for Buttons */
+        .ripple-btn {
+            position: relative;
+            overflow: hidden;
+        }
+        .ripple-btn::after {
+            content: '';
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%) scale(0);
+            background: rgba(255, 255, 255, 0.3);
+            border-radius: 50%;
+            opacity: 0;
+            transition: none;
+        }
+        .ripple-btn:active::after {
+            transform: translate(-50%, -50%) scale(2.5);
+            opacity: 1;
+            transition: transform 0.5s ease, opacity 0.5s ease;
+        }
+
+        /* 3. Icon Animations on Hover */
+        .feature-card .feature-icon {
+            transition: all 0.4s cubic-bezier(0.34, 1.56, 0.64, 1);
+        }
+        .feature-card:hover .feature-icon {
+            transform: scale(1.15) rotate(-5deg);
+        }
+        .feature-card:hover .feature-icon svg {
+            animation: iconBounce 0.5s ease;
+        }
+        @keyframes iconBounce {
+            0%, 100% { transform: scale(1); }
+            50% { transform: scale(1.2); }
+        }
+
+        /* 4. Feature Cards Expansion */
+        .feature-card {
+            cursor: pointer;
+            transition: all 0.4s cubic-bezier(0.34, 1.56, 0.64, 1);
+        }
+        .feature-card .feature-expand {
+            max-height: 0;
+            overflow: hidden;
+            opacity: 0;
+            transition: all 0.4s ease;
+            margin-top: 0;
+            font-size: 12px;
+            color: var(--ink-muted);
+            line-height: 1.5;
+        }
+        .feature-card.expanded {
+            background: linear-gradient(135deg, var(--card), var(--cream-dark));
+            box-shadow: 0 20px 50px rgba(255, 68, 5, 0.15);
+            transform: scale(1.02);
+        }
+        .feature-card.expanded .feature-expand {
+            max-height: 100px;
+            opacity: 1;
+            margin-top: 12px;
+            padding-top: 12px;
+            border-top: 1px solid var(--border);
+        }
+
+        /* 5. Mobile Sticky CTA */
+        .sticky-cta-mobile {
+            display: none;
+            position: fixed;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            padding: 12px 16px;
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+            border-top: 1px solid var(--border);
+            z-index: 999;
+            transform: translateY(100%);
+            transition: transform 0.4s cubic-bezier(0.34, 1.56, 0.64, 1);
+            box-shadow: 0 -4px 20px rgba(0, 0, 0, 0.1);
+        }
+        .sticky-cta-mobile.visible {
+            transform: translateY(0);
+        }
+        .sticky-cta-mobile a {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+            width: 100%;
+            padding: 14px 20px;
+            background: #25D366;
+            color: white;
+            border-radius: 14px;
+            font-weight: 700;
+            font-size: 15px;
+            text-decoration: none;
+            box-shadow: 0 4px 15px rgba(37, 211, 102, 0.4);
+        }
+        .sticky-cta-mobile svg {
+            width: 20px;
+            height: 20px;
+            fill: white;
+        }
+        @media (max-width: 768px) {
+            .sticky-cta-mobile { display: block; }
+            body { padding-bottom: 80px; }
+        }
+
+        /* 6. FOMO - Visitors Counter */
+        .fomo-visitors {
+            position: fixed;
+            bottom: 100px;
+            left: 20px;
+            background: var(--card);
+            border: 1px solid var(--border);
+            border-radius: 12px;
+            padding: 12px 16px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            font-size: 13px;
+            font-weight: 500;
+            color: var(--ink-muted);
+            box-shadow: 0 8px 30px rgba(0, 0, 0, 0.1);
+            z-index: 998;
+            opacity: 0;
+            transform: translateX(-100%);
+            transition: all 0.5s cubic-bezier(0.34, 1.56, 0.64, 1);
+        }
+        .fomo-visitors.visible {
+            opacity: 1;
+            transform: translateX(0);
+        }
+        .fomo-visitors .pulse-dot {
+            width: 8px;
+            height: 8px;
+            background: #10B981;
+            border-radius: 50%;
+            animation: fomoSpinPulse 2s ease-in-out infinite;
+        }
+        @keyframes fomoSpinPulse {
+            0%, 100% { transform: scale(1); box-shadow: 0 0 0 0 rgba(16, 185, 129, 0.4); }
+            50% { transform: scale(1.2); box-shadow: 0 0 0 8px rgba(16, 185, 129, 0); }
+        }
+        @media (max-width: 768px) {
+            .fomo-visitors { bottom: 90px; left: 10px; right: 10px; font-size: 12px; padding: 10px 14px; }
+        }
+
+        /* 7. FOMO - Promo Banner */
+        .promo-banner {
+            background: linear-gradient(135deg, var(--immy-orange), var(--immy-coral));
+            color: white;
+            padding: 12px 20px;
+            text-align: center;
+            font-size: 14px;
+            font-weight: 600;
+            position: relative;
+            overflow: hidden;
+        }
+        .promo-banner::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255,255,255,0.2), transparent);
+            animation: promoShine 3s infinite;
+        }
+        @keyframes promoShine {
+            0% { left: -100%; }
+            100% { left: 100%; }
+        }
+        .promo-banner .countdown {
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            margin-left: 12px;
+            background: rgba(0,0,0,0.2);
+            padding: 4px 12px;
+            border-radius: 100px;
+            font-size: 13px;
+        }
+        .promo-banner .countdown-num {
+            font-weight: 800;
+            font-size: 14px;
+        }
+
+        /* 8. Parallax Sections */
+        .parallax-section {
+            transform: translateY(0);
+            transition: transform 0.1s linear;
+        }
+
+        /* 9. Dashboard Live Animations */
+        .crm-stat-value[data-animate] {
+            display: inline-block;
+        }
+        .crm-notification-live {
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            background: var(--success);
+            color: white;
+            padding: 6px 10px;
+            border-radius: 8px;
+            font-size: 9px;
+            font-weight: 600;
+            opacity: 0;
+            transform: translateY(-10px) scale(0.9);
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+            gap: 5px;
+        }
+        .crm-notification-live.show {
+            opacity: 1;
+            transform: translateY(0) scale(1);
+        }
+        .crm-notification-live::before {
+            content: '';
+            width: 6px;
+            height: 6px;
+            background: white;
+            border-radius: 50%;
+            animation: notifPulse 1s infinite;
+        }
+        @keyframes notifPulse {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0.5; }
+        }
+
+        /* 10. Hero Stats Counter */
+        .hero-stats {
+            display: flex;
+            justify-content: center;
+            gap: 40px;
+            margin-top: 40px;
+            padding-top: 40px;
+            border-top: 1px solid var(--border);
+        }
+        .hero-stat {
+            text-align: center;
+        }
+        .hero-stat-value {
+            font-size: 32px;
+            font-weight: 800;
+            color: var(--immy-orange);
+            display: flex;
+            align-items: baseline;
+            justify-content: center;
+            gap: 2px;
+        }
+        .hero-stat-value span {
+            font-size: 20px;
+        }
+        .hero-stat-label {
+            font-size: 13px;
+            color: var(--ink-muted);
+            margin-top: 4px;
+        }
+        @media (max-width: 600px) {
+            .hero-stats { gap: 20px; flex-wrap: wrap; }
+            .hero-stat-value { font-size: 24px; }
+            .hero-stat-value span { font-size: 16px; }
+            .hero-stat-label { font-size: 11px; }
+        }
+
+        /* 11. Smooth Cursor Trail (Desktop) */
+        .cursor-glow {
+            position: fixed;
+            width: 300px;
+            height: 300px;
+            background: radial-gradient(circle, rgba(255,68,5,0.08) 0%, transparent 70%);
+            border-radius: 50%;
+            pointer-events: none;
+            z-index: 9999;
+            transform: translate(-50%, -50%);
+            transition: opacity 0.3s ease;
+            opacity: 0;
+        }
+        .cursor-glow.active {
+            opacity: 1;
+        }
+        @media (max-width: 768px) {
+            .cursor-glow { display: none; }
+        }
     </style>
 </head>
 <body>
     <!-- Loader -->
     <div class="loader" id="loader">
         <div class="loader-logo"><span>immy</span></div>
+    </div>
+
+    <!-- Promo Banner -->
+    <div class="promo-banner" id="promoBanner">
+        <span class="lang-fr">🚀 Offre de lancement : <strong>1 mois gratuit</strong> pour les premiers inscrits !</span>
+        <span class="lang-nl">🚀 Lanceringsaanbieding: <strong>1 maand gratis</strong> voor de eerste inschrijvers!</span>
+        <span class="lang-en">🚀 Launch offer: <strong>1 month free</strong> for early adopters!</span>
+        <span class="countdown" id="promoCountdown">
+            <span class="countdown-num" id="countDays">00</span>j
+            <span class="countdown-num" id="countHours">00</span>h
+            <span class="countdown-num" id="countMins">00</span>m
+        </span>
+    </div>
+
+    <!-- Cursor Glow (Desktop) -->
+    <div class="cursor-glow" id="cursorGlow"></div>
+
+    <!-- FOMO Visitors Counter -->
+    <div class="fomo-visitors" id="fomoVisitors">
+        <span class="pulse-dot"></span>
+        <span class="lang-fr"><strong id="visitorCount">12</strong> personnes consultent cette page</span>
+        <span class="lang-nl"><strong>12</strong> mensen bekijken deze pagina</span>
+        <span class="lang-en"><strong>12</strong> people viewing this page</span>
+    </div>
+
+    <!-- Sticky CTA Mobile -->
+    <div class="sticky-cta-mobile" id="stickyCta">
+        <a href="https://wa.me/32471369871?text=Bonjour%20!%20Je%20suis%20intéressé(e)%20par%20immy." target="_blank">
+            <svg viewBox="0 0 24 24"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
+            <span class="lang-fr">Discuter sur WhatsApp</span>
+            <span class="lang-nl">Chat op WhatsApp</span>
+            <span class="lang-en">Chat on WhatsApp</span>
+        </a>
     </div>
 
     <!-- Navigation -->
@@ -4656,6 +5018,20 @@
     <section class="hero">
         <div class="hero-orb hero-orb-1"></div>
         <div class="hero-orb hero-orb-2"></div>
+
+        <!-- Floating Particles -->
+        <div class="particles-container">
+            <div class="particle"></div>
+            <div class="particle"></div>
+            <div class="particle"></div>
+            <div class="particle"></div>
+            <div class="particle"></div>
+            <div class="particle"></div>
+            <div class="particle"></div>
+            <div class="particle"></div>
+            <div class="particle"></div>
+            <div class="particle"></div>
+        </div>
         
         <!-- TOP: Big Catchline -->
         <div class="hero-catchline">
@@ -4680,12 +5056,34 @@
             </p>
             
             <div class="hero-cta">
-                <a href="https://wa.me/32471369871?text=Bonjour%20!%20Je%20suis%20intéressé(e)%20par%20immy%20pour%20gérer%20mes%20kots." target="_blank" class="cta-primary">
+                <a href="https://wa.me/32471369871?text=Bonjour%20!%20Je%20suis%20intéressé(e)%20par%20immy%20pour%20gérer%20mes%20kots." target="_blank" class="cta-primary ripple-btn">
                     <svg viewBox="0 0 24 24" fill="currentColor" width="22" height="22"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
                     <span class="lang-fr">Discuter sur WhatsApp</span>
                     <span class="lang-nl">Chat op WhatsApp</span>
                     <span class="lang-en">Chat on WhatsApp</span>
                 </a>
+            </div>
+
+            <!-- Hero Stats Counter -->
+            <div class="hero-stats reveal">
+                <div class="hero-stat">
+                    <div class="hero-stat-value" data-target="11">0<span>+</span></div>
+                    <div class="hero-stat-label lang-fr">Fonctionnalités</div>
+                    <div class="hero-stat-label lang-nl">Functies</div>
+                    <div class="hero-stat-label lang-en">Features</div>
+                </div>
+                <div class="hero-stat">
+                    <div class="hero-stat-value" data-target="5">0<span> min</span></div>
+                    <div class="hero-stat-label lang-fr">Pour démarrer</div>
+                    <div class="hero-stat-label lang-nl">Om te starten</div>
+                    <div class="hero-stat-label lang-en">To get started</div>
+                </div>
+                <div class="hero-stat">
+                    <div class="hero-stat-value" data-target="100">0<span>%</span></div>
+                    <div class="hero-stat-label lang-fr">Automatisé</div>
+                    <div class="hero-stat-label lang-nl">Geautomatiseerd</div>
+                    <div class="hero-stat-label lang-en">Automated</div>
+                </div>
             </div>
         </div>
         
@@ -5994,6 +6392,194 @@
             // Initialize
             updatePricing(450);
         }
+
+        // ==================== WOW EFFECTS JS ====================
+
+        // 1. Promo Countdown Timer (7 days from now)
+        (function() {
+            const endDate = new Date();
+            endDate.setDate(endDate.getDate() + 7);
+
+            function updateCountdown() {
+                const now = new Date();
+                const diff = endDate - now;
+
+                if (diff <= 0) return;
+
+                const days = Math.floor(diff / (1000 * 60 * 60 * 24));
+                const hours = Math.floor((diff % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+                const mins = Math.floor((diff % (1000 * 60 * 60)) / (1000 * 60));
+
+                const daysEl = document.getElementById('countDays');
+                const hoursEl = document.getElementById('countHours');
+                const minsEl = document.getElementById('countMins');
+
+                if (daysEl) daysEl.textContent = String(days).padStart(2, '0');
+                if (hoursEl) hoursEl.textContent = String(hours).padStart(2, '0');
+                if (minsEl) minsEl.textContent = String(mins).padStart(2, '0');
+            }
+
+            updateCountdown();
+            setInterval(updateCountdown, 60000);
+        })();
+
+        // 2. FOMO Visitors Counter (Random between 8-20, updates occasionally)
+        (function() {
+            const fomoEl = document.getElementById('fomoVisitors');
+            const countEl = document.getElementById('visitorCount');
+            if (!fomoEl || !countEl) return;
+
+            // Show after 3 seconds
+            setTimeout(() => fomoEl.classList.add('visible'), 3000);
+
+            // Update visitor count randomly
+            function updateVisitors() {
+                const count = Math.floor(Math.random() * 13) + 8; // 8-20
+                countEl.textContent = count;
+            }
+
+            // Update every 30-60 seconds
+            setInterval(() => {
+                updateVisitors();
+            }, Math.random() * 30000 + 30000);
+        })();
+
+        // 3. Sticky CTA Mobile - Show after scrolling past hero
+        (function() {
+            const stickyCta = document.getElementById('stickyCta');
+            const hero = document.querySelector('.hero');
+            if (!stickyCta || !hero) return;
+
+            window.addEventListener('scroll', () => {
+                const heroBottom = hero.offsetTop + hero.offsetHeight;
+                if (window.scrollY > heroBottom - 200) {
+                    stickyCta.classList.add('visible');
+                } else {
+                    stickyCta.classList.remove('visible');
+                }
+            });
+        })();
+
+        // 4. Cursor Glow Effect (Desktop only)
+        (function() {
+            const cursorGlow = document.getElementById('cursorGlow');
+            if (!cursorGlow || window.innerWidth < 768) return;
+
+            let mouseX = 0, mouseY = 0;
+            let glowX = 0, glowY = 0;
+
+            document.addEventListener('mousemove', (e) => {
+                mouseX = e.clientX;
+                mouseY = e.clientY;
+                cursorGlow.classList.add('active');
+            });
+
+            document.addEventListener('mouseleave', () => {
+                cursorGlow.classList.remove('active');
+            });
+
+            function animateGlow() {
+                glowX += (mouseX - glowX) * 0.1;
+                glowY += (mouseY - glowY) * 0.1;
+                cursorGlow.style.left = glowX + 'px';
+                cursorGlow.style.top = glowY + 'px';
+                requestAnimationFrame(animateGlow);
+            }
+            animateGlow();
+        })();
+
+        // 5. Feature Cards Expansion on Click
+        (function() {
+            const featureCards = document.querySelectorAll('.feature-card');
+            featureCards.forEach(card => {
+                card.addEventListener('click', () => {
+                    // Close others
+                    featureCards.forEach(c => {
+                        if (c !== card) c.classList.remove('expanded');
+                    });
+                    // Toggle this one
+                    card.classList.toggle('expanded');
+                });
+            });
+        })();
+
+        // 6. Hero Stats Counter Animation
+        (function() {
+            const statsObserver = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        const statValues = entry.target.querySelectorAll('.hero-stat-value');
+                        statValues.forEach(stat => {
+                            const target = parseInt(stat.dataset.target) || 0;
+                            const suffix = stat.querySelector('span')?.outerHTML || '';
+                            let current = 0;
+                            const duration = 2000;
+                            const increment = target / (duration / 16);
+
+                            function updateCounter() {
+                                current += increment;
+                                if (current < target) {
+                                    stat.innerHTML = Math.floor(current) + suffix;
+                                    requestAnimationFrame(updateCounter);
+                                } else {
+                                    stat.innerHTML = target + suffix;
+                                }
+                            }
+                            updateCounter();
+                        });
+                        statsObserver.unobserve(entry.target);
+                    }
+                });
+            }, { threshold: 0.5 });
+
+            const heroStats = document.querySelector('.hero-stats');
+            if (heroStats) statsObserver.observe(heroStats);
+        })();
+
+        // 7. Dashboard Live Notifications
+        (function() {
+            const dashboard = document.querySelector('.crm-dashboard');
+            if (!dashboard) return;
+
+            // Create notification element
+            const notif = document.createElement('div');
+            notif.className = 'crm-notification-live';
+            notif.innerHTML = '<span class="lang-fr">Nouveau locataire ajouté</span><span class="lang-nl">Nieuwe huurder toegevoegd</span><span class="lang-en">New tenant added</span>';
+            dashboard.querySelector('.crm-main')?.appendChild(notif);
+
+            const messages = [
+                { fr: 'Nouveau locataire ajouté', nl: 'Nieuwe huurder toegevoegd', en: 'New tenant added' },
+                { fr: 'Contrat signé !', nl: 'Contract ondertekend!', en: 'Contract signed!' },
+                { fr: 'Paiement reçu', nl: 'Betaling ontvangen', en: 'Payment received' },
+                { fr: 'Candidature reçue', nl: 'Aanvraag ontvangen', en: 'Application received' }
+            ];
+
+            function showNotification() {
+                const msg = messages[Math.floor(Math.random() * messages.length)];
+                notif.innerHTML = `<span class="lang-fr">${msg.fr}</span><span class="lang-nl">${msg.nl}</span><span class="lang-en">${msg.en}</span>`;
+                notif.classList.add('show');
+                setTimeout(() => notif.classList.remove('show'), 3000);
+            }
+
+            // Show first notification after 5 seconds, then every 8-15 seconds
+            setTimeout(() => {
+                showNotification();
+                setInterval(showNotification, Math.random() * 7000 + 8000);
+            }, 5000);
+        })();
+
+        // 8. Parallax on scroll (subtle)
+        (function() {
+            const parallaxSections = document.querySelectorAll('.hero-orb, .particle');
+
+            window.addEventListener('scroll', () => {
+                const scrollY = window.scrollY;
+                parallaxSections.forEach((el, i) => {
+                    const speed = 0.05 + (i * 0.01);
+                    el.style.transform = `translateY(${scrollY * speed}px)`;
+                });
+            });
+        })();
     </script>
 </body>
 </html>
