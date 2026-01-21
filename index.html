@@ -3190,11 +3190,11 @@
 
         /* Footer */
         footer {
-            background: linear-gradient(135deg, #1a1a2e 0%, #16213e 50%, #0f0f23 100%);
+            background: #0f172a;
             color: white;
             padding: 0;
         }
-        [data-theme="dark"] footer { background: linear-gradient(135deg, #0a0a0f 0%, #12121a 50%, #080810 100%); }
+        [data-theme="dark"] footer { background: #0a0a0f; }
         .footer-top { padding: 80px 48px 40px; }
         .footer-grid { max-width: 1200px; margin: 0 auto; display: grid; grid-template-columns: 2fr 1fr 1fr 1fr 1fr; gap: 60px; }
         .footer-grid-simple { grid-template-columns: 2fr 1fr 1fr; }
@@ -3221,7 +3221,7 @@
         .footer-links { display: flex; flex-direction: column; gap: 16px; }
         .footer-link { font-size: 15px; color: rgba(255,255,255,0.5); text-decoration: none; transition: all 0.3s ease; display: inline-block; }
         .footer-link:hover { color: var(--immy-orange); transform: translateX(6px); }
-        .footer-bottom { padding: 30px 48px; background: rgba(0,0,0,0.2); }
+        .footer-bottom { padding: 30px 48px; background: transparent; }
         .footer-bottom-content { max-width: 1200px; margin: 0 auto; display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 20px; }
         .footer-bottom-unified { max-width: 1200px; margin: 0 auto; padding-top: 40px; margin-top: 60px; border-top: 1px solid rgba(255,255,255,0.1); display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 20px; }
         .footer-copy { font-size: 14px; color: rgba(255,255,255,0.4); }
@@ -4257,8 +4257,8 @@
 
         /* ==================== FINAL CTA SIMPLE ==================== */
         .final-cta-simple {
-            padding: 120px 48px;
-            background: linear-gradient(135deg, #1a1a2e 0%, #16213e 50%, #0f0f23 100%);
+            padding: 120px 48px 80px;
+            background: #0f172a;
             position: relative;
             overflow: hidden;
             text-align: center;
@@ -4808,47 +4808,7 @@
             .fomo-visitors { bottom: 90px; left: 10px; right: 10px; font-size: 12px; padding: 10px 14px; }
         }
 
-        /* 7. FOMO - Promo Banner */
-        .promo-banner {
-            background: linear-gradient(135deg, var(--immy-orange), var(--immy-coral));
-            color: white;
-            padding: 12px 20px;
-            text-align: center;
-            font-size: 14px;
-            font-weight: 600;
-            position: relative;
-            overflow: hidden;
-        }
-        .promo-banner::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: -100%;
-            width: 100%;
-            height: 100%;
-            background: linear-gradient(90deg, transparent, rgba(255,255,255,0.2), transparent);
-            animation: promoShine 3s infinite;
-        }
-        @keyframes promoShine {
-            0% { left: -100%; }
-            100% { left: 100%; }
-        }
-        .promo-banner .countdown {
-            display: inline-flex;
-            align-items: center;
-            gap: 6px;
-            margin-left: 12px;
-            background: rgba(0,0,0,0.2);
-            padding: 4px 12px;
-            border-radius: 100px;
-            font-size: 13px;
-        }
-        .promo-banner .countdown-num {
-            font-weight: 800;
-            font-size: 14px;
-        }
-
-        /* 8. Parallax Sections */
+        /* 7. Parallax Sections */
         .parallax-section {
             transform: translateY(0);
             transition: transform 0.1s linear;
@@ -4892,40 +4852,95 @@
             50% { opacity: 0.5; }
         }
 
-        /* 10. Hero Stats Counter */
+        /* 10. Hero Stats Counter - Premium Design */
         .hero-stats {
             display: flex;
             justify-content: center;
-            gap: 40px;
-            margin-top: 40px;
-            padding-top: 40px;
-            border-top: 1px solid var(--border);
+            gap: 20px;
+            margin-top: 50px;
+            padding: 0 20px;
         }
         .hero-stat {
             text-align: center;
+            background: var(--card);
+            border: 1px solid var(--border);
+            border-radius: 20px;
+            padding: 24px 32px;
+            min-width: 140px;
+            position: relative;
+            overflow: hidden;
+            transition: all 0.4s cubic-bezier(0.34, 1.56, 0.64, 1);
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.03);
+        }
+        .hero-stat::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 3px;
+            background: linear-gradient(90deg, var(--immy-orange), var(--immy-coral));
+            opacity: 0;
+            transition: opacity 0.3s ease;
+        }
+        .hero-stat:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 12px 40px rgba(255, 68, 5, 0.12);
+            border-color: rgba(255, 68, 5, 0.2);
+        }
+        .hero-stat:hover::before {
+            opacity: 1;
+        }
+        .hero-stat-icon {
+            width: 44px;
+            height: 44px;
+            margin: 0 auto 12px;
+            background: linear-gradient(135deg, rgba(255, 68, 5, 0.1), rgba(255, 122, 89, 0.05));
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        .hero-stat-icon svg {
+            width: 22px;
+            height: 22px;
+            stroke: var(--immy-orange);
+            stroke-width: 2;
+            fill: none;
         }
         .hero-stat-value {
-            font-size: 32px;
+            font-size: 36px;
             font-weight: 800;
-            color: var(--immy-orange);
+            color: var(--ink);
             display: flex;
             align-items: baseline;
             justify-content: center;
             gap: 2px;
+            letter-spacing: -1px;
         }
         .hero-stat-value span {
-            font-size: 20px;
+            font-size: 18px;
+            font-weight: 700;
+            color: var(--immy-orange);
         }
         .hero-stat-label {
             font-size: 13px;
+            font-weight: 500;
             color: var(--ink-muted);
-            margin-top: 4px;
+            margin-top: 6px;
         }
-        @media (max-width: 600px) {
-            .hero-stats { gap: 20px; flex-wrap: wrap; }
-            .hero-stat-value { font-size: 24px; }
-            .hero-stat-value span { font-size: 16px; }
+        @media (max-width: 768px) {
+            .hero-stats { gap: 12px; flex-wrap: wrap; justify-content: center; }
+            .hero-stat { padding: 18px 20px; min-width: 100px; flex: 1; max-width: 140px; }
+            .hero-stat-icon { width: 36px; height: 36px; margin-bottom: 8px; }
+            .hero-stat-icon svg { width: 18px; height: 18px; }
+            .hero-stat-value { font-size: 28px; }
+            .hero-stat-value span { font-size: 14px; }
             .hero-stat-label { font-size: 11px; }
+        }
+        @media (max-width: 400px) {
+            .hero-stat { padding: 14px 12px; min-width: 85px; }
+            .hero-stat-value { font-size: 24px; }
         }
 
         /* 11. Smooth Cursor Trail (Desktop) */
@@ -4953,18 +4968,6 @@
     <!-- Loader -->
     <div class="loader" id="loader">
         <div class="loader-logo"><span>immy</span></div>
-    </div>
-
-    <!-- Promo Banner -->
-    <div class="promo-banner" id="promoBanner">
-        <span class="lang-fr">🚀 Offre de lancement : <strong>1 mois gratuit</strong> pour les premiers inscrits !</span>
-        <span class="lang-nl">🚀 Lanceringsaanbieding: <strong>1 maand gratis</strong> voor de eerste inschrijvers!</span>
-        <span class="lang-en">🚀 Launch offer: <strong>1 month free</strong> for early adopters!</span>
-        <span class="countdown" id="promoCountdown">
-            <span class="countdown-num" id="countDays">00</span>j
-            <span class="countdown-num" id="countHours">00</span>h
-            <span class="countdown-num" id="countMins">00</span>m
-        </span>
     </div>
 
     <!-- Cursor Glow (Desktop) -->
@@ -5067,18 +5070,27 @@
             <!-- Hero Stats Counter -->
             <div class="hero-stats reveal">
                 <div class="hero-stat">
+                    <div class="hero-stat-icon">
+                        <svg viewBox="0 0 24 24"><rect x="3" y="3" width="7" height="7" rx="1"/><rect x="14" y="3" width="7" height="7" rx="1"/><rect x="3" y="14" width="7" height="7" rx="1"/><rect x="14" y="14" width="7" height="7" rx="1"/></svg>
+                    </div>
                     <div class="hero-stat-value" data-target="11">0<span>+</span></div>
                     <div class="hero-stat-label lang-fr">Fonctionnalités</div>
                     <div class="hero-stat-label lang-nl">Functies</div>
                     <div class="hero-stat-label lang-en">Features</div>
                 </div>
                 <div class="hero-stat">
+                    <div class="hero-stat-icon">
+                        <svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
+                    </div>
                     <div class="hero-stat-value" data-target="5">0<span> min</span></div>
                     <div class="hero-stat-label lang-fr">Pour démarrer</div>
                     <div class="hero-stat-label lang-nl">Om te starten</div>
                     <div class="hero-stat-label lang-en">To get started</div>
                 </div>
                 <div class="hero-stat">
+                    <div class="hero-stat-icon">
+                        <svg viewBox="0 0 24 24"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg>
+                    </div>
                     <div class="hero-stat-value" data-target="100">0<span>%</span></div>
                     <div class="hero-stat-label lang-fr">Automatisé</div>
                     <div class="hero-stat-label lang-nl">Geautomatiseerd</div>
@@ -6395,35 +6407,7 @@
 
         // ==================== WOW EFFECTS JS ====================
 
-        // 1. Promo Countdown Timer (7 days from now)
-        (function() {
-            const endDate = new Date();
-            endDate.setDate(endDate.getDate() + 7);
-
-            function updateCountdown() {
-                const now = new Date();
-                const diff = endDate - now;
-
-                if (diff <= 0) return;
-
-                const days = Math.floor(diff / (1000 * 60 * 60 * 24));
-                const hours = Math.floor((diff % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
-                const mins = Math.floor((diff % (1000 * 60 * 60)) / (1000 * 60));
-
-                const daysEl = document.getElementById('countDays');
-                const hoursEl = document.getElementById('countHours');
-                const minsEl = document.getElementById('countMins');
-
-                if (daysEl) daysEl.textContent = String(days).padStart(2, '0');
-                if (hoursEl) hoursEl.textContent = String(hours).padStart(2, '0');
-                if (minsEl) minsEl.textContent = String(mins).padStart(2, '0');
-            }
-
-            updateCountdown();
-            setInterval(updateCountdown, 60000);
-        })();
-
-        // 2. FOMO Visitors Counter (Random between 8-20, updates occasionally)
+        // 1. FOMO Visitors Counter (Random between 8-20, updates occasionally)
         (function() {
             const fomoEl = document.getElementById('fomoVisitors');
             const countEl = document.getElementById('visitorCount');
