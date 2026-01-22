@@ -1359,7 +1359,262 @@
             line-height: 1.5;
             max-width: 200px;
         }
-        
+
+        /* ==================== GLASS DISCS ANIMATION ==================== */
+        .discs-container {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 80px;
+            padding: 60px 0;
+            min-height: 450px;
+        }
+
+        .discs-scene {
+            perspective: 1200px;
+            width: 320px;
+            height: 350px;
+            position: relative;
+        }
+
+        .discs-stack {
+            width: 100%;
+            height: 100%;
+            position: relative;
+            transform-style: preserve-3d;
+            transform: rotateX(55deg) rotateZ(-15deg);
+            transition: transform 1.2s cubic-bezier(0.34, 1.56, 0.64, 1);
+        }
+
+        .discs-stack.merged {
+            transform: rotateX(0deg) rotateZ(0deg);
+        }
+
+        .glass-disc {
+            position: absolute;
+            width: 180px;
+            height: 180px;
+            left: 50%;
+            margin-left: -90px;
+            border-radius: 50%;
+            background: linear-gradient(135deg,
+                rgba(255, 255, 255, 0.25) 0%,
+                rgba(255, 255, 255, 0.1) 50%,
+                rgba(255, 255, 255, 0.05) 100%);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+            border: 1px solid rgba(255, 255, 255, 0.3);
+            box-shadow:
+                0 8px 32px rgba(0, 0, 0, 0.1),
+                inset 0 1px 0 rgba(255, 255, 255, 0.4),
+                inset 0 -1px 0 rgba(0, 0, 0, 0.1);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transform-style: preserve-3d;
+            transition: all 1s cubic-bezier(0.34, 1.56, 0.64, 1);
+        }
+
+        [data-theme="dark"] .glass-disc {
+            background: linear-gradient(135deg,
+                rgba(255, 255, 255, 0.12) 0%,
+                rgba(255, 255, 255, 0.05) 50%,
+                rgba(255, 255, 255, 0.02) 100%);
+            border-color: rgba(255, 255, 255, 0.15);
+        }
+
+        .glass-disc:nth-child(1) {
+            top: 0;
+            z-index: 3;
+        }
+        .glass-disc:nth-child(2) {
+            top: 50px;
+            z-index: 2;
+        }
+        .glass-disc:nth-child(3) {
+            top: 100px;
+            z-index: 1;
+        }
+
+        .discs-stack.merged .glass-disc {
+            top: 85px !important;
+            opacity: 0;
+        }
+        .discs-stack.merged .glass-disc:nth-child(1) {
+            opacity: 1;
+        }
+
+        .disc-label {
+            font-size: 16px;
+            font-weight: 700;
+            color: var(--ink);
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            opacity: 1;
+            transition: opacity 0.5s ease;
+        }
+
+        .discs-stack.merged .disc-label {
+            opacity: 0;
+        }
+
+        .disc-logo {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            font-family: 'Bricolage Grotesque', sans-serif;
+            font-size: 42px;
+            font-weight: 800;
+            font-style: italic;
+            color: var(--immy-orange);
+            letter-spacing: -2px;
+            opacity: 0;
+            transition: opacity 0.6s ease 0.8s;
+            z-index: 10;
+        }
+
+        .discs-stack.merged .disc-logo {
+            opacity: 1;
+        }
+
+        /* Info cards on the side */
+        .discs-info {
+            display: flex;
+            flex-direction: column;
+            gap: 32px;
+        }
+
+        .disc-info-item {
+            display: flex;
+            align-items: center;
+            gap: 20px;
+            opacity: 0;
+            transform: translateX(-20px);
+            transition: all 0.5s ease;
+        }
+
+        .disc-info-item.visible {
+            opacity: 1;
+            transform: translateX(0);
+        }
+
+        .disc-info-item:nth-child(1) { transition-delay: 0.1s; }
+        .disc-info-item:nth-child(2) { transition-delay: 0.3s; }
+        .disc-info-item:nth-child(3) { transition-delay: 0.5s; }
+
+        .disc-info-line {
+            width: 50px;
+            height: 2px;
+            background: linear-gradient(90deg, var(--immy-orange), transparent);
+            position: relative;
+        }
+
+        .disc-info-line::before {
+            content: '';
+            position: absolute;
+            left: 0;
+            top: 50%;
+            transform: translateY(-50%);
+            width: 8px;
+            height: 8px;
+            background: var(--immy-orange);
+            border-radius: 50%;
+        }
+
+        .disc-info-number {
+            width: 36px;
+            height: 36px;
+            background: linear-gradient(135deg, var(--immy-orange), var(--immy-coral));
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-weight: 700;
+            font-size: 14px;
+            flex-shrink: 0;
+        }
+
+        .disc-info-content h4 {
+            font-size: 18px;
+            font-weight: 700;
+            color: var(--ink);
+            margin-bottom: 4px;
+        }
+
+        .disc-info-content p {
+            font-size: 14px;
+            color: var(--ink-muted);
+            line-height: 1.4;
+            max-width: 220px;
+        }
+
+        /* Final state message */
+        .discs-final-message {
+            position: absolute;
+            bottom: -20px;
+            left: 50%;
+            transform: translateX(-50%);
+            text-align: center;
+            opacity: 0;
+            transition: opacity 0.5s ease 1.2s;
+            white-space: nowrap;
+        }
+
+        .discs-stack.merged ~ .discs-final-message,
+        .discs-scene.merged .discs-final-message {
+            opacity: 1;
+        }
+
+        .discs-final-message span {
+            font-size: 14px;
+            color: var(--ink-muted);
+            font-weight: 500;
+        }
+
+        /* Responsive */
+        @media (max-width: 900px) {
+            .discs-container {
+                flex-direction: column;
+                gap: 50px;
+            }
+            .discs-info {
+                flex-direction: row;
+                flex-wrap: wrap;
+                justify-content: center;
+                gap: 20px;
+            }
+            .disc-info-line {
+                display: none;
+            }
+            .disc-info-item {
+                flex-direction: column;
+                text-align: center;
+                width: 140px;
+            }
+            .disc-info-content p {
+                max-width: 140px;
+            }
+        }
+
+        @media (max-width: 500px) {
+            .discs-scene {
+                width: 260px;
+                height: 300px;
+            }
+            .glass-disc {
+                width: 140px;
+                height: 140px;
+                margin-left: -70px;
+            }
+            .glass-disc:nth-child(2) { top: 40px; }
+            .glass-disc:nth-child(3) { top: 80px; }
+            .discs-stack.merged .glass-disc { top: 70px !important; }
+            .disc-label { font-size: 13px; }
+            .disc-logo { font-size: 32px; }
+        }
+
         /* Stats Row - REDUCED */
         .flow-stats {
             display: flex;
@@ -6079,57 +6334,70 @@
                 <p class="subtitle lang-en">Your data is already in immy. One click is all it takes.</p>
             </div>
             
-            <div class="flow-timeline reveal" id="flowTimeline">
-                <div class="flow-line"><div class="flow-line-progress"></div></div>
-                
-                <div class="flow-step">
-                    <div class="flow-icon">
-                        <span class="flow-number">1</span>
-                        <svg viewBox="0 0 24 24">
-                            <path d="M12 19V5M5 12l7-7 7 7"/>
-                            <rect x="4" y="17" width="16" height="2" rx="1"/>
-                        </svg>
+            <div class="discs-container reveal" id="discsContainer">
+                <div class="discs-info">
+                    <div class="disc-info-item">
+                        <div class="disc-info-line"></div>
+                        <div class="disc-info-number">1</div>
+                        <div class="disc-info-content">
+                            <h4 class="lang-fr">Publiez</h4>
+                            <h4 class="lang-nl">Publiceer</h4>
+                            <h4 class="lang-en">Publish</h4>
+                            <p class="lang-fr">Un clic. Photos et infos déjà prêtes.</p>
+                            <p class="lang-nl">Eén klik. Foto's en info al klaar.</p>
+                            <p class="lang-en">One click. Photos and info ready.</p>
+                        </div>
                     </div>
-                    <h4 class="lang-fr">Publiez</h4>
-                    <h4 class="lang-nl">Publiceer</h4>
-                    <h4 class="lang-en">Publish</h4>
-                    <p class="lang-fr">Un clic. Photos et infos déjà prêtes depuis votre CRM.</p>
-                    <p class="lang-nl">Eén klik. Foto's en info al klaar vanuit uw CRM.</p>
-                    <p class="lang-en">One click. Photos and info ready from your CRM.</p>
+                    <div class="disc-info-item">
+                        <div class="disc-info-line"></div>
+                        <div class="disc-info-number">2</div>
+                        <div class="disc-info-content">
+                            <h4 class="lang-fr">Recevez</h4>
+                            <h4 class="lang-nl">Ontvang</h4>
+                            <h4 class="lang-en">Receive</h4>
+                            <p class="lang-fr">Candidatures dans votre pipeline.</p>
+                            <p class="lang-nl">Aanvragen in uw pipeline.</p>
+                            <p class="lang-en">Applications in your pipeline.</p>
+                        </div>
+                    </div>
+                    <div class="disc-info-item">
+                        <div class="disc-info-line"></div>
+                        <div class="disc-info-number">3</div>
+                        <div class="disc-info-content">
+                            <h4 class="lang-fr">Signez</h4>
+                            <h4 class="lang-nl">Onderteken</h4>
+                            <h4 class="lang-en">Sign</h4>
+                            <p class="lang-fr">Contrat digital. 100% en ligne.</p>
+                            <p class="lang-nl">Digitaal contract. 100% online.</p>
+                            <p class="lang-en">Digital contract. 100% online.</p>
+                        </div>
+                    </div>
                 </div>
-                
-                <div class="flow-step">
-                    <div class="flow-icon">
-                        <span class="flow-number">2</span>
-                        <svg viewBox="0 0 24 24">
-                            <circle cx="9" cy="7" r="4"/>
-                            <path d="M3 21v-2a4 4 0 0 1 4-4h4a4 4 0 0 1 4 4v2"/>
-                            <circle cx="17" cy="11" r="3"/>
-                            <path d="M21 21v-1.5a3 3 0 0 0-3-3h-1"/>
-                        </svg>
+
+                <div class="discs-scene" id="discsScene">
+                    <div class="discs-stack" id="discsStack">
+                        <div class="glass-disc">
+                            <span class="disc-label lang-fr">Publié</span>
+                            <span class="disc-label lang-nl">Gepubliceerd</span>
+                            <span class="disc-label lang-en">Published</span>
+                        </div>
+                        <div class="glass-disc">
+                            <span class="disc-label lang-fr">Reçu</span>
+                            <span class="disc-label lang-nl">Ontvangen</span>
+                            <span class="disc-label lang-en">Received</span>
+                        </div>
+                        <div class="glass-disc">
+                            <span class="disc-label lang-fr">Signé</span>
+                            <span class="disc-label lang-nl">Ondertekend</span>
+                            <span class="disc-label lang-en">Signed</span>
+                        </div>
+                        <span class="disc-logo">immy</span>
                     </div>
-                    <h4 class="lang-fr">Recevez</h4>
-                    <h4 class="lang-nl">Ontvang</h4>
-                    <h4 class="lang-en">Receive</h4>
-                    <p class="lang-fr">Les candidatures arrivent directement dans votre pipeline.</p>
-                    <p class="lang-nl">Aanvragen komen rechtstreeks in uw pipeline terecht.</p>
-                    <p class="lang-en">Applications land directly in your pipeline.</p>
-                </div>
-                
-                <div class="flow-step">
-                    <div class="flow-icon">
-                        <span class="flow-number">3</span>
-                        <svg viewBox="0 0 24 24">
-                            <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/>
-                            <path d="M14 2v6h6"/>
-                            <path d="M9 15l2 2 4-4"/>
-                        </svg>
+                    <div class="discs-final-message">
+                        <span class="lang-fr">Tout est géré par immy</span>
+                        <span class="lang-nl">Alles wordt beheerd door immy</span>
+                        <span class="lang-en">All managed by immy</span>
                     </div>
-                    <h4 class="lang-fr">Signez</h4>
-                    <h4 class="lang-nl">Onderteken</h4>
-                    <h4 class="lang-en">Sign</h4>
-                    <p class="lang-fr">Contrat digital. Signature légale 100% en ligne.</p>
-                    <p class="lang-en">Digital contract. 100% online legal signature.</p>
                 </div>
             </div>
         </div>
@@ -7351,6 +7619,44 @@
             }, { threshold: 0.3 });
 
             messagingObserver.observe(messagingSection);
+        })();
+
+        // 10. Glass Discs Animation - Marketplace Section
+        (function() {
+            const discsContainer = document.getElementById('discsContainer');
+            const discsStack = document.getElementById('discsStack');
+            const discsScene = document.getElementById('discsScene');
+            const infoItems = document.querySelectorAll('.disc-info-item');
+
+            if (!discsContainer || !discsStack) return;
+
+            let hasAnimated = false;
+
+            const discsObserver = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting && !hasAnimated) {
+                        // Show info items first
+                        infoItems.forEach(item => item.classList.add('visible'));
+
+                        // After 2 seconds, merge the discs
+                        setTimeout(() => {
+                            discsStack.classList.add('merged');
+                            if (discsScene) discsScene.classList.add('merged');
+                        }, 2500);
+
+                        hasAnimated = true;
+                    }
+                    if (!entry.isIntersecting) {
+                        // Reset animation when out of view
+                        hasAnimated = false;
+                        discsStack.classList.remove('merged');
+                        if (discsScene) discsScene.classList.remove('merged');
+                        infoItems.forEach(item => item.classList.remove('visible'));
+                    }
+                });
+            }, { threshold: 0.4 });
+
+            discsObserver.observe(discsContainer);
         })();
     </script>
 </body>
