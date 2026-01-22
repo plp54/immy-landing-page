@@ -5225,39 +5225,46 @@
             display: flex;
             justify-content: center;
             align-items: center;
+            perspective: 1000px;
         }
         .iphone-15 {
             width: 280px;
             height: 580px;
-            background: #1a1a1a;
-            border-radius: 50px;
-            padding: 12px;
+            background: linear-gradient(145deg, #2d2d2d, #1a1a1a);
+            border-radius: 52px;
+            padding: 4px;
             position: relative;
+            transform: rotateY(-6deg) rotateX(2deg);
+            transform-style: preserve-3d;
+            transition: transform 0.5s cubic-bezier(0.23, 1, 0.32, 1);
             box-shadow:
-                0 0 0 1px #333,
-                0 30px 80px rgba(0, 0, 0, 0.4),
-                inset 0 0 2px rgba(255, 255, 255, 0.1);
+                -15px 15px 40px rgba(0, 0, 0, 0.25),
+                -5px 5px 15px rgba(0, 0, 0, 0.15),
+                inset 0 1px 0 rgba(255, 255, 255, 0.08);
+        }
+        .iphone-15:hover {
+            transform: rotateY(-2deg) rotateX(1deg);
         }
         .iphone-15::before {
             content: '';
             position: absolute;
-            top: 18px;
+            top: 14px;
             left: 50%;
             transform: translateX(-50%);
-            width: 90px;
-            height: 28px;
+            width: 85px;
+            height: 26px;
             background: #0a0a0a;
-            border-radius: 20px;
+            border-radius: 18px;
             z-index: 10;
         }
         .iphone-15::after {
             content: '';
             position: absolute;
-            top: 26px;
+            top: 21px;
             left: 50%;
             transform: translateX(-50%);
-            width: 8px;
-            height: 8px;
+            width: 7px;
+            height: 7px;
             background: #1a1a2e;
             border-radius: 50%;
             z-index: 11;
@@ -5267,7 +5274,7 @@
             width: 100%;
             height: 100%;
             background: #f2f2f7;
-            border-radius: 40px;
+            border-radius: 48px;
             overflow: hidden;
             position: relative;
         }
@@ -5328,30 +5335,30 @@
             overflow: hidden;
         }
         .imessage-bubble {
-            max-width: 85%;
-            padding: 10px 14px;
-            border-radius: 18px;
-            font-size: 14px;
-            line-height: 1.4;
+            max-width: 80%;
+            padding: 9px 13px;
+            border-radius: 20px;
+            font-size: 13px;
+            line-height: 1.35;
             opacity: 0;
-            transform: translateY(20px) scale(0.9);
-            animation: bubbleAppear 0.4s cubic-bezier(0.34, 1.56, 0.64, 1) forwards;
+            transform: translateY(15px) scale(0.95);
+            animation: bubbleAppear 0.5s cubic-bezier(0.34, 1.56, 0.64, 1) forwards;
         }
         .imessage-bubble.received {
             background: #e9e9eb;
             color: #000;
             align-self: flex-start;
-            border-bottom-left-radius: 4px;
+            border-bottom-left-radius: 6px;
         }
         [data-theme="dark"] .imessage-bubble.received {
             background: #3a3a3c;
             color: #fff;
         }
         .imessage-bubble.sent {
-            background: #007AFF;
+            background: linear-gradient(135deg, #007AFF, #0063E6);
             color: white;
             align-self: flex-end;
-            border-bottom-right-radius: 4px;
+            border-bottom-right-radius: 6px;
         }
         .imessage-bubble:nth-child(1) { animation-delay: 0.5s; }
         .imessage-bubble:nth-child(2) { animation-delay: 1.8s; }
@@ -5491,18 +5498,24 @@
             .iphone-15 {
                 width: 240px;
                 height: 500px;
-                border-radius: 42px;
+                border-radius: 44px;
+                padding: 3px;
+                transform: rotateY(-4deg) rotateX(1deg);
             }
             .iphone-15::before {
-                width: 75px;
-                height: 24px;
-                top: 14px;
+                width: 70px;
+                height: 22px;
+                top: 12px;
             }
             .iphone-screen {
-                border-radius: 34px;
+                border-radius: 41px;
             }
             .messaging-title {
                 font-size: 28px;
+            }
+            .imessage-bubble {
+                font-size: 12px;
+                padding: 8px 11px;
             }
         }
     </style>
@@ -5992,7 +6005,6 @@
 
             <div class="iphone-mockup-container reveal">
                 <div class="iphone-15">
-                    <div class="auto-badge">Auto</div>
                     <div class="iphone-screen">
                         <div class="imessage-header">
                             <span class="imessage-back">‹</span>
