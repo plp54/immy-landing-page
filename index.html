@@ -1360,324 +1360,253 @@
             max-width: 200px;
         }
 
-        /* ==================== GLASS DISCS ANIMATION ==================== */
-        .discs-container {
-            position: relative;
-            padding: 80px 0;
-            min-height: 650px;
+        /* ==================== MARKETPLACE FLOW ==================== */
+        .marketplace-flow {
             display: flex;
+            flex-direction: column;
             align-items: center;
-            justify-content: center;
-        }
-
-        .discs-scene {
-            perspective: 1200px;
-            width: 100%;
-            max-width: 1000px;
-            height: 550px;
+            gap: 0;
             position: relative;
-            margin: 0 auto;
+            padding: 40px 0 60px;
         }
 
-        .discs-stack {
+        /* Connecting line */
+        .flow-connector {
             position: absolute;
             left: 50%;
-            top: 50%;
-            transform: translate(-50%, -50%);
-            width: 320px;
-            height: 500px;
-            transform-style: preserve-3d;
+            top: 120px;
+            bottom: 80px;
+            width: 2px;
+            background: var(--border);
+            transform: translateX(-50%);
+            z-index: 0;
         }
 
-        .discs-stack-inner {
-            width: 100%;
-            height: 100%;
-            position: relative;
-            transform-style: preserve-3d;
-            transform: rotateX(70deg);
-            transition: transform 2.5s cubic-bezier(0.25, 0.46, 0.45, 0.94);
-        }
-
-        .discs-stack.merged .discs-stack-inner {
-            transform: rotateX(0deg);
-        }
-
-        .glass-disc {
-            position: absolute;
-            width: 280px;
-            height: 280px;
-            left: 50%;
-            margin-left: -140px;
-            border-radius: 50%;
-            background: rgba(255, 255, 255, 0.1);
-            backdrop-filter: blur(20px);
-            -webkit-backdrop-filter: blur(20px);
-            border: 1px solid rgba(255, 255, 255, 0.25);
-            box-shadow:
-                0 4px 30px rgba(0, 0, 0, 0.1),
-                inset 0 0 80px rgba(255, 255, 255, 0.08),
-                inset 0 1px 0 rgba(255, 255, 255, 0.4),
-                0 1px 0 rgba(255, 255, 255, 0.2);
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            transform-style: preserve-3d;
-            transition: all 2.5s cubic-bezier(0.25, 0.46, 0.45, 0.94);
-        }
-
-        /* Reflet 3D sur le verre */
-        .glass-disc::before {
+        .flow-connector::before {
             content: '';
             position: absolute;
-            top: 5%;
-            left: 10%;
-            width: 60%;
-            height: 40%;
-            background: linear-gradient(180deg,
-                rgba(255, 255, 255, 0.4) 0%,
-                rgba(255, 255, 255, 0) 100%);
-            border-radius: 50%;
-            filter: blur(2px);
-            pointer-events: none;
-        }
-
-        /* Ombre 3D sous chaque disque */
-        .glass-disc::after {
-            content: '';
-            position: absolute;
-            bottom: -10px;
-            left: 10%;
-            width: 80%;
-            height: 20px;
-            background: radial-gradient(ellipse, rgba(0,0,0,0.2) 0%, transparent 70%);
-            border-radius: 50%;
-            transform: translateZ(-5px);
-            pointer-events: none;
-        }
-
-        [data-theme="dark"] .glass-disc {
-            background: rgba(255, 255, 255, 0.08);
-            border-color: rgba(255, 255, 255, 0.15);
-            box-shadow:
-                0 4px 30px rgba(0, 0, 0, 0.3),
-                inset 0 0 80px rgba(255, 255, 255, 0.05),
-                inset 0 1px 0 rgba(255, 255, 255, 0.2),
-                0 1px 0 rgba(255, 255, 255, 0.1);
-        }
-
-        .glass-disc:nth-child(1) {
             top: 0;
-            z-index: 3;
-        }
-        .glass-disc:nth-child(2) {
-            top: 80px;
-            z-index: 2;
-        }
-        .glass-disc:nth-child(3) {
-            top: 160px;
-            z-index: 1;
+            left: 0;
+            width: 100%;
+            height: 0%;
+            background: linear-gradient(180deg, var(--immy-orange), var(--success));
+            transition: height 2s ease-out;
         }
 
-        .discs-stack.merged .glass-disc {
-            top: 80px !important;
-        }
-        .discs-stack.merged .glass-disc:nth-child(2),
-        .discs-stack.merged .glass-disc:nth-child(3) {
-            opacity: 0;
+        .marketplace-flow.animated .flow-connector::before {
+            height: 100%;
         }
 
-        .disc-label {
-            font-size: 20px;
-            font-weight: 700;
-            color: var(--ink);
-            text-transform: uppercase;
-            letter-spacing: 2px;
-            opacity: 1;
-            transition: opacity 0.8s ease;
-        }
-
-        .discs-stack.merged .disc-label {
-            opacity: 0;
-        }
-
-        .disc-logo {
-            position: absolute;
-            top: 50%;
-            left: 50%;
-            transform: translate(-50%, -50%);
-            font-family: 'Bricolage Grotesque', sans-serif;
-            font-size: 52px;
-            font-weight: 800;
-            font-style: italic;
-            color: var(--immy-orange);
-            letter-spacing: -2px;
-            opacity: 0;
-            transition: opacity 0.8s ease 1.5s;
-            z-index: 10;
-        }
-
-        .discs-stack.merged .disc-logo {
-            opacity: 1;
-        }
-
-        /* Info labels with connecting lines */
-        .disc-info-label {
-            position: absolute;
+        /* Step cards */
+        .flow-card {
             display: flex;
             align-items: center;
-            gap: 16px;
-            opacity: 0;
-            transition: all 0.6s ease;
-        }
-
-        .disc-info-label.visible {
-            opacity: 1;
-        }
-
-        .disc-info-label.left {
-            right: calc(50% + 180px);
-            flex-direction: row-reverse;
-            text-align: right;
-        }
-
-        .disc-info-label.right {
-            left: calc(50% + 180px);
-            text-align: left;
-        }
-
-        .disc-info-label:nth-child(1) {
-            top: 70px;
-            transition-delay: 0.2s;
-        }
-        .disc-info-label:nth-child(2) {
-            top: 220px;
-            transition-delay: 0.5s;
-        }
-        .disc-info-label:nth-child(3) {
-            top: 370px;
-            transition-delay: 0.8s;
-        }
-
-        .disc-info-label.left { transform: translateX(-20px); }
-        .disc-info-label.right { transform: translateX(20px); }
-        .disc-info-label.visible { transform: translateX(0); }
-
-        .disc-info-line {
-            width: 80px;
-            height: 2px;
-            background: linear-gradient(90deg, transparent, var(--immy-orange));
+            gap: 40px;
+            width: 100%;
+            max-width: 800px;
+            padding: 32px 40px;
+            background: var(--card);
+            border: 1px solid var(--border);
+            border-radius: 24px;
             position: relative;
+            z-index: 1;
+            opacity: 0;
+            transition: all 0.7s cubic-bezier(0.16, 1, 0.3, 1);
         }
 
-        .disc-info-label.right .disc-info-line {
-            background: linear-gradient(90deg, var(--immy-orange), transparent);
+        .flow-card:nth-child(2) { transform: translateX(-60px); }
+        .flow-card:nth-child(3) { transform: translateX(60px); }
+        .flow-card:nth-child(4) { transform: translateX(-60px); }
+
+        .marketplace-flow.animated .flow-card {
+            opacity: 1;
+            transform: translateX(0);
         }
 
-        .disc-info-line::after {
-            content: '';
-            position: absolute;
-            top: 50%;
-            transform: translateY(-50%);
-            width: 10px;
-            height: 10px;
-            background: var(--immy-orange);
-            border-radius: 50%;
+        .marketplace-flow.animated .flow-card:nth-child(2) { transition-delay: 0.2s; }
+        .marketplace-flow.animated .flow-card:nth-child(3) { transition-delay: 0.6s; }
+        .marketplace-flow.animated .flow-card:nth-child(4) { transition-delay: 1s; }
+
+        .flow-card:hover {
+            border-color: var(--immy-orange);
+            box-shadow: 0 20px 60px rgba(255, 68, 5, 0.1);
+            transform: translateY(-4px) !important;
         }
 
-        .disc-info-label.left .disc-info-line::after {
-            right: 0;
+        /* Step number */
+        .flow-step-number {
+            width: 56px;
+            height: 56px;
+            min-width: 56px;
+            background: linear-gradient(135deg, var(--immy-orange), var(--immy-coral));
+            border-radius: 16px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 24px;
+            font-weight: 800;
+            color: white;
+            box-shadow: 0 8px 24px rgba(255, 68, 5, 0.3);
         }
 
-        .disc-info-label.right .disc-info-line::after {
-            left: 0;
+        .flow-card:nth-child(3) .flow-step-number {
+            background: linear-gradient(135deg, #3B82F6, #1D4ED8);
+            box-shadow: 0 8px 24px rgba(59, 130, 246, 0.3);
         }
 
-        .disc-info-content h4 {
+        .flow-card:nth-child(4) .flow-step-number {
+            background: linear-gradient(135deg, var(--success), #059669);
+            box-shadow: 0 8px 24px rgba(0, 166, 118, 0.3);
+        }
+
+        /* Step content */
+        .flow-step-content {
+            flex: 1;
+        }
+
+        .flow-step-content h4 {
             font-size: 22px;
             font-weight: 700;
             color: var(--ink);
-            margin-bottom: 6px;
+            margin-bottom: 8px;
         }
 
-        .disc-info-content p {
+        .flow-step-content p {
             font-size: 15px;
             color: var(--ink-muted);
-            line-height: 1.4;
-            max-width: 200px;
+            line-height: 1.5;
+            margin: 0;
+        }
+
+        /* Step stat */
+        .flow-step-stat {
+            text-align: right;
+            min-width: 100px;
+        }
+
+        .flow-step-stat .stat-value {
+            font-size: 32px;
+            font-weight: 800;
+            background: linear-gradient(135deg, var(--immy-orange), var(--immy-coral));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            line-height: 1;
+        }
+
+        .flow-card:nth-child(3) .flow-step-stat .stat-value {
+            background: linear-gradient(135deg, #3B82F6, #1D4ED8);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .flow-card:nth-child(4) .flow-step-stat .stat-value {
+            background: linear-gradient(135deg, var(--success), #059669);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .flow-step-stat .stat-label {
+            font-size: 13px;
+            color: var(--ink-subtle);
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        /* Gap between cards */
+        .flow-gap {
+            height: 24px;
+            position: relative;
+            z-index: 0;
+        }
+
+        /* Final result card */
+        .flow-result {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 20px;
+            padding: 28px 48px;
+            background: linear-gradient(135deg, var(--ink) 0%, #1a1a2e 100%);
+            border-radius: 20px;
+            margin-top: 16px;
+            opacity: 0;
+            transform: scale(0.9);
+            transition: all 0.6s cubic-bezier(0.16, 1, 0.3, 1) 1.4s;
+        }
+
+        [data-theme="dark"] .flow-result {
+            background: linear-gradient(135deg, #18181B 0%, #27272A 100%);
+            border: 1px solid var(--border);
+        }
+
+        .marketplace-flow.animated .flow-result {
+            opacity: 1;
+            transform: scale(1);
+        }
+
+        .flow-result-icon {
+            width: 48px;
+            height: 48px;
+            background: var(--success);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .flow-result-icon svg {
+            width: 24px;
+            height: 24px;
+            stroke: white;
+            stroke-width: 3;
+            fill: none;
+        }
+
+        .flow-result-text {
+            color: white;
+            font-size: 18px;
+            font-weight: 600;
+        }
+
+        .flow-result-text span {
+            color: var(--immy-orange);
+            font-family: 'Bricolage Grotesque', sans-serif;
+            font-style: italic;
+            font-weight: 800;
         }
 
         /* Responsive */
-        @media (max-width: 1100px) {
-            .disc-info-label.left {
-                right: calc(50% + 160px);
+        @media (max-width: 768px) {
+            .flow-card {
+                flex-direction: column;
+                text-align: center;
+                gap: 20px;
+                padding: 28px 24px;
             }
-            .disc-info-label.right {
-                left: calc(50% + 160px);
+            .flow-card:nth-child(2),
+            .flow-card:nth-child(3),
+            .flow-card:nth-child(4) {
+                transform: translateY(30px);
             }
-            .disc-info-line {
-                width: 60px;
-            }
-            .disc-info-content h4 {
-                font-size: 18px;
-            }
-            .disc-info-content p {
-                font-size: 13px;
-                max-width: 160px;
-            }
-        }
-
-        @media (max-width: 900px) {
-            .discs-container {
-                padding: 60px 20px;
-                min-height: 700px;
-            }
-            .discs-scene {
-                height: 600px;
-            }
-            .disc-info-label {
-                position: relative;
-                top: auto !important;
-                left: auto !important;
-                right: auto !important;
-                flex-direction: column !important;
-                text-align: center !important;
-                transform: translateY(20px);
-            }
-            .disc-info-label.visible {
+            .marketplace-flow.animated .flow-card {
                 transform: translateY(0);
             }
-            .disc-info-line {
+            .flow-step-stat {
+                text-align: center;
+            }
+            .flow-connector {
                 display: none;
             }
-            .discs-labels-mobile {
-                display: flex;
-                justify-content: center;
-                gap: 30px;
-                margin-bottom: 40px;
+            .flow-step-content h4 {
+                font-size: 20px;
             }
-            .discs-stack {
-                position: relative;
-                left: auto;
-                top: auto;
-                transform: none;
-                margin: 0 auto;
-            }
-        }
-
-        @media (max-width: 500px) {
-            .glass-disc {
-                width: 180px;
-                height: 180px;
-                margin-left: -90px;
-            }
-            .glass-disc:nth-child(2) { top: 60px; }
-            .glass-disc:nth-child(3) { top: 120px; }
-            .discs-stack.merged .glass-disc { top: 60px !important; }
-            .disc-label { font-size: 14px; }
-            .disc-logo { font-size: 36px; }
-            .discs-stack {
-                width: 200px;
-                height: 350px;
+            .flow-result {
+                flex-direction: column;
+                text-align: center;
+                padding: 24px 32px;
             }
         }
 
@@ -6400,67 +6329,81 @@
                 <p class="subtitle lang-en">Your data is already in immy. One click is all it takes.</p>
             </div>
             
-            <div class="discs-container reveal" id="discsContainer">
-                <div class="discs-scene" id="discsScene">
-                    <!-- Label 1 - Gauche -->
-                    <div class="disc-info-label left" id="discLabel1">
-                        <div class="disc-info-content">
-                            <h4 class="lang-fr">Publiez</h4>
-                            <h4 class="lang-nl">Publiceer</h4>
-                            <h4 class="lang-en">Publish</h4>
-                            <p class="lang-fr">Un clic. Photos et infos déjà prêtes.</p>
-                            <p class="lang-nl">Eén klik. Foto's en info al klaar.</p>
-                            <p class="lang-en">One click. Photos and info ready.</p>
-                        </div>
-                        <div class="disc-info-line"></div>
-                    </div>
+            <div class="marketplace-flow reveal" id="marketplaceFlow">
+                <div class="flow-connector"></div>
 
-                    <!-- Label 2 - Droite -->
-                    <div class="disc-info-label right" id="discLabel2">
-                        <div class="disc-info-line"></div>
-                        <div class="disc-info-content">
-                            <h4 class="lang-fr">Recevez</h4>
-                            <h4 class="lang-nl">Ontvang</h4>
-                            <h4 class="lang-en">Receive</h4>
-                            <p class="lang-fr">Candidatures dans votre pipeline.</p>
-                            <p class="lang-nl">Aanvragen in uw pipeline.</p>
-                            <p class="lang-en">Applications in your pipeline.</p>
-                        </div>
+                <!-- Step 1: Publish -->
+                <div class="flow-card">
+                    <div class="flow-step-number">1</div>
+                    <div class="flow-step-content">
+                        <h4 class="lang-fr">Publiez votre annonce</h4>
+                        <h4 class="lang-nl">Publiceer uw advertentie</h4>
+                        <h4 class="lang-en">Publish your listing</h4>
+                        <p class="lang-fr">Photos, description, prix — tout est déjà prêt dans votre CRM. Un seul clic.</p>
+                        <p class="lang-nl">Foto's, beschrijving, prijs — alles staat al klaar in uw CRM. Eén klik.</p>
+                        <p class="lang-en">Photos, description, price — everything is ready in your CRM. One click.</p>
                     </div>
-
-                    <!-- Label 3 - Gauche -->
-                    <div class="disc-info-label left" id="discLabel3">
-                        <div class="disc-info-content">
-                            <h4 class="lang-fr">Signez</h4>
-                            <h4 class="lang-nl">Onderteken</h4>
-                            <h4 class="lang-en">Sign</h4>
-                            <p class="lang-fr">Contrat digital. 100% en ligne.</p>
-                            <p class="lang-nl">Digitaal contract. 100% online.</p>
-                            <p class="lang-en">Digital contract. 100% online.</p>
-                        </div>
-                        <div class="disc-info-line"></div>
+                    <div class="flow-step-stat">
+                        <div class="stat-value lang-fr">1 clic</div>
+                        <div class="stat-value lang-nl">1 klik</div>
+                        <div class="stat-value lang-en">1 click</div>
+                        <div class="stat-label lang-fr">pour publier</div>
+                        <div class="stat-label lang-nl">om te publiceren</div>
+                        <div class="stat-label lang-en">to publish</div>
                     </div>
+                </div>
 
-                    <!-- Disques centraux -->
-                    <div class="discs-stack" id="discsStack">
-                        <div class="discs-stack-inner">
-                            <div class="glass-disc">
-                                <span class="disc-label lang-fr">Publié</span>
-                                <span class="disc-label lang-nl">Gepubliceerd</span>
-                                <span class="disc-label lang-en">Published</span>
-                            </div>
-                            <div class="glass-disc">
-                                <span class="disc-label lang-fr">Reçu</span>
-                                <span class="disc-label lang-nl">Ontvangen</span>
-                                <span class="disc-label lang-en">Received</span>
-                            </div>
-                            <div class="glass-disc">
-                                <span class="disc-label lang-fr">Signé</span>
-                                <span class="disc-label lang-nl">Ondertekend</span>
-                                <span class="disc-label lang-en">Signed</span>
-                            </div>
-                            <span class="disc-logo">immy</span>
-                        </div>
+                <div class="flow-gap"></div>
+
+                <!-- Step 2: Receive -->
+                <div class="flow-card">
+                    <div class="flow-step-number">2</div>
+                    <div class="flow-step-content">
+                        <h4 class="lang-fr">Recevez les candidatures</h4>
+                        <h4 class="lang-nl">Ontvang aanvragen</h4>
+                        <h4 class="lang-en">Receive applications</h4>
+                        <p class="lang-fr">Les candidats arrivent directement dans votre pipeline. Filtrez, comparez, sélectionnez.</p>
+                        <p class="lang-nl">Kandidaten komen rechtstreeks in uw pipeline. Filter, vergelijk, selecteer.</p>
+                        <p class="lang-en">Candidates land directly in your pipeline. Filter, compare, select.</p>
+                    </div>
+                    <div class="flow-step-stat">
+                        <div class="stat-value">&lt;24h</div>
+                        <div class="stat-label lang-fr">temps de réponse</div>
+                        <div class="stat-label lang-nl">responstijd</div>
+                        <div class="stat-label lang-en">response time</div>
+                    </div>
+                </div>
+
+                <div class="flow-gap"></div>
+
+                <!-- Step 3: Sign -->
+                <div class="flow-card">
+                    <div class="flow-step-number">3</div>
+                    <div class="flow-step-content">
+                        <h4 class="lang-fr">Signez le contrat</h4>
+                        <h4 class="lang-nl">Onderteken het contract</h4>
+                        <h4 class="lang-en">Sign the contract</h4>
+                        <p class="lang-fr">Signature électronique légale. État des lieux digital. Tout 100% en ligne.</p>
+                        <p class="lang-nl">Legale elektronische handtekening. Digitale plaatsbeschrijving. Alles 100% online.</p>
+                        <p class="lang-en">Legal electronic signature. Digital inventory. Everything 100% online.</p>
+                    </div>
+                    <div class="flow-step-stat">
+                        <div class="stat-value">100%</div>
+                        <div class="stat-label lang-fr">digital</div>
+                        <div class="stat-label lang-nl">digitaal</div>
+                        <div class="stat-label lang-en">digital</div>
+                    </div>
+                </div>
+
+                <!-- Result -->
+                <div class="flow-result">
+                    <div class="flow-result-icon">
+                        <svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg>
+                    </div>
+                    <div class="flow-result-text">
+                        <span class="lang-fr">Reloué avec <span>immy</span></span>
+                        <span class="lang-nl">Herverhuurd met <span>immy</span></span>
+                        <span class="lang-en">Relet with <span>immy</span></span>
                     </div>
                 </div>
             </div>
@@ -7685,42 +7628,27 @@
             messagingObserver.observe(messagingSection);
         })();
 
-        // 10. Glass Discs Animation - Marketplace Section
+        // 10. Marketplace Flow Animation
         (function() {
-            const discsContainer = document.getElementById('discsContainer');
-            const discsStack = document.getElementById('discsStack');
-            const discsScene = document.getElementById('discsScene');
-            const infoLabels = document.querySelectorAll('.disc-info-label');
-
-            if (!discsContainer || !discsStack) return;
+            const marketplaceFlow = document.getElementById('marketplaceFlow');
+            if (!marketplaceFlow) return;
 
             let hasAnimated = false;
 
-            const discsObserver = new IntersectionObserver((entries) => {
+            const flowObserver = new IntersectionObserver((entries) => {
                 entries.forEach(entry => {
                     if (entry.isIntersecting && !hasAnimated) {
-                        // Show info labels with staggered animation
-                        infoLabels.forEach(label => label.classList.add('visible'));
-
-                        // After 4 seconds, merge the discs smoothly
-                        setTimeout(() => {
-                            discsStack.classList.add('merged');
-                            if (discsScene) discsScene.classList.add('merged');
-                        }, 4000);
-
+                        marketplaceFlow.classList.add('animated');
                         hasAnimated = true;
                     }
                     if (!entry.isIntersecting) {
-                        // Reset animation when out of view
                         hasAnimated = false;
-                        discsStack.classList.remove('merged');
-                        if (discsScene) discsScene.classList.remove('merged');
-                        infoLabels.forEach(label => label.classList.remove('visible'));
+                        marketplaceFlow.classList.remove('animated');
                     }
                 });
-            }, { threshold: 0.35 });
+            }, { threshold: 0.2 });
 
-            discsObserver.observe(discsContainer);
+            flowObserver.observe(marketplaceFlow);
         })();
     </script>
 </body>
