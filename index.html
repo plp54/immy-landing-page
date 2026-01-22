@@ -1448,6 +1448,46 @@
             fill: none;
         }
 
+        /* Icon animations */
+        .flow-step:nth-child(1) .flow-step-icon svg path:first-child {
+            animation: arrowBounce 1.5s ease-in-out infinite;
+            transform-origin: center;
+        }
+
+        @keyframes arrowBounce {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-3px); }
+        }
+
+        .flow-step:nth-child(3) .flow-step-icon svg circle,
+        .flow-step:nth-child(3) .flow-step-icon svg path:nth-child(2) {
+            animation: peoplePulse 2s ease-in-out infinite;
+            transform-origin: center;
+        }
+
+        .flow-step:nth-child(3) .flow-step-icon svg path:nth-child(3),
+        .flow-step:nth-child(3) .flow-step-icon svg path:nth-child(4) {
+            animation: peoplePulse 2s ease-in-out infinite 0.3s;
+            transform-origin: center;
+        }
+
+        @keyframes peoplePulse {
+            0%, 100% { opacity: 1; transform: scale(1); }
+            50% { opacity: 0.7; transform: scale(0.95); }
+        }
+
+        .flow-step:nth-child(5) .flow-step-icon svg path:last-child {
+            stroke-dasharray: 20;
+            stroke-dashoffset: 20;
+            animation: checkDraw 1.8s ease-in-out infinite;
+        }
+
+        @keyframes checkDraw {
+            0%, 20% { stroke-dashoffset: 20; }
+            50%, 70% { stroke-dashoffset: 0; }
+            100% { stroke-dashoffset: 20; }
+        }
+
         /* Step text */
         .flow-step-text {
             text-align: center;
