@@ -6407,14 +6407,12 @@
         const themeToggle = document.getElementById('themeToggle');
         if (themeToggle) {
             // Check saved theme or system preference
+            // Light mode par défaut, sauf si l'utilisateur a déjà choisi
             const savedTheme = localStorage.getItem('theme');
-            const prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
-
             if (savedTheme) {
                 html.setAttribute('data-theme', savedTheme);
-            } else if (prefersDark) {
-                html.setAttribute('data-theme', 'dark');
             }
+            // Sinon reste en light mode (défaut dans le HTML)
 
             themeToggle.addEventListener('click', () => {
                 const currentTheme = html.getAttribute('data-theme');
