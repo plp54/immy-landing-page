@@ -5359,6 +5359,20 @@
             color: white;
             align-self: flex-end;
             border-bottom-right-radius: 6px;
+            position: relative;
+        }
+        .imessage-bubble.sent .ai-star {
+            position: absolute;
+            top: -6px;
+            right: -6px;
+            font-size: 10px;
+            color: #FFD700;
+            filter: drop-shadow(0 1px 2px rgba(0,0,0,0.3));
+            animation: starPulse 2s ease-in-out infinite;
+        }
+        @keyframes starPulse {
+            0%, 100% { transform: scale(1); opacity: 1; }
+            50% { transform: scale(1.2); opacity: 0.8; }
         }
         .imessage-bubble:nth-child(1) { animation-delay: 0.5s; }
         .imessage-bubble:nth-child(2) { animation-delay: 1.8s; }
@@ -5966,13 +5980,13 @@
                 </h2>
 
                 <p class="messaging-desc lang-fr">
-                    Réponses aux demandes de visite, confirmations, rappels — immy gère toute la communication avec vos locataires et candidats. Vous dormez, immy répond.
+                    Notre IA répond aux demandes de visite, envoie les confirmations et rappels — tout est automatique. Les messages avec ✦ sont envoyés par l'intelligence artificielle. Vous dormez, immy répond.
                 </p>
                 <p class="messaging-desc lang-nl">
-                    Antwoorden op bezoekaanvragen, bevestigingen, herinneringen — immy beheert alle communicatie met uw huurders en kandidaten. U slaapt, immy antwoordt.
+                    Onze AI beantwoordt bezoekaanvragen, stuurt bevestigingen en herinneringen — alles automatisch. Berichten met ✦ worden door de AI verstuurd. U slaapt, immy antwoordt.
                 </p>
                 <p class="messaging-desc lang-en">
-                    Replies to visit requests, confirmations, reminders — immy handles all communication with your tenants and candidates. You sleep, immy responds.
+                    Our AI replies to visit requests, sends confirmations and reminders — all automatic. Messages with ✦ are sent by artificial intelligence. You sleep, immy responds.
                 </p>
 
                 <div class="messaging-features">
@@ -6023,6 +6037,7 @@
                                 <span class="lang-en">Hi! Could I visit the apartment this Wednesday at 2pm?</span>
                             </div>
                             <div class="imessage-bubble sent">
+                                <span class="ai-star">✦</span>
                                 <span class="lang-fr">Bonjour Marie ! Oui, c'est tout à fait possible entre 14h et 15h. Je vous confirme le rendez-vous ✓</span>
                                 <span class="lang-nl">Hallo Marie! Ja, dat is mogelijk tussen 14u en 15u. Ik bevestig de afspraak ✓</span>
                                 <span class="lang-en">Hi Marie! Yes, that's possible between 2pm and 3pm. I confirm the appointment ✓</span>
@@ -6033,6 +6048,7 @@
                                 <span class="lang-en">Thank you so much! See you Wednesday then 😊</span>
                             </div>
                             <div class="imessage-bubble sent">
+                                <span class="ai-star">✦</span>
                                 <span class="lang-fr">Parfait, à mercredi ! Vous recevrez un rappel la veille.</span>
                                 <span class="lang-nl">Perfect, tot woensdag! U ontvangt een herinnering de dag ervoor.</span>
                                 <span class="lang-en">Perfect, see you Wednesday! You'll receive a reminder the day before.</span>
