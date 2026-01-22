@@ -1360,249 +1360,176 @@
             max-width: 200px;
         }
 
-        /* ==================== CIRCULAR FLOW ==================== */
-        .circular-flow {
+        /* ==================== HORIZONTAL FLOW ==================== */
+        .horizontal-flow {
             position: relative;
-            padding: 40px 0 60px;
+            padding: 30px 0 50px;
             display: flex;
             justify-content: center;
+            perspective: 1000px;
+        }
+
+        .flow-container {
+            display: flex;
             align-items: center;
+            gap: 24px;
+            max-width: 700px;
         }
 
-        .circular-flow-container {
-            position: relative;
-            width: 500px;
-            height: 500px;
-        }
-
-        /* SVG Circle with arrows */
-        .circle-svg {
-            position: absolute;
-            width: 100%;
-            height: 100%;
-            top: 0;
-            left: 0;
-        }
-
-        .circle-path {
-            fill: none;
-            stroke: var(--border);
-            stroke-width: 2;
-        }
-
-        .circle-arrow-path {
-            fill: none;
-            stroke-width: 3;
-            stroke-linecap: round;
-            stroke-dasharray: 200;
-            stroke-dashoffset: 200;
-            transition: stroke-dashoffset 0.8s ease-out;
-        }
-
-        .circle-arrow-path.orange { stroke: var(--immy-orange); }
-        .circle-arrow-path.blue { stroke: #3B82F6; }
-        .circle-arrow-path.green { stroke: var(--success); }
-
-        .circular-flow.animated .circle-arrow-path:nth-child(2) {
-            stroke-dashoffset: 0;
-            transition-delay: 0.3s;
-        }
-        .circular-flow.animated .circle-arrow-path:nth-child(3) {
-            stroke-dashoffset: 0;
-            transition-delay: 0.9s;
-        }
-        .circular-flow.animated .circle-arrow-path:nth-child(4) {
-            stroke-dashoffset: 0;
-            transition-delay: 1.5s;
-        }
-
-        /* Arrow heads */
-        .arrow-head {
-            fill: var(--immy-orange);
-            opacity: 0;
-            transition: opacity 0.3s ease;
-        }
-        .arrow-head.blue { fill: #3B82F6; }
-        .arrow-head.green { fill: var(--success); }
-
-        .circular-flow.animated .arrow-head:nth-of-type(1) {
-            opacity: 1;
-            transition-delay: 0.8s;
-        }
-        .circular-flow.animated .arrow-head:nth-of-type(2) {
-            opacity: 1;
-            transition-delay: 1.4s;
-        }
-        .circular-flow.animated .arrow-head:nth-of-type(3) {
-            opacity: 1;
-            transition-delay: 2s;
-        }
-
-        /* Step nodes */
-        .step-node {
-            position: absolute;
+        /* Step card with 3D effect */
+        .flow-step {
             display: flex;
             flex-direction: column;
             align-items: center;
-            gap: 12px;
+            gap: 14px;
+            padding: 24px 20px;
+            background: var(--card);
+            border: 1px solid var(--border);
+            border-radius: 16px;
+            min-width: 140px;
             opacity: 0;
-            transform: scale(0.8);
-            transition: all 0.6s cubic-bezier(0.34, 1.56, 0.64, 1);
+            transform: translateY(20px) rotateX(10deg);
+            transition: all 0.5s cubic-bezier(0.34, 1.56, 0.64, 1);
+            transform-style: preserve-3d;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.04);
         }
 
-        .circular-flow.animated .step-node {
+        .flow-step:hover {
+            transform: translateY(-4px) rotateX(0deg);
+            box-shadow: 0 12px 32px rgba(0, 0, 0, 0.08);
+            border-color: var(--immy-orange);
+        }
+
+        .horizontal-flow.animated .flow-step {
             opacity: 1;
-            transform: scale(1);
+            transform: translateY(0) rotateX(0deg);
         }
 
-        /* Position nodes around circle */
-        .step-node.top {
-            top: -20px;
-            left: 50%;
-            transform: translateX(-50%) scale(0.8);
-        }
-        .circular-flow.animated .step-node.top {
-            transform: translateX(-50%) scale(1);
-            transition-delay: 0.1s;
-        }
+        .horizontal-flow.animated .flow-step:nth-child(1) { transition-delay: 0.1s; }
+        .horizontal-flow.animated .flow-step:nth-child(3) { transition-delay: 0.3s; }
+        .horizontal-flow.animated .flow-step:nth-child(5) { transition-delay: 0.5s; }
 
-        .step-node.bottom-right {
-            bottom: 30px;
-            right: -10px;
-            transition-delay: 0.5s;
-        }
-        .circular-flow.animated .step-node.bottom-right {
-            transition-delay: 0.7s;
-        }
-
-        .step-node.bottom-left {
-            bottom: 30px;
-            left: -10px;
-            transition-delay: 1s;
-        }
-        .circular-flow.animated .step-node.bottom-left {
-            transition-delay: 1.3s;
-        }
-
-        /* Node circle */
-        .step-circle {
-            width: 100px;
-            height: 100px;
+        /* Step number badge */
+        .flow-step-number {
+            width: 28px;
+            height: 28px;
             border-radius: 50%;
+            background: linear-gradient(135deg, var(--immy-orange), var(--immy-coral));
+            color: white;
+            font-size: 13px;
+            font-weight: 700;
             display: flex;
             align-items: center;
             justify-content: center;
-            position: relative;
-            cursor: pointer;
-            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            box-shadow: 0 4px 12px rgba(255, 68, 5, 0.25);
         }
 
-        .step-circle:hover {
-            transform: scale(1.08);
+        /* Step icon */
+        .flow-step-icon {
+            width: 48px;
+            height: 48px;
+            border-radius: 12px;
+            background: var(--cream);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.3s ease;
         }
 
-        .step-circle.orange {
-            background: linear-gradient(135deg, var(--immy-orange), var(--immy-coral));
-            box-shadow: 0 8px 30px rgba(255, 68, 5, 0.35);
-        }
-        .step-circle.orange:hover {
-            box-shadow: 0 12px 40px rgba(255, 68, 5, 0.5);
+        .flow-step:hover .flow-step-icon {
+            background: rgba(255, 68, 5, 0.1);
         }
 
-        .step-circle.blue {
-            background: linear-gradient(135deg, #3B82F6, #1D4ED8);
-            box-shadow: 0 8px 30px rgba(59, 130, 246, 0.35);
-        }
-        .step-circle.blue:hover {
-            box-shadow: 0 12px 40px rgba(59, 130, 246, 0.5);
-        }
-
-        .step-circle.green {
-            background: linear-gradient(135deg, var(--success), #059669);
-            box-shadow: 0 8px 30px rgba(0, 166, 118, 0.35);
-        }
-        .step-circle.green:hover {
-            box-shadow: 0 12px 40px rgba(0, 166, 118, 0.5);
-        }
-
-        .step-circle svg {
-            width: 40px;
-            height: 40px;
-            stroke: white;
+        .flow-step-icon svg {
+            width: 24px;
+            height: 24px;
+            stroke: var(--immy-orange);
             stroke-width: 2;
             fill: none;
         }
 
-        /* Step label */
-        .step-label {
+        /* Step text */
+        .flow-step-text {
             text-align: center;
         }
 
-        .step-label h4 {
-            font-size: 18px;
+        .flow-step-text h4 {
+            font-size: 15px;
             font-weight: 700;
             color: var(--ink);
-            margin: 0;
+            margin: 0 0 4px;
         }
 
-        .step-label p {
-            font-size: 13px;
+        .flow-step-text p {
+            font-size: 12px;
             color: var(--ink-muted);
-            margin: 4px 0 0;
+            margin: 0;
+            line-height: 1.4;
+        }
+
+        /* Arrow connector */
+        .flow-arrow {
+            display: flex;
+            align-items: center;
+            opacity: 0;
+            transform: scaleX(0);
+            transition: all 0.4s ease;
+        }
+
+        .horizontal-flow.animated .flow-arrow {
+            opacity: 1;
+            transform: scaleX(1);
+        }
+
+        .horizontal-flow.animated .flow-arrow:nth-child(2) { transition-delay: 0.25s; }
+        .horizontal-flow.animated .flow-arrow:nth-child(4) { transition-delay: 0.45s; }
+
+        .flow-arrow svg {
+            width: 32px;
+            height: 16px;
+            stroke: var(--border);
+            stroke-width: 2;
+            fill: none;
         }
 
         /* Responsive */
-        @media (max-width: 600px) {
-            .circular-flow-container {
-                width: 340px;
-                height: 340px;
+        @media (max-width: 700px) {
+            .flow-container {
+                flex-direction: column;
+                gap: 16px;
             }
-            .step-circle {
-                width: 75px;
-                height: 75px;
+            .flow-step {
+                min-width: 200px;
+                flex-direction: row;
+                gap: 16px;
+                padding: 16px 20px;
             }
-            .step-circle svg {
-                width: 30px;
-                height: 30px;
+            .flow-step-text {
+                text-align: left;
             }
-            .step-label h4 {
-                font-size: 15px;
+            .flow-arrow {
+                transform: rotate(90deg) scaleX(0);
             }
-            .step-label p {
-                font-size: 11px;
-            }
-            .step-node.top {
-                top: -15px;
-            }
-            .step-node.bottom-right {
-                bottom: 15px;
-                right: -5px;
-            }
-            .step-node.bottom-left {
-                bottom: 15px;
-                left: -5px;
+            .horizontal-flow.animated .flow-arrow {
+                transform: rotate(90deg) scaleX(1);
             }
         }
 
         @media (max-width: 400px) {
-            .circular-flow-container {
-                width: 280px;
-                height: 280px;
+            .flow-step {
+                min-width: 100%;
+                padding: 14px 16px;
             }
-            .step-circle {
-                width: 60px;
-                height: 60px;
+            .flow-step-icon {
+                width: 40px;
+                height: 40px;
             }
-            .step-circle svg {
-                width: 24px;
-                height: 24px;
+            .flow-step-icon svg {
+                width: 20px;
+                height: 20px;
             }
-            .step-label h4 {
-                font-size: 13px;
-            }
-            .step-node.bottom-right,
-            .step-node.bottom-left {
-                bottom: 10px;
+            .flow-step-text h4 {
+                font-size: 14px;
             }
         }
 
@@ -6274,37 +6201,15 @@
                 <p class="subtitle lang-en">Your data is already in immy. One click is all it takes.</p>
             </div>
             
-            <div class="circular-flow reveal" id="circularFlow">
-                <div class="circular-flow-container">
-                    <!-- SVG with circular arrow paths -->
-                    <svg class="circle-svg" viewBox="0 0 500 500">
-                        <defs>
-                            <marker id="arrowOrange" markerWidth="10" markerHeight="10" refX="5" refY="5" orient="auto">
-                                <path d="M0,0 L10,5 L0,10 Z" fill="#FF4405"/>
-                            </marker>
-                            <marker id="arrowBlue" markerWidth="10" markerHeight="10" refX="5" refY="5" orient="auto">
-                                <path d="M0,0 L10,5 L0,10 Z" fill="#3B82F6"/>
-                            </marker>
-                            <marker id="arrowGreen" markerWidth="10" markerHeight="10" refX="5" refY="5" orient="auto">
-                                <path d="M0,0 L10,5 L0,10 Z" fill="#00A676"/>
-                            </marker>
-                        </defs>
-                        <!-- Background circle -->
-                        <circle cx="250" cy="250" r="160" class="circle-path"/>
-                        <!-- Arc 1: Top to Bottom-Right (Publiez → Recevez) -->
-                        <path d="M250,90 A160,160 0 0,1 388,330" class="circle-arrow-path orange" marker-end="url(#arrowOrange)"/>
-                        <!-- Arc 2: Bottom-Right to Bottom-Left (Recevez → Signez) -->
-                        <path d="M388,330 A160,160 0 0,1 112,330" class="circle-arrow-path blue" marker-end="url(#arrowBlue)"/>
-                        <!-- Arc 3: Bottom-Left to Top (Signez → Publiez) -->
-                        <path d="M112,330 A160,160 0 0,1 250,90" class="circle-arrow-path green" marker-end="url(#arrowGreen)"/>
-                    </svg>
-
-                    <!-- Node 1: Publiez (Top) -->
-                    <div class="step-node top">
-                        <div class="step-circle orange">
+            <div class="horizontal-flow reveal" id="horizontalFlow">
+                <div class="flow-container">
+                    <!-- Step 1: Publiez -->
+                    <div class="flow-step">
+                        <div class="flow-step-number">1</div>
+                        <div class="flow-step-icon">
                             <svg viewBox="0 0 24 24"><path d="M12 19V5M5 12l7-7 7 7"/><rect x="4" y="17" width="16" height="2" rx="1"/></svg>
                         </div>
-                        <div class="step-label">
+                        <div class="flow-step-text">
                             <h4 class="lang-fr">Publiez</h4>
                             <h4 class="lang-nl">Publiceer</h4>
                             <h4 class="lang-en">Publish</h4>
@@ -6314,12 +6219,18 @@
                         </div>
                     </div>
 
-                    <!-- Node 2: Recevez (Bottom-Right) -->
-                    <div class="step-node bottom-right">
-                        <div class="step-circle blue">
+                    <!-- Arrow 1 -->
+                    <div class="flow-arrow">
+                        <svg viewBox="0 0 32 16"><path d="M0,8 L24,8 M20,4 L26,8 L20,12"/></svg>
+                    </div>
+
+                    <!-- Step 2: Recevez -->
+                    <div class="flow-step">
+                        <div class="flow-step-number">2</div>
+                        <div class="flow-step-icon">
                             <svg viewBox="0 0 24 24"><circle cx="9" cy="7" r="4"/><path d="M3 21v-2a4 4 0 0 1 4-4h4a4 4 0 0 1 4 4v2"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/><path d="M21 21v-2a4 4 0 0 0-3-3.87"/></svg>
                         </div>
-                        <div class="step-label">
+                        <div class="flow-step-text">
                             <h4 class="lang-fr">Recevez</h4>
                             <h4 class="lang-nl">Ontvang</h4>
                             <h4 class="lang-en">Receive</h4>
@@ -6329,12 +6240,18 @@
                         </div>
                     </div>
 
-                    <!-- Node 3: Signez (Bottom-Left) -->
-                    <div class="step-node bottom-left">
-                        <div class="step-circle green">
+                    <!-- Arrow 2 -->
+                    <div class="flow-arrow">
+                        <svg viewBox="0 0 32 16"><path d="M0,8 L24,8 M20,4 L26,8 L20,12"/></svg>
+                    </div>
+
+                    <!-- Step 3: Signez -->
+                    <div class="flow-step">
+                        <div class="flow-step-number">3</div>
+                        <div class="flow-step-icon">
                             <svg viewBox="0 0 24 24"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><path d="M14 2v6h6"/><path d="M9 15l2 2 4-4"/></svg>
                         </div>
-                        <div class="step-label">
+                        <div class="flow-step-text">
                             <h4 class="lang-fr">Signez</h4>
                             <h4 class="lang-nl">Onderteken</h4>
                             <h4 class="lang-en">Sign</h4>
@@ -7566,27 +7483,27 @@
             messagingObserver.observe(messagingSection);
         })();
 
-        // 10. Circular Flow Animation
+        // 10. Horizontal Flow Animation
         (function() {
-            const circularFlow = document.getElementById('circularFlow');
-            if (!circularFlow) return;
+            const horizontalFlow = document.getElementById('horizontalFlow');
+            if (!horizontalFlow) return;
 
             let hasAnimated = false;
 
             const flowObserver = new IntersectionObserver((entries) => {
                 entries.forEach(entry => {
                     if (entry.isIntersecting && !hasAnimated) {
-                        circularFlow.classList.add('animated');
+                        horizontalFlow.classList.add('animated');
                         hasAnimated = true;
                     }
                     if (!entry.isIntersecting) {
                         hasAnimated = false;
-                        circularFlow.classList.remove('animated');
+                        horizontalFlow.classList.remove('animated');
                     }
                 });
             }, { threshold: 0.15 });
 
-            flowObserver.observe(circularFlow);
+            flowObserver.observe(horizontalFlow);
         })();
     </script>
 </body>
