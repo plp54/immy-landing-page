@@ -1364,17 +1364,17 @@
         .discs-container {
             position: relative;
             padding: 80px 0;
-            min-height: 600px;
+            min-height: 650px;
             display: flex;
             align-items: center;
             justify-content: center;
         }
 
         .discs-scene {
-            perspective: 1500px;
+            perspective: 1200px;
             width: 100%;
-            max-width: 900px;
-            height: 500px;
+            max-width: 1000px;
+            height: 550px;
             position: relative;
             margin: 0 auto;
         }
@@ -1384,8 +1384,8 @@
             left: 50%;
             top: 50%;
             transform: translate(-50%, -50%);
-            width: 300px;
-            height: 400px;
+            width: 320px;
+            height: 500px;
             transform-style: preserve-3d;
         }
 
@@ -1394,12 +1394,12 @@
             height: 100%;
             position: relative;
             transform-style: preserve-3d;
-            transform: rotateX(60deg) rotateZ(-10deg);
-            transition: transform 2s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+            transform: rotateX(70deg);
+            transition: transform 2.5s cubic-bezier(0.25, 0.46, 0.45, 0.94);
         }
 
         .discs-stack.merged .discs-stack-inner {
-            transform: rotateX(0deg) rotateZ(0deg);
+            transform: rotateX(0deg);
         }
 
         .glass-disc {
@@ -1409,30 +1409,60 @@
             left: 50%;
             margin-left: -140px;
             border-radius: 50%;
-            background: linear-gradient(135deg,
-                rgba(255, 255, 255, 0.3) 0%,
-                rgba(255, 255, 255, 0.15) 50%,
-                rgba(255, 255, 255, 0.05) 100%);
-            backdrop-filter: blur(25px);
-            -webkit-backdrop-filter: blur(25px);
-            border: 1.5px solid rgba(255, 255, 255, 0.4);
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+            border: 1px solid rgba(255, 255, 255, 0.25);
             box-shadow:
-                0 15px 50px rgba(0, 0, 0, 0.15),
-                inset 0 2px 0 rgba(255, 255, 255, 0.5),
-                inset 0 -2px 0 rgba(0, 0, 0, 0.1);
+                0 4px 30px rgba(0, 0, 0, 0.1),
+                inset 0 0 80px rgba(255, 255, 255, 0.08),
+                inset 0 1px 0 rgba(255, 255, 255, 0.4),
+                0 1px 0 rgba(255, 255, 255, 0.2);
             display: flex;
             align-items: center;
             justify-content: center;
             transform-style: preserve-3d;
-            transition: all 2s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+            transition: all 2.5s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+        }
+
+        /* Reflet 3D sur le verre */
+        .glass-disc::before {
+            content: '';
+            position: absolute;
+            top: 5%;
+            left: 10%;
+            width: 60%;
+            height: 40%;
+            background: linear-gradient(180deg,
+                rgba(255, 255, 255, 0.4) 0%,
+                rgba(255, 255, 255, 0) 100%);
+            border-radius: 50%;
+            filter: blur(2px);
+            pointer-events: none;
+        }
+
+        /* Ombre 3D sous chaque disque */
+        .glass-disc::after {
+            content: '';
+            position: absolute;
+            bottom: -10px;
+            left: 10%;
+            width: 80%;
+            height: 20px;
+            background: radial-gradient(ellipse, rgba(0,0,0,0.2) 0%, transparent 70%);
+            border-radius: 50%;
+            transform: translateZ(-5px);
+            pointer-events: none;
         }
 
         [data-theme="dark"] .glass-disc {
-            background: linear-gradient(135deg,
-                rgba(255, 255, 255, 0.15) 0%,
-                rgba(255, 255, 255, 0.08) 50%,
-                rgba(255, 255, 255, 0.03) 100%);
-            border-color: rgba(255, 255, 255, 0.2);
+            background: rgba(255, 255, 255, 0.08);
+            border-color: rgba(255, 255, 255, 0.15);
+            box-shadow:
+                0 4px 30px rgba(0, 0, 0, 0.3),
+                inset 0 0 80px rgba(255, 255, 255, 0.05),
+                inset 0 1px 0 rgba(255, 255, 255, 0.2),
+                0 1px 0 rgba(255, 255, 255, 0.1);
         }
 
         .glass-disc:nth-child(1) {
@@ -1440,16 +1470,16 @@
             z-index: 3;
         }
         .glass-disc:nth-child(2) {
-            top: 55px;
+            top: 80px;
             z-index: 2;
         }
         .glass-disc:nth-child(3) {
-            top: 110px;
+            top: 160px;
             z-index: 1;
         }
 
         .discs-stack.merged .glass-disc {
-            top: 60px !important;
+            top: 80px !important;
         }
         .discs-stack.merged .glass-disc:nth-child(2),
         .discs-stack.merged .glass-disc:nth-child(3) {
@@ -1516,15 +1546,15 @@
         }
 
         .disc-info-label:nth-child(1) {
-            top: 80px;
+            top: 70px;
             transition-delay: 0.2s;
         }
         .disc-info-label:nth-child(2) {
-            top: 200px;
+            top: 220px;
             transition-delay: 0.5s;
         }
         .disc-info-label:nth-child(3) {
-            top: 320px;
+            top: 370px;
             transition-delay: 0.8s;
         }
 
@@ -1574,28 +1604,6 @@
             color: var(--ink-muted);
             line-height: 1.4;
             max-width: 200px;
-        }
-
-        /* Final state message */
-        .discs-final-message {
-            position: absolute;
-            bottom: 30px;
-            left: 50%;
-            transform: translateX(-50%);
-            text-align: center;
-            opacity: 0;
-            transition: opacity 0.8s ease 2s;
-            white-space: nowrap;
-        }
-
-        .discs-stack.merged ~ .discs-final-message {
-            opacity: 1;
-        }
-
-        .discs-final-message span {
-            font-size: 16px;
-            color: var(--ink-muted);
-            font-weight: 500;
         }
 
         /* Responsive */
@@ -1658,18 +1666,18 @@
 
         @media (max-width: 500px) {
             .glass-disc {
-                width: 200px;
-                height: 200px;
-                margin-left: -100px;
+                width: 180px;
+                height: 180px;
+                margin-left: -90px;
             }
-            .glass-disc:nth-child(2) { top: 40px; }
-            .glass-disc:nth-child(3) { top: 80px; }
-            .discs-stack.merged .glass-disc { top: 45px !important; }
-            .disc-label { font-size: 16px; }
-            .disc-logo { font-size: 38px; }
+            .glass-disc:nth-child(2) { top: 60px; }
+            .glass-disc:nth-child(3) { top: 120px; }
+            .discs-stack.merged .glass-disc { top: 60px !important; }
+            .disc-label { font-size: 14px; }
+            .disc-logo { font-size: 36px; }
             .discs-stack {
-                width: 220px;
-                height: 300px;
+                width: 200px;
+                height: 350px;
             }
         }
 
@@ -6454,12 +6462,6 @@
                             <span class="disc-logo">immy</span>
                         </div>
                     </div>
-
-                    <div class="discs-final-message">
-                        <span class="lang-fr">Tout est géré par immy</span>
-                        <span class="lang-nl">Alles wordt beheerd door immy</span>
-                        <span class="lang-en">All managed by immy</span>
-                    </div>
                 </div>
             </div>
         </div>
@@ -7700,11 +7702,11 @@
                         // Show info labels with staggered animation
                         infoLabels.forEach(label => label.classList.add('visible'));
 
-                        // After 3.5 seconds, merge the discs smoothly
+                        // After 4 seconds, merge the discs smoothly
                         setTimeout(() => {
                             discsStack.classList.add('merged');
                             if (discsScene) discsScene.classList.add('merged');
-                        }, 3500);
+                        }, 4000);
 
                         hasAnimated = true;
                     }
