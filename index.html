@@ -1360,132 +1360,409 @@
             max-width: 200px;
         }
 
-        /* ==================== MARKETPLACE FLOW ==================== */
-        .marketplace-flow {
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            gap: 0;
+        /* ==================== MARKETPLACE JOURNEY ==================== */
+        .marketplace-journey {
             position: relative;
-            padding: 40px 0 60px;
+            padding: 60px 0 80px;
+            overflow: hidden;
         }
 
-        /* Connecting line */
-        .flow-connector {
+        /* Background particles */
+        .journey-particles {
             position: absolute;
-            left: 50%;
-            top: 120px;
-            bottom: 80px;
-            width: 2px;
-            background: var(--border);
-            transform: translateX(-50%);
-            z-index: 0;
+            inset: 0;
+            overflow: hidden;
+            pointer-events: none;
         }
 
-        .flow-connector::before {
-            content: '';
+        .journey-particle {
             position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 0%;
-            background: linear-gradient(180deg, var(--immy-orange), var(--success));
-            transition: height 2s ease-out;
-        }
-
-        .marketplace-flow.animated .flow-connector::before {
-            height: 100%;
-        }
-
-        /* Step cards */
-        .flow-card {
-            display: flex;
-            align-items: center;
-            gap: 40px;
-            width: 100%;
-            max-width: 800px;
-            padding: 32px 40px;
-            background: var(--card);
-            border: 1px solid var(--border);
-            border-radius: 24px;
-            position: relative;
-            z-index: 1;
+            width: 4px;
+            height: 4px;
+            background: var(--immy-orange);
+            border-radius: 50%;
             opacity: 0;
-            transition: all 0.7s cubic-bezier(0.16, 1, 0.3, 1);
         }
 
-        .flow-card:nth-child(2) { transform: translateX(-60px); }
-        .flow-card:nth-child(3) { transform: translateX(60px); }
-        .flow-card:nth-child(4) { transform: translateX(-60px); }
-
-        .marketplace-flow.animated .flow-card {
-            opacity: 1;
-            transform: translateX(0);
+        .marketplace-journey.animated .journey-particle {
+            animation: particleFloat 4s ease-in-out infinite;
         }
 
-        .marketplace-flow.animated .flow-card:nth-child(2) { transition-delay: 0.2s; }
-        .marketplace-flow.animated .flow-card:nth-child(3) { transition-delay: 0.6s; }
-        .marketplace-flow.animated .flow-card:nth-child(4) { transition-delay: 1s; }
+        .journey-particle:nth-child(1) { left: 10%; top: 20%; animation-delay: 0s; }
+        .journey-particle:nth-child(2) { left: 20%; top: 60%; animation-delay: 0.5s; }
+        .journey-particle:nth-child(3) { left: 80%; top: 30%; animation-delay: 1s; }
+        .journey-particle:nth-child(4) { left: 90%; top: 70%; animation-delay: 1.5s; }
+        .journey-particle:nth-child(5) { left: 50%; top: 10%; animation-delay: 2s; }
+        .journey-particle:nth-child(6) { left: 30%; top: 80%; animation-delay: 2.5s; }
+        .journey-particle:nth-child(7) { left: 70%; top: 85%; animation-delay: 3s; }
+        .journey-particle:nth-child(8) { left: 15%; top: 45%; animation-delay: 3.5s; }
 
-        .flow-card:hover {
-            border-color: var(--immy-orange);
-            box-shadow: 0 20px 60px rgba(255, 68, 5, 0.1);
-            transform: translateY(-4px) !important;
+        @keyframes particleFloat {
+            0%, 100% { opacity: 0; transform: translateY(0) scale(1); }
+            10% { opacity: 0.6; }
+            50% { opacity: 0.3; transform: translateY(-30px) scale(1.5); }
+            90% { opacity: 0.6; }
         }
 
-        /* Step number */
-        .flow-step-number {
-            width: 56px;
-            height: 56px;
-            min-width: 56px;
-            background: linear-gradient(135deg, var(--immy-orange), var(--immy-coral));
-            border-radius: 16px;
+        /* Main visual container */
+        .journey-visual {
             display: flex;
             align-items: center;
             justify-content: center;
-            font-size: 24px;
-            font-weight: 800;
-            color: white;
-            box-shadow: 0 8px 24px rgba(255, 68, 5, 0.3);
+            gap: 0;
+            position: relative;
+            min-height: 400px;
+            margin-bottom: 60px;
         }
 
-        .flow-card:nth-child(3) .flow-step-number {
+        /* SVG Path connecting nodes */
+        .journey-path {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            top: 0;
+            left: 0;
+            pointer-events: none;
+        }
+
+        .journey-path path {
+            fill: none;
+            stroke: var(--border);
+            stroke-width: 2;
+            stroke-dasharray: 8 4;
+        }
+
+        .journey-path .path-progress {
+            stroke: url(#journeyGradient);
+            stroke-width: 3;
+            stroke-dasharray: 1000;
+            stroke-dashoffset: 1000;
+            stroke-linecap: round;
+            transition: stroke-dashoffset 2.5s ease-out;
+        }
+
+        .marketplace-journey.animated .journey-path .path-progress {
+            stroke-dashoffset: 0;
+        }
+
+        /* Journey nodes */
+        .journey-node {
+            position: relative;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 20px;
+            z-index: 2;
+            opacity: 0;
+            transform: scale(0.5) translateY(30px);
+            transition: all 0.8s cubic-bezier(0.34, 1.56, 0.64, 1);
+        }
+
+        .marketplace-journey.animated .journey-node {
+            opacity: 1;
+            transform: scale(1) translateY(0);
+        }
+
+        .journey-node:nth-child(2) { transition-delay: 0.3s; }
+        .journey-node:nth-child(3) { transition-delay: 0.8s; }
+        .journey-node:nth-child(4) { transition-delay: 1.3s; }
+
+        /* Node circle */
+        .node-circle {
+            width: 120px;
+            height: 120px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            position: relative;
+            cursor: pointer;
+            transition: transform 0.4s ease;
+        }
+
+        .node-circle:hover {
+            transform: scale(1.1);
+        }
+
+        /* Orbital ring */
+        .node-orbit {
+            position: absolute;
+            inset: -15px;
+            border: 2px dashed var(--border);
+            border-radius: 50%;
+            animation: orbitSpin 20s linear infinite;
+        }
+
+        .marketplace-journey.animated .node-orbit {
+            animation: orbitSpin 20s linear infinite;
+        }
+
+        @keyframes orbitSpin {
+            from { transform: rotate(0deg); }
+            to { transform: rotate(360deg); }
+        }
+
+        .node-orbit::before {
+            content: '';
+            position: absolute;
+            top: -4px;
+            left: 50%;
+            width: 8px;
+            height: 8px;
+            background: var(--immy-orange);
+            border-radius: 50%;
+            box-shadow: 0 0 10px var(--immy-orange);
+        }
+
+        /* Node inner */
+        .node-inner {
+            width: 100%;
+            height: 100%;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            position: relative;
+            overflow: hidden;
+        }
+
+        /* Pulse effect */
+        .node-pulse {
+            position: absolute;
+            inset: 0;
+            border-radius: 50%;
+            animation: nodePulse 2s ease-out infinite;
+        }
+
+        @keyframes nodePulse {
+            0% { transform: scale(1); opacity: 0.5; }
+            100% { transform: scale(1.5); opacity: 0; }
+        }
+
+        /* Node 1 - Publish */
+        .journey-node:nth-child(2) .node-inner {
+            background: linear-gradient(135deg, var(--immy-orange), var(--immy-coral));
+            box-shadow: 0 10px 40px rgba(255, 68, 5, 0.4);
+        }
+        .journey-node:nth-child(2) .node-pulse {
+            background: var(--immy-orange);
+        }
+        .journey-node:nth-child(2) .node-orbit::before {
+            background: var(--immy-orange);
+            box-shadow: 0 0 10px var(--immy-orange);
+        }
+
+        /* Node 2 - Receive */
+        .journey-node:nth-child(3) .node-inner {
             background: linear-gradient(135deg, #3B82F6, #1D4ED8);
-            box-shadow: 0 8px 24px rgba(59, 130, 246, 0.3);
+            box-shadow: 0 10px 40px rgba(59, 130, 246, 0.4);
+        }
+        .journey-node:nth-child(3) .node-pulse {
+            background: #3B82F6;
+        }
+        .journey-node:nth-child(3) .node-orbit {
+            animation-direction: reverse;
+            animation-duration: 25s;
+        }
+        .journey-node:nth-child(3) .node-orbit::before {
+            background: #3B82F6;
+            box-shadow: 0 0 10px #3B82F6;
         }
 
-        .flow-card:nth-child(4) .flow-step-number {
+        /* Node 3 - Sign */
+        .journey-node:nth-child(4) .node-inner {
             background: linear-gradient(135deg, var(--success), #059669);
-            box-shadow: 0 8px 24px rgba(0, 166, 118, 0.3);
+            box-shadow: 0 10px 40px rgba(0, 166, 118, 0.4);
+        }
+        .journey-node:nth-child(4) .node-pulse {
+            background: var(--success);
+        }
+        .journey-node:nth-child(4) .node-orbit::before {
+            background: var(--success);
+            box-shadow: 0 0 10px var(--success);
         }
 
-        /* Step content */
-        .flow-step-content {
-            flex: 1;
+        /* Node icon */
+        .node-icon {
+            position: relative;
+            z-index: 2;
         }
 
-        .flow-step-content h4 {
-            font-size: 22px;
+        .node-icon svg {
+            width: 48px;
+            height: 48px;
+            stroke: white;
+            stroke-width: 2;
+            fill: none;
+        }
+
+        /* Node label */
+        .node-label {
+            text-align: center;
+        }
+
+        .node-label h4 {
+            font-size: 20px;
             font-weight: 700;
             color: var(--ink);
-            margin-bottom: 8px;
+            margin-bottom: 4px;
         }
 
-        .flow-step-content p {
+        .node-label p {
+            font-size: 14px;
+            color: var(--ink-muted);
+            max-width: 160px;
+        }
+
+        /* Arrows between nodes */
+        .journey-arrow {
+            width: 80px;
+            height: 40px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            opacity: 0;
+            transform: scaleX(0);
+            transition: all 0.5s ease;
+        }
+
+        .marketplace-journey.animated .journey-arrow {
+            opacity: 1;
+            transform: scaleX(1);
+        }
+
+        .journey-arrow:nth-of-type(1) { transition-delay: 0.6s; }
+        .journey-arrow:nth-of-type(2) { transition-delay: 1.1s; }
+
+        .journey-arrow svg {
+            width: 40px;
+            height: 20px;
+            fill: none;
+            stroke: var(--immy-orange);
+            stroke-width: 2;
+            animation: arrowPulse 1.5s ease-in-out infinite;
+        }
+
+        @keyframes arrowPulse {
+            0%, 100% { opacity: 0.5; transform: translateX(0); }
+            50% { opacity: 1; transform: translateX(5px); }
+        }
+
+        /* Final celebration */
+        .journey-celebration {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 24px;
+            padding: 32px 48px;
+            background: var(--card);
+            border: 2px solid transparent;
+            border-radius: 24px;
+            position: relative;
+            overflow: hidden;
+            opacity: 0;
+            transform: translateY(30px);
+            transition: all 0.8s cubic-bezier(0.34, 1.56, 0.64, 1) 1.8s;
+        }
+
+        .marketplace-journey.animated .journey-celebration {
+            opacity: 1;
+            transform: translateY(0);
+            border-color: var(--immy-orange);
+            box-shadow: 0 20px 60px rgba(255, 68, 5, 0.15);
+        }
+
+        /* Celebration shine effect */
+        .journey-celebration::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255, 68, 5, 0.1), transparent);
+            transition: left 0.8s ease;
+        }
+
+        .marketplace-journey.animated .journey-celebration::before {
+            left: 100%;
+            transition-delay: 2.2s;
+        }
+
+        .celebration-check {
+            width: 64px;
+            height: 64px;
+            background: linear-gradient(135deg, var(--success), #059669);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            position: relative;
+        }
+
+        .celebration-check::after {
+            content: '';
+            position: absolute;
+            inset: -8px;
+            border: 2px solid var(--success);
+            border-radius: 50%;
+            opacity: 0;
+            animation: checkPulse 1.5s ease-out infinite 2s;
+        }
+
+        @keyframes checkPulse {
+            0% { transform: scale(1); opacity: 0.5; }
+            100% { transform: scale(1.4); opacity: 0; }
+        }
+
+        .celebration-check svg {
+            width: 32px;
+            height: 32px;
+            stroke: white;
+            stroke-width: 3;
+            fill: none;
+        }
+
+        .celebration-text h3 {
+            font-size: 28px;
+            font-weight: 800;
+            color: var(--ink);
+            margin-bottom: 4px;
+        }
+
+        .celebration-text h3 span {
+            color: var(--immy-orange);
+            font-family: 'Bricolage Grotesque', sans-serif;
+            font-style: italic;
+        }
+
+        .celebration-text p {
             font-size: 15px;
             color: var(--ink-muted);
-            line-height: 1.5;
-            margin: 0;
         }
 
-        /* Step stat */
-        .flow-step-stat {
-            text-align: right;
-            min-width: 100px;
+        /* Stats row */
+        .journey-stats {
+            display: flex;
+            justify-content: center;
+            gap: 60px;
+            margin-top: 50px;
+            opacity: 0;
+            transform: translateY(20px);
+            transition: all 0.6s ease 2.2s;
         }
 
-        .flow-step-stat .stat-value {
-            font-size: 32px;
+        .marketplace-journey.animated .journey-stats {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .journey-stat {
+            text-align: center;
+        }
+
+        .journey-stat-value {
+            font-size: 48px;
             font-weight: 800;
             background: linear-gradient(135deg, var(--immy-orange), var(--immy-coral));
             -webkit-background-clip: text;
@@ -1494,119 +1771,65 @@
             line-height: 1;
         }
 
-        .flow-card:nth-child(3) .flow-step-stat .stat-value {
-            background: linear-gradient(135deg, #3B82F6, #1D4ED8);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            background-clip: text;
-        }
-
-        .flow-card:nth-child(4) .flow-step-stat .stat-value {
-            background: linear-gradient(135deg, var(--success), #059669);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            background-clip: text;
-        }
-
-        .flow-step-stat .stat-label {
-            font-size: 13px;
-            color: var(--ink-subtle);
-            text-transform: uppercase;
-            letter-spacing: 0.5px;
-        }
-
-        /* Gap between cards */
-        .flow-gap {
-            height: 24px;
-            position: relative;
-            z-index: 0;
-        }
-
-        /* Final result card */
-        .flow-result {
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            gap: 20px;
-            padding: 28px 48px;
-            background: linear-gradient(135deg, var(--ink) 0%, #1a1a2e 100%);
-            border-radius: 20px;
-            margin-top: 16px;
-            opacity: 0;
-            transform: scale(0.9);
-            transition: all 0.6s cubic-bezier(0.16, 1, 0.3, 1) 1.4s;
-        }
-
-        [data-theme="dark"] .flow-result {
-            background: linear-gradient(135deg, #18181B 0%, #27272A 100%);
-            border: 1px solid var(--border);
-        }
-
-        .marketplace-flow.animated .flow-result {
-            opacity: 1;
-            transform: scale(1);
-        }
-
-        .flow-result-icon {
-            width: 48px;
-            height: 48px;
-            background: var(--success);
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-        }
-
-        .flow-result-icon svg {
-            width: 24px;
-            height: 24px;
-            stroke: white;
-            stroke-width: 3;
-            fill: none;
-        }
-
-        .flow-result-text {
-            color: white;
-            font-size: 18px;
-            font-weight: 600;
-        }
-
-        .flow-result-text span {
-            color: var(--immy-orange);
-            font-family: 'Bricolage Grotesque', sans-serif;
-            font-style: italic;
-            font-weight: 800;
+        .journey-stat-label {
+            font-size: 14px;
+            color: var(--ink-muted);
+            margin-top: 8px;
         }
 
         /* Responsive */
-        @media (max-width: 768px) {
-            .flow-card {
+        @media (max-width: 900px) {
+            .journey-visual {
+                flex-direction: column;
+                gap: 30px;
+            }
+            .journey-arrow {
+                transform: rotate(90deg);
+                width: 40px;
+                height: 40px;
+            }
+            .marketplace-journey.animated .journey-arrow {
+                transform: rotate(90deg) scaleX(1);
+            }
+            .node-circle {
+                width: 100px;
+                height: 100px;
+            }
+            .node-icon svg {
+                width: 40px;
+                height: 40px;
+            }
+            .journey-stats {
+                flex-wrap: wrap;
+                gap: 30px;
+            }
+            .journey-celebration {
                 flex-direction: column;
                 text-align: center;
-                gap: 20px;
                 padding: 28px 24px;
             }
-            .flow-card:nth-child(2),
-            .flow-card:nth-child(3),
-            .flow-card:nth-child(4) {
-                transform: translateY(30px);
+        }
+
+        @media (max-width: 500px) {
+            .node-circle {
+                width: 80px;
+                height: 80px;
             }
-            .marketplace-flow.animated .flow-card {
-                transform: translateY(0);
+            .node-orbit {
+                inset: -10px;
             }
-            .flow-step-stat {
-                text-align: center;
+            .node-icon svg {
+                width: 32px;
+                height: 32px;
             }
-            .flow-connector {
-                display: none;
+            .node-label h4 {
+                font-size: 16px;
             }
-            .flow-step-content h4 {
-                font-size: 20px;
+            .celebration-text h3 {
+                font-size: 22px;
             }
-            .flow-result {
-                flex-direction: column;
-                text-align: center;
-                padding: 24px 32px;
+            .journey-stat-value {
+                font-size: 36px;
             }
         }
 
@@ -6329,81 +6552,144 @@
                 <p class="subtitle lang-en">Your data is already in immy. One click is all it takes.</p>
             </div>
             
-            <div class="marketplace-flow reveal" id="marketplaceFlow">
-                <div class="flow-connector"></div>
+            <div class="marketplace-journey reveal" id="marketplaceJourney">
+                <!-- Background particles -->
+                <div class="journey-particles">
+                    <div class="journey-particle"></div>
+                    <div class="journey-particle"></div>
+                    <div class="journey-particle"></div>
+                    <div class="journey-particle"></div>
+                    <div class="journey-particle"></div>
+                    <div class="journey-particle"></div>
+                    <div class="journey-particle"></div>
+                    <div class="journey-particle"></div>
+                </div>
 
-                <!-- Step 1: Publish -->
-                <div class="flow-card">
-                    <div class="flow-step-number">1</div>
-                    <div class="flow-step-content">
-                        <h4 class="lang-fr">Publiez votre annonce</h4>
-                        <h4 class="lang-nl">Publiceer uw advertentie</h4>
-                        <h4 class="lang-en">Publish your listing</h4>
-                        <p class="lang-fr">Photos, description, prix — tout est déjà prêt dans votre CRM. Un seul clic.</p>
-                        <p class="lang-nl">Foto's, beschrijving, prijs — alles staat al klaar in uw CRM. Eén klik.</p>
-                        <p class="lang-en">Photos, description, price — everything is ready in your CRM. One click.</p>
+                <!-- Main visual with 3 nodes -->
+                <div class="journey-visual">
+                    <!-- SVG Gradient definition -->
+                    <svg class="journey-path" viewBox="0 0 800 200" preserveAspectRatio="none">
+                        <defs>
+                            <linearGradient id="journeyGradient" x1="0%" y1="0%" x2="100%" y2="0%">
+                                <stop offset="0%" style="stop-color:#FF4405"/>
+                                <stop offset="50%" style="stop-color:#3B82F6"/>
+                                <stop offset="100%" style="stop-color:#00A676"/>
+                            </linearGradient>
+                        </defs>
+                        <path d="M100,100 C200,100 200,100 300,100 C400,100 400,100 500,100 C600,100 600,100 700,100" class="path-bg"/>
+                        <path d="M100,100 C200,100 200,100 300,100 C400,100 400,100 500,100 C600,100 600,100 700,100" class="path-progress"/>
+                    </svg>
+
+                    <!-- Node 1: Publish -->
+                    <div class="journey-node">
+                        <div class="node-circle">
+                            <div class="node-orbit"></div>
+                            <div class="node-pulse"></div>
+                            <div class="node-inner">
+                                <div class="node-icon">
+                                    <svg viewBox="0 0 24 24"><path d="M12 19V5M5 12l7-7 7 7"/><rect x="4" y="17" width="16" height="2" rx="1"/></svg>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="node-label">
+                            <h4 class="lang-fr">Publiez</h4>
+                            <h4 class="lang-nl">Publiceer</h4>
+                            <h4 class="lang-en">Publish</h4>
+                            <p class="lang-fr">1 clic pour diffuser</p>
+                            <p class="lang-nl">1 klik om te publiceren</p>
+                            <p class="lang-en">1 click to broadcast</p>
+                        </div>
                     </div>
-                    <div class="flow-step-stat">
-                        <div class="stat-value lang-fr">1 clic</div>
-                        <div class="stat-value lang-nl">1 klik</div>
-                        <div class="stat-value lang-en">1 click</div>
-                        <div class="stat-label lang-fr">pour publier</div>
-                        <div class="stat-label lang-nl">om te publiceren</div>
-                        <div class="stat-label lang-en">to publish</div>
+
+                    <!-- Arrow 1 -->
+                    <div class="journey-arrow">
+                        <svg viewBox="0 0 40 20"><path d="M0,10 L30,10 M25,5 L30,10 L25,15"/></svg>
+                    </div>
+
+                    <!-- Node 2: Receive -->
+                    <div class="journey-node">
+                        <div class="node-circle">
+                            <div class="node-orbit"></div>
+                            <div class="node-pulse"></div>
+                            <div class="node-inner">
+                                <div class="node-icon">
+                                    <svg viewBox="0 0 24 24"><circle cx="9" cy="7" r="4"/><path d="M3 21v-2a4 4 0 0 1 4-4h4a4 4 0 0 1 4 4v2"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/><path d="M21 21v-2a4 4 0 0 0-3-3.87"/></svg>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="node-label">
+                            <h4 class="lang-fr">Recevez</h4>
+                            <h4 class="lang-nl">Ontvang</h4>
+                            <h4 class="lang-en">Receive</h4>
+                            <p class="lang-fr">Candidatures en direct</p>
+                            <p class="lang-nl">Live aanvragen</p>
+                            <p class="lang-en">Live applications</p>
+                        </div>
+                    </div>
+
+                    <!-- Arrow 2 -->
+                    <div class="journey-arrow">
+                        <svg viewBox="0 0 40 20"><path d="M0,10 L30,10 M25,5 L30,10 L25,15"/></svg>
+                    </div>
+
+                    <!-- Node 3: Sign -->
+                    <div class="journey-node">
+                        <div class="node-circle">
+                            <div class="node-orbit"></div>
+                            <div class="node-pulse"></div>
+                            <div class="node-inner">
+                                <div class="node-icon">
+                                    <svg viewBox="0 0 24 24"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><path d="M14 2v6h6"/><path d="M9 15l2 2 4-4"/></svg>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="node-label">
+                            <h4 class="lang-fr">Signez</h4>
+                            <h4 class="lang-nl">Onderteken</h4>
+                            <h4 class="lang-en">Sign</h4>
+                            <p class="lang-fr">100% digital</p>
+                            <p class="lang-nl">100% digitaal</p>
+                            <p class="lang-en">100% digital</p>
+                        </div>
                     </div>
                 </div>
 
-                <div class="flow-gap"></div>
-
-                <!-- Step 2: Receive -->
-                <div class="flow-card">
-                    <div class="flow-step-number">2</div>
-                    <div class="flow-step-content">
-                        <h4 class="lang-fr">Recevez les candidatures</h4>
-                        <h4 class="lang-nl">Ontvang aanvragen</h4>
-                        <h4 class="lang-en">Receive applications</h4>
-                        <p class="lang-fr">Les candidats arrivent directement dans votre pipeline. Filtrez, comparez, sélectionnez.</p>
-                        <p class="lang-nl">Kandidaten komen rechtstreeks in uw pipeline. Filter, vergelijk, selecteer.</p>
-                        <p class="lang-en">Candidates land directly in your pipeline. Filter, compare, select.</p>
-                    </div>
-                    <div class="flow-step-stat">
-                        <div class="stat-value">&lt;24h</div>
-                        <div class="stat-label lang-fr">temps de réponse</div>
-                        <div class="stat-label lang-nl">responstijd</div>
-                        <div class="stat-label lang-en">response time</div>
-                    </div>
-                </div>
-
-                <div class="flow-gap"></div>
-
-                <!-- Step 3: Sign -->
-                <div class="flow-card">
-                    <div class="flow-step-number">3</div>
-                    <div class="flow-step-content">
-                        <h4 class="lang-fr">Signez le contrat</h4>
-                        <h4 class="lang-nl">Onderteken het contract</h4>
-                        <h4 class="lang-en">Sign the contract</h4>
-                        <p class="lang-fr">Signature électronique légale. État des lieux digital. Tout 100% en ligne.</p>
-                        <p class="lang-nl">Legale elektronische handtekening. Digitale plaatsbeschrijving. Alles 100% online.</p>
-                        <p class="lang-en">Legal electronic signature. Digital inventory. Everything 100% online.</p>
-                    </div>
-                    <div class="flow-step-stat">
-                        <div class="stat-value">100%</div>
-                        <div class="stat-label lang-fr">digital</div>
-                        <div class="stat-label lang-nl">digitaal</div>
-                        <div class="stat-label lang-en">digital</div>
-                    </div>
-                </div>
-
-                <!-- Result -->
-                <div class="flow-result">
-                    <div class="flow-result-icon">
+                <!-- Celebration card -->
+                <div class="journey-celebration">
+                    <div class="celebration-check">
                         <svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg>
                     </div>
-                    <div class="flow-result-text">
-                        <span class="lang-fr">Reloué avec <span>immy</span></span>
-                        <span class="lang-nl">Herverhuurd met <span>immy</span></span>
-                        <span class="lang-en">Relet with <span>immy</span></span>
+                    <div class="celebration-text">
+                        <h3 class="lang-fr">Reloué avec <span>immy</span></h3>
+                        <h3 class="lang-nl">Herverhuurd met <span>immy</span></h3>
+                        <h3 class="lang-en">Relet with <span>immy</span></h3>
+                        <p class="lang-fr">Sans effort, sans paperasse, sans stress.</p>
+                        <p class="lang-nl">Zonder moeite, zonder papierwerk, zonder stress.</p>
+                        <p class="lang-en">No effort, no paperwork, no stress.</p>
+                    </div>
+                </div>
+
+                <!-- Stats -->
+                <div class="journey-stats">
+                    <div class="journey-stat">
+                        <div class="journey-stat-value lang-fr">3x</div>
+                        <div class="journey-stat-value lang-nl">3x</div>
+                        <div class="journey-stat-value lang-en">3x</div>
+                        <div class="journey-stat-label lang-fr">plus rapide</div>
+                        <div class="journey-stat-label lang-nl">sneller</div>
+                        <div class="journey-stat-label lang-en">faster</div>
+                    </div>
+                    <div class="journey-stat">
+                        <div class="journey-stat-value">0</div>
+                        <div class="journey-stat-label lang-fr">paperasse</div>
+                        <div class="journey-stat-label lang-nl">papierwerk</div>
+                        <div class="journey-stat-label lang-en">paperwork</div>
+                    </div>
+                    <div class="journey-stat">
+                        <div class="journey-stat-value">24/7</div>
+                        <div class="journey-stat-label lang-fr">disponible</div>
+                        <div class="journey-stat-label lang-nl">beschikbaar</div>
+                        <div class="journey-stat-label lang-en">available</div>
                     </div>
                 </div>
             </div>
@@ -7628,27 +7914,27 @@
             messagingObserver.observe(messagingSection);
         })();
 
-        // 10. Marketplace Flow Animation
+        // 10. Marketplace Journey Animation
         (function() {
-            const marketplaceFlow = document.getElementById('marketplaceFlow');
-            if (!marketplaceFlow) return;
+            const journey = document.getElementById('marketplaceJourney');
+            if (!journey) return;
 
             let hasAnimated = false;
 
-            const flowObserver = new IntersectionObserver((entries) => {
+            const journeyObserver = new IntersectionObserver((entries) => {
                 entries.forEach(entry => {
                     if (entry.isIntersecting && !hasAnimated) {
-                        marketplaceFlow.classList.add('animated');
+                        journey.classList.add('animated');
                         hasAnimated = true;
                     }
                     if (!entry.isIntersecting) {
                         hasAnimated = false;
-                        marketplaceFlow.classList.remove('animated');
+                        journey.classList.remove('animated');
                     }
                 });
-            }, { threshold: 0.2 });
+            }, { threshold: 0.15 });
 
-            flowObserver.observe(marketplaceFlow);
+            journeyObserver.observe(journey);
         })();
     </script>
 </body>
