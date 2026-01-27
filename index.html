@@ -1659,32 +1659,11 @@
             top: 0;
             bottom: 0;
             left: 50%;
-            width: 4px;
+            width: 2px;
             background: white;
             z-index: 10;
             transform: translateX(-50%);
-            box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
-        }
-
-        .staging-handle::before,
-        .staging-handle::after {
-            content: '';
-            position: absolute;
-            left: 50%;
-            transform: translateX(-50%);
-            width: 40px;
-            height: 40px;
-            background: white;
-            border-radius: 50%;
-            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.2);
-        }
-
-        .staging-handle::before {
-            top: 50%;
-            transform: translate(-50%, -50%);
-            display: flex;
-            align-items: center;
-            justify-content: center;
+            box-shadow: 0 0 8px rgba(0, 0, 0, 0.3);
         }
 
         .staging-handle-icon {
@@ -1693,19 +1672,19 @@
             left: 50%;
             transform: translate(-50%, -50%);
             z-index: 11;
-            width: 40px;
-            height: 40px;
+            width: 28px;
+            height: 28px;
             background: white;
             border-radius: 50%;
             display: flex;
             align-items: center;
             justify-content: center;
-            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.2);
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.25);
         }
 
         .staging-handle-icon svg {
-            width: 20px;
-            height: 20px;
+            width: 14px;
+            height: 14px;
             stroke: var(--ink);
             stroke-width: 2;
             fill: none;
@@ -1727,11 +1706,11 @@
         }
 
         .staging-label.before {
-            left: 16px;
+            right: 16px;
         }
 
         .staging-label.after {
-            right: 16px;
+            left: 16px;
             background: var(--immy-orange);
         }
 
@@ -4132,6 +4111,14 @@
         [data-theme="dark"] .calc-comparison {
             background: rgba(255,255,255,0.02);
         }
+
+        /* Fix dark mode: keep result section dark so white text is visible */
+        [data-theme="dark"] .calc-result-section {
+            background: #0D0D0D;
+        }
+        [data-theme="dark"] .result-breakdown {
+            border-top-color: rgba(255,255,255,0.1);
+        }
         
         .comparison-badge {
             text-align: center;
@@ -4889,60 +4876,6 @@
         .footer-heart { font-size: 14px; color: rgba(255,255,255,0.4); display: flex; align-items: center; gap: 6px; }
         .footer-heart .heart { color: var(--immy-orange); animation: heartbeat 1.5s ease-in-out infinite; display: inline-block; }
 
-        /* Newsletter in footer */
-        .footer-newsletter {
-            margin-top: 24px;
-        }
-
-        .footer-newsletter p {
-            font-size: 13px;
-            color: rgba(255, 255, 255, 0.5);
-            margin-bottom: 12px;
-        }
-
-        .newsletter-form {
-            display: flex;
-            gap: 8px;
-        }
-
-        .newsletter-input {
-            flex: 1;
-            padding: 12px 16px;
-            background: rgba(255, 255, 255, 0.1);
-            border: 1px solid rgba(255, 255, 255, 0.15);
-            border-radius: 10px;
-            color: white;
-            font-size: 14px;
-            outline: none;
-            transition: all 0.3s ease;
-        }
-
-        .newsletter-input::placeholder {
-            color: rgba(255, 255, 255, 0.4);
-        }
-
-        .newsletter-input:focus {
-            border-color: var(--immy-orange);
-            background: rgba(255, 255, 255, 0.15);
-        }
-
-        .newsletter-btn {
-            padding: 12px 20px;
-            background: var(--immy-orange);
-            border: none;
-            border-radius: 10px;
-            color: white;
-            font-size: 14px;
-            font-weight: 600;
-            cursor: pointer;
-            transition: all 0.3s ease;
-            white-space: nowrap;
-        }
-
-        .newsletter-btn:hover {
-            background: var(--immy-orange-light);
-            transform: translateY(-2px);
-        }
 
         /* Social icons enhanced */
         .footer-social a {
@@ -4968,6 +4901,17 @@
             width: 20px;
             height: 20px;
             fill: currentColor;
+        }
+
+        /* Dark mode: social icons in orange */
+        [data-theme="dark"] .footer-social a {
+            background: rgba(255, 68, 5, 0.15);
+            color: var(--immy-orange);
+            border: 1px solid rgba(255, 68, 5, 0.3);
+        }
+        [data-theme="dark"] .footer-social a:hover {
+            background: var(--immy-orange);
+            color: white;
         }
 
         /* ==================== FEATURES SECTION ==================== */
@@ -5071,6 +5015,38 @@
         [data-theme="dark"] .feature-card {
             background: #1f1f23;
             border-color: rgba(255,255,255,0.08);
+        }
+
+        /* Dark mode for mini elements in feature cards */
+        [data-theme="dark"] .mini-doc {
+            background: #2a2a2e;
+            border-color: rgba(255,255,255,0.15);
+        }
+        [data-theme="dark"] .mini-doc::before {
+            background: rgba(255,255,255,0.2);
+            box-shadow: 0 5px 0 rgba(255,255,255,0.2);
+        }
+        [data-theme="dark"] .mini-map {
+            background: linear-gradient(135deg, #1e3a5f 0%, #2d4a6f 100%);
+            border-color: rgba(59,130,246,0.3);
+        }
+        [data-theme="dark"] .mini-map-road {
+            background: rgba(255,255,255,0.2);
+        }
+        [data-theme="dark"] .mini-window {
+            border: 1px solid rgba(255,255,255,0.15);
+        }
+        [data-theme="dark"] .mini-line {
+            background: rgba(255,255,255,0.15);
+        }
+        [data-theme="dark"] .mini-col {
+            background: rgba(255,255,255,0.08);
+        }
+        [data-theme="dark"] .mini-task {
+            background: rgba(255,255,255,0.15);
+        }
+        [data-theme="dark"] .mini-day {
+            background: rgba(255,255,255,0.08);
         }
         
         .feature-card::before {
@@ -7224,9 +7200,9 @@
     <!-- FOMO Visitors Counter -->
     <div class="fomo-visitors" id="fomoVisitors">
         <span class="pulse-dot"></span>
-        <span class="lang-fr"><strong id="visitorCount">12</strong> personnes consultent cette page</span>
-        <span class="lang-nl"><strong>12</strong> mensen bekijken deze pagina</span>
-        <span class="lang-en"><strong>12</strong> people viewing this page</span>
+        <span class="lang-fr"><strong id="visitorCount">3</strong> personnes consultent cette page</span>
+        <span class="lang-nl"><strong>3</strong> mensen bekijken deze pagina</span>
+        <span class="lang-en"><strong>3</strong> people viewing this page</span>
     </div>
 
     <!-- Sticky CTA Mobile -->
@@ -7972,8 +7948,10 @@
                             <svg viewBox="0 0 24 24"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>
                         </div>
                         <h4 class="lang-fr">Portefeuille</h4>
+                        <h4 class="lang-nl">Portefeuille</h4>
                         <h4 class="lang-en">Portfolio</h4>
                         <p class="lang-fr">Vue globale par ville, immeuble. Carte, filtres, statuts conformité.</p>
+                        <p class="lang-nl">Globaal overzicht per stad, gebouw. Kaart, filters, nalevingsstatus.</p>
                         <p class="lang-en">Global view by city, building. Map, filters, compliance status.</p>
                         <div class="feature-anim">
                             <div class="mini-map">
@@ -7993,8 +7971,10 @@
                             <svg viewBox="0 0 24 24"><rect x="4" y="2" width="16" height="20" rx="2"/><line x1="9" y1="6" x2="15" y2="6"/><line x1="9" y1="10" x2="15" y2="10"/><line x1="9" y1="14" x2="15" y2="14"/><line x1="9" y1="18" x2="15" y2="18"/></svg>
                         </div>
                         <h4 class="lang-fr">Immeubles</h4>
+                        <h4 class="lang-nl">Gebouwen</h4>
                         <h4 class="lang-en">Buildings</h4>
                         <p class="lang-fr">Fiches, performance, conformité. Prestataires & planning interventions.</p>
+                        <p class="lang-nl">Profielen, prestaties, naleving. Aannemers & interventieplanning.</p>
                         <p class="lang-en">Profiles, performance, compliance. Contractors & intervention planning.</p>
                         <div class="feature-anim">
                             <div class="mini-list">
@@ -8011,8 +7991,10 @@
                             <svg viewBox="0 0 24 24"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg>
                         </div>
                         <h4 class="lang-fr">Chambres</h4>
+                        <h4 class="lang-nl">Kamers</h4>
                         <h4 class="lang-en">Rooms</h4>
                         <p class="lang-fr">Disponibilités, prix, publication. Calendrier, photos, états.</p>
+                        <p class="lang-nl">Beschikbaarheid, prijzen, publicatie. Kalender, foto's, status.</p>
                         <p class="lang-en">Availability, pricing, publishing. Calendar, photos, status.</p>
                         <div class="feature-anim">
                             <div class="mini-calendar">
@@ -8036,8 +8018,10 @@
                             <svg viewBox="0 0 24 24"><rect x="3" y="4" width="18" height="18" rx="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>
                         </div>
                         <h4 class="lang-fr">Réservations</h4>
+                        <h4 class="lang-nl">Reserveringen</h4>
                         <h4 class="lang-en">Reservations</h4>
                         <p class="lang-fr">Pipeline candidatures, scoring. Vérification documents, shortlisting.</p>
+                        <p class="lang-nl">Kandidatenpijplijn, scoring. Documentverificatie, shortlisting.</p>
                         <p class="lang-en">Application pipeline, scoring. Document verification, shortlisting.</p>
                         <div class="feature-anim">
                             <div class="mini-kanban">
@@ -8054,8 +8038,10 @@
                             <svg viewBox="0 0 24 24"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/></svg>
                         </div>
                         <h4 class="lang-fr">Contrats</h4>
+                        <h4 class="lang-nl">Contracten</h4>
                         <h4 class="lang-en">Contracts</h4>
                         <p class="lang-fr">Création, signature eIDAS, renouvellement. Templates bail Belgique.</p>
+                        <p class="lang-nl">Aanmaken, eIDAS-handtekening, verlenging. Belgische huurovereenkomst sjablonen.</p>
                         <p class="lang-en">Create, eIDAS signature, renewal. Belgian lease templates.</p>
                         <div class="feature-anim">
                             <div class="mini-docs">
@@ -8072,8 +8058,10 @@
                             <svg viewBox="0 0 24 24"><rect x="1" y="4" width="22" height="16" rx="2"/><line x1="1" y1="10" x2="23" y2="10"/></svg>
                         </div>
                         <h4 class="lang-fr">Paiements</h4>
+                        <h4 class="lang-nl">Betalingen</h4>
                         <h4 class="lang-en">Payments</h4>
                         <p class="lang-fr">Suivi loyers, impayés, relances auto. SEPA, Bancontact, exports.</p>
+                        <p class="lang-nl">Huur opvolging, achterstallige betalingen, auto-herinneringen. SEPA, Bancontact, exports.</p>
                         <p class="lang-en">Rent tracking, arrears, auto-reminders. SEPA, Bancontact, exports.</p>
                         <div class="feature-anim">
                             <div class="mini-payment">
@@ -8090,8 +8078,10 @@
                             <svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg>
                         </div>
                         <h4 class="lang-fr">Tickets</h4>
+                        <h4 class="lang-nl">Tickets</h4>
                         <h4 class="lang-en">Tickets</h4>
                         <p class="lang-fr">Kanban maintenance, SLA. Assignation prestataires, suivi coûts.</p>
+                        <p class="lang-nl">Onderhoud kanban, SLA. Aannemer toewijzing, kostenopvolging.</p>
                         <p class="lang-en">Maintenance kanban, SLA. Contractor assignment, cost tracking.</p>
                         <div class="feature-anim">
                             <div class="mini-list">
@@ -8107,8 +8097,11 @@
                         <div class="feature-icon teal">
                             <svg viewBox="0 0 24 24"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>
                         </div>
-                        <h4>Messages</h4>
+                        <h4 class="lang-fr">Messages</h4>
+                        <h4 class="lang-nl">Berichten</h4>
+                        <h4 class="lang-en">Messages</h4>
                         <p class="lang-fr">Inbox locataires, équipe, prestataires. Templates & automatisations.</p>
+                        <p class="lang-nl">Inbox huurders, team, aannemers. Sjablonen & automatiseringen.</p>
                         <p class="lang-en">Tenant, team, contractor inbox. Templates & automations.</p>
                         <div class="feature-anim">
                             <div class="mini-chat">
@@ -8125,8 +8118,10 @@
                             <svg viewBox="0 0 24 24"><line x1="18" y1="20" x2="18" y2="10"/><line x1="12" y1="20" x2="12" y2="4"/><line x1="6" y1="20" x2="6" y2="14"/></svg>
                         </div>
                         <h4 class="lang-fr">Rapports</h4>
+                        <h4 class="lang-nl">Rapporten</h4>
                         <h4 class="lang-en">Reports</h4>
                         <p class="lang-fr">Revenus, occupation, trésorerie, conformité. Exports PDF/CSV.</p>
+                        <p class="lang-nl">Inkomsten, bezetting, schatkist, naleving. PDF/CSV exports.</p>
                         <p class="lang-en">Revenue, occupancy, treasury, compliance. PDF/CSV exports.</p>
                         <div class="feature-anim">
                             <div class="mini-bars">
@@ -8144,8 +8139,10 @@
                             <svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1 0 2.83 2 2 0 0 1-2.83 0l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-2 2 2 2 0 0 1-2-2v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83 0 2 2 0 0 1 0-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1-2-2 2 2 0 0 1 2-2h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 0-2.83 2 2 0 0 1 2.83 0l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 2-2 2 2 0 0 1 2 2v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 0 2 2 0 0 1 0 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 2 2 2 2 0 0 1-2 2h-.09a1.65 1.65 0 0 0-1.51 1z"/></svg>
                         </div>
                         <h4 class="lang-fr">Paramètres</h4>
+                        <h4 class="lang-nl">Instellingen</h4>
                         <h4 class="lang-en">Settings</h4>
                         <p class="lang-fr">Équipe & rôles, intégrations, branding, templates, sécurité.</p>
+                        <p class="lang-nl">Team & rollen, integraties, branding, sjablonen, beveiliging.</p>
                         <p class="lang-en">Team & roles, integrations, branding, templates, security.</p>
                         <div class="feature-anim">
                             <div class="mini-shield">
@@ -9161,17 +9158,6 @@
                         <a href="https://tiktok.com/@immy.be" target="_blank" aria-label="TikTok"><svg viewBox="0 0 24 24"><path d="M9 12a4 4 0 1 0 4 4V4a5 5 0 0 0 5 5"/></svg></a>
                         <a href="https://www.facebook.com/people/immybe/61583064202036/" target="_blank" aria-label="Facebook"><svg viewBox="0 0 24 24"><path d="M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3z"/></svg></a>
                     </div>
-                    <div class="footer-newsletter">
-                        <p class="lang-fr">Restez informé des dernières nouvelles</p>
-                        <p class="lang-nl">Blijf op de hoogte van het laatste nieuws</p>
-                        <p class="lang-en">Stay updated with the latest news</p>
-                        <form class="newsletter-form" onsubmit="return false;">
-                            <input type="email" class="newsletter-input" placeholder="votre@email.com">
-                            <button type="submit" class="newsletter-btn lang-fr">S'inscrire</button>
-                            <button type="submit" class="newsletter-btn lang-nl">Inschrijven</button>
-                            <button type="submit" class="newsletter-btn lang-en">Subscribe</button>
-                        </form>
-                    </div>
                 </div>
                 <div class="footer-column">
                     <h5 class="lang-fr">Produit</h5><h5 class="lang-nl">Product</h5><h5 class="lang-en">Product</h5>
@@ -9515,7 +9501,7 @@
 
             // Update visitor count randomly
             function updateVisitors() {
-                const count = Math.floor(Math.random() * 13) + 8; // 8-20
+                const count = Math.floor(Math.random() * 4) + 2; // 2-5
                 countEl.textContent = count;
             }
 
