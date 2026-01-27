@@ -1601,6 +1601,11 @@
             left: 0;
             width: 100%;
             height: 100%;
+        }
+
+        .staging-image img {
+            width: 100%;
+            height: 100%;
             object-fit: cover;
         }
 
@@ -1694,225 +1699,6 @@
             right: 16px;
             background: var(--immy-orange);
         }
-
-        /* CSS Room Illustrations */
-        .room-illustration {
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            overflow: hidden;
-        }
-
-        /* Room base elements */
-        .room-wall {
-            position: absolute;
-            bottom: 0;
-            left: 0;
-            right: 0;
-            height: 70%;
-        }
-
-        .room-floor {
-            position: absolute;
-            bottom: 0;
-            left: 0;
-            right: 0;
-            height: 30%;
-        }
-
-        .room-window {
-            position: absolute;
-            top: 15%;
-            left: 50%;
-            transform: translateX(-50%);
-            width: 30%;
-            height: 35%;
-            border: 4px solid;
-            border-radius: 4px;
-            background: linear-gradient(180deg, #87CEEB 0%, #E0F4FF 100%);
-        }
-
-        .room-window::before {
-            content: '';
-            position: absolute;
-            top: 50%;
-            left: 0;
-            right: 0;
-            height: 4px;
-            background: inherit;
-        }
-
-        .room-window::after {
-            content: '';
-            position: absolute;
-            left: 50%;
-            top: 0;
-            bottom: 0;
-            width: 4px;
-            background: inherit;
-        }
-
-        /* Furniture elements */
-        .room-bed {
-            position: absolute;
-            bottom: 30%;
-            left: 10%;
-            width: 35%;
-            height: 25%;
-            border-radius: 8px 8px 0 0;
-        }
-
-        .room-bed::before {
-            content: '';
-            position: absolute;
-            top: -20%;
-            left: 5%;
-            width: 40%;
-            height: 30%;
-            border-radius: 4px;
-        }
-
-        .room-desk {
-            position: absolute;
-            bottom: 30%;
-            right: 10%;
-            width: 28%;
-            height: 20%;
-        }
-
-        .room-desk::before {
-            content: '';
-            position: absolute;
-            bottom: 0;
-            left: 10%;
-            width: 8%;
-            height: 100%;
-        }
-
-        .room-desk::after {
-            content: '';
-            position: absolute;
-            bottom: 0;
-            right: 10%;
-            width: 8%;
-            height: 100%;
-        }
-
-        .room-chair {
-            position: absolute;
-            bottom: 30%;
-            right: 18%;
-            width: 12%;
-            height: 18%;
-        }
-
-        .room-lamp {
-            position: absolute;
-            bottom: 50%;
-            right: 12%;
-            width: 6%;
-            height: 12%;
-        }
-
-        .room-plant {
-            position: absolute;
-            bottom: 30%;
-            left: 48%;
-            width: 8%;
-            height: 15%;
-            border-radius: 0 0 30% 30%;
-        }
-
-        .room-rug {
-            position: absolute;
-            bottom: 10%;
-            left: 20%;
-            width: 40%;
-            height: 15%;
-            border-radius: 50%;
-        }
-
-        /* BEFORE: Empty room style */
-        .room-before .room-wall { background: #E8E4DF; }
-        .room-before .room-floor { background: linear-gradient(180deg, #C4B8A8 0%, #A89888 100%); }
-        .room-before .room-window { border-color: #999; }
-        .room-before .room-window::before,
-        .room-before .room-window::after { background: #999; }
-
-        /* AFTER: Styled rooms */
-        /* Scandinavian */
-        .room-scandinavian .room-wall { background: #FAFAF8; }
-        .room-scandinavian .room-floor { background: linear-gradient(180deg, #DEC9A8 0%, #C4B088 100%); }
-        .room-scandinavian .room-window { border-color: #E8DED0; }
-        .room-scandinavian .room-window::before,
-        .room-scandinavian .room-window::after { background: #E8DED0; }
-        .room-scandinavian .room-bed { background: #F5F5F0; box-shadow: 0 4px 15px rgba(0,0,0,0.1); }
-        .room-scandinavian .room-bed::before { background: #E0D5C5; }
-        .room-scandinavian .room-desk { background: #DEC9A8; }
-        .room-scandinavian .room-desk::before,
-        .room-scandinavian .room-desk::after { background: #C4B088; }
-        .room-scandinavian .room-chair { background: #2C2C2C; border-radius: 4px 4px 0 0; }
-        .room-scandinavian .room-lamp { background: linear-gradient(180deg, #F5E6D3 50%, #2C2C2C 50%); border-radius: 50% 50% 0 0; }
-        .room-scandinavian .room-plant { background: #7CB083; }
-        .room-scandinavian .room-rug { background: #E8E4E0; opacity: 0.7; }
-
-        /* Modern */
-        .room-modern .room-wall { background: #F0F0F0; }
-        .room-modern .room-floor { background: linear-gradient(180deg, #404040 0%, #2A2A2A 100%); }
-        .room-modern .room-window { border-color: #333; }
-        .room-modern .room-window::before,
-        .room-modern .room-window::after { background: #333; }
-        .room-modern .room-bed { background: #1A1A1A; box-shadow: 0 4px 15px rgba(0,0,0,0.2); }
-        .room-modern .room-bed::before { background: #FF4405; }
-        .room-modern .room-desk { background: #F5F5F5; }
-        .room-modern .room-desk::before,
-        .room-modern .room-desk::after { background: #333; }
-        .room-modern .room-chair { background: #FF4405; border-radius: 4px; }
-        .room-modern .room-lamp { background: linear-gradient(180deg, #FFD700 50%, #333 50%); border-radius: 2px; }
-        .room-modern .room-plant { background: #2D5A27; }
-        .room-modern .room-rug { background: linear-gradient(135deg, #333 25%, #444 25%, #444 50%, #333 50%, #333 75%, #444 75%); background-size: 20px 20px; }
-
-        /* Bohemian */
-        .room-bohemian .room-wall { background: #FDF6EC; }
-        .room-bohemian .room-floor { background: linear-gradient(180deg, #8B7355 0%, #6B5344 100%); }
-        .room-bohemian .room-window { border-color: #C9A86C; }
-        .room-bohemian .room-window::before,
-        .room-bohemian .room-window::after { background: #C9A86C; }
-        .room-bohemian .room-bed { background: #F5E6D3; box-shadow: 0 4px 15px rgba(0,0,0,0.1); }
-        .room-bohemian .room-bed::before { background: linear-gradient(90deg, #D4A574, #C9A86C, #E8C088); }
-        .room-bohemian .room-desk { background: #A0522D; }
-        .room-bohemian .room-desk::before,
-        .room-bohemian .room-desk::after { background: #8B4513; }
-        .room-bohemian .room-chair { background: #DEB887; border-radius: 50% 50% 0 0; }
-        .room-bohemian .room-lamp { background: linear-gradient(180deg, #FFE4B5 50%, #8B4513 50%); border-radius: 50%; }
-        .room-bohemian .room-plant { background: #556B2F; }
-        .room-bohemian .room-rug { background: linear-gradient(45deg, #D4A574 25%, #C9A86C 25%, #C9A86C 50%, #D4A574 50%, #D4A574 75%, #C9A86C 75%); background-size: 15px 15px; border-radius: 4px; }
-
-        /* Minimalist */
-        .room-minimalist .room-wall { background: #FFFFFF; }
-        .room-minimalist .room-floor { background: linear-gradient(180deg, #F5F5F5 0%, #E8E8E8 100%); }
-        .room-minimalist .room-window { border-color: #DDD; }
-        .room-minimalist .room-window::before,
-        .room-minimalist .room-window::after { background: #DDD; }
-        .room-minimalist .room-bed { background: #F8F8F8; box-shadow: 0 2px 10px rgba(0,0,0,0.05); border: 1px solid #EEE; }
-        .room-minimalist .room-bed::before { background: #F0F0F0; }
-        .room-minimalist .room-desk { background: #FFF; border: 1px solid #EEE; }
-        .room-minimalist .room-desk::before,
-        .room-minimalist .room-desk::after { background: #333; }
-        .room-minimalist .room-chair { background: #333; border-radius: 2px; }
-        .room-minimalist .room-lamp { background: linear-gradient(180deg, #FFF 50%, #333 50%); }
-        .room-minimalist .room-plant { display: none; }
-        .room-minimalist .room-rug { display: none; }
-
-        /* Hide furniture in before state */
-        .room-before .room-bed,
-        .room-before .room-desk,
-        .room-before .room-chair,
-        .room-before .room-lamp,
-        .room-before .room-plant,
-        .room-before .room-rug { display: none; }
 
         /* Responsive */
         @media (max-width: 900px) {
@@ -6706,20 +6492,20 @@
                             <span class="lang-nl">Scandinavisch</span>
                             <span class="lang-en">Scandinavian</span>
                         </button>
-                        <button class="staging-style-btn" data-style="modern">
-                            <span class="lang-fr">Moderne</span>
-                            <span class="lang-nl">Modern</span>
-                            <span class="lang-en">Modern</span>
-                        </button>
                         <button class="staging-style-btn" data-style="bohemian">
-                            <span class="lang-fr">Bohème Chic</span>
-                            <span class="lang-nl">Boho Chic</span>
-                            <span class="lang-en">Bohemian Chic</span>
+                            <span class="lang-fr">Bohème</span>
+                            <span class="lang-nl">Boho</span>
+                            <span class="lang-en">Bohemian</span>
                         </button>
                         <button class="staging-style-btn" data-style="minimalist">
                             <span class="lang-fr">Minimaliste</span>
                             <span class="lang-nl">Minimalistisch</span>
                             <span class="lang-en">Minimalist</span>
+                        </button>
+                        <button class="staging-style-btn" data-style="industrial">
+                            <span class="lang-fr">Industriel</span>
+                            <span class="lang-nl">Industrieel</span>
+                            <span class="lang-en">Industrial</span>
                         </button>
                     </div>
 
@@ -6728,32 +6514,11 @@
                         <div class="staging-slider" id="stagingSlider">
                             <!-- Before: Empty room -->
                             <div class="staging-image before">
-                                <div class="room-illustration room-before">
-                                    <div class="room-wall"></div>
-                                    <div class="room-floor"></div>
-                                    <div class="room-window"></div>
-                                    <div class="room-bed"></div>
-                                    <div class="room-bed-pillow"></div>
-                                    <div class="room-desk"></div>
-                                    <div class="room-chair"></div>
-                                    <div class="room-lamp"></div>
-                                    <div class="room-plant"></div>
-                                    <div class="room-rug"></div>
-                                </div>
+                                <img src="images/staging/before.png" alt="Empty room" id="imgBefore">
                             </div>
                             <!-- After: Staged room (changes based on style) -->
                             <div class="staging-image after">
-                                <div class="room-illustration room-scandinavian" id="roomAfter">
-                                    <div class="room-wall"></div>
-                                    <div class="room-floor"></div>
-                                    <div class="room-window"></div>
-                                    <div class="room-bed"></div>
-                                    <div class="room-desk"></div>
-                                    <div class="room-chair"></div>
-                                    <div class="room-lamp"></div>
-                                    <div class="room-plant"></div>
-                                    <div class="room-rug"></div>
-                                </div>
+                                <img src="images/staging/scandinavian.jpg" alt="Staged room" id="imgAfter">
                             </div>
                             <!-- Slider handle -->
                             <div class="staging-handle"></div>
@@ -8067,17 +7832,17 @@
             });
         })();
 
-        // 12. Style buttons - change room illustration
+        // 12. Style buttons - change staging image
         (function() {
             const buttons = document.querySelectorAll('.staging-style-btn');
-            const roomAfter = document.getElementById('roomAfter');
-            if (!roomAfter) return;
+            const imgAfter = document.getElementById('imgAfter');
+            if (!imgAfter) return;
 
-            const styleMap = {
-                'scandinavian': 'room-scandinavian',
-                'modern': 'room-modern',
-                'bohemian': 'room-bohemian',
-                'minimalist': 'room-minimalist'
+            const imageMap = {
+                'scandinavian': 'images/staging/scandinavian.jpg',
+                'bohemian': 'images/staging/bohemian.jpg',
+                'minimalist': 'images/staging/minimalist.jpg',
+                'industrial': 'images/staging/industrial.jpg'
             };
 
             buttons.forEach(btn => {
@@ -8086,11 +7851,18 @@
                     buttons.forEach(b => b.classList.remove('active'));
                     btn.classList.add('active');
 
-                    // Change room style
+                    // Change image source with fade effect
                     const style = btn.dataset.style;
-                    roomAfter.className = 'room-illustration ' + styleMap[style];
+                    imgAfter.style.opacity = '0';
+                    setTimeout(() => {
+                        imgAfter.src = imageMap[style];
+                        imgAfter.style.opacity = '1';
+                    }, 150);
                 });
             });
+
+            // Add transition for smooth fade
+            imgAfter.style.transition = 'opacity 0.15s ease';
         })();
     </script>
 </body>
