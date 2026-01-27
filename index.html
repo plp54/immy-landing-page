@@ -1360,216 +1360,379 @@
             max-width: 200px;
         }
 
-        /* ==================== HORIZONTAL FLOW ==================== */
-        .horizontal-flow {
-            position: relative;
-            padding: 30px 0 50px;
-            display: flex;
-            justify-content: center;
-            perspective: 1000px;
-        }
-
-        .flow-container {
-            display: flex;
-            align-items: center;
-            gap: 24px;
-            max-width: 700px;
-        }
-
-        /* Step card with 3D effect */
-        .flow-step {
+        /* ==================== MARKETPLACE SHOWCASE ==================== */
+        .marketplace-showcase {
             display: flex;
             flex-direction: column;
+            gap: 80px;
+            padding: 40px 0 60px;
+        }
+
+        /* --- Section 1: Map + Text --- */
+        .marketplace-map-section {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 60px;
             align-items: center;
-            gap: 14px;
-            padding: 24px 20px;
-            background: var(--card);
-            border: 1px solid var(--border);
-            border-radius: 16px;
-            min-width: 140px;
-            opacity: 0;
-            transform: translateY(20px) rotateX(10deg);
-            transition: all 0.5s cubic-bezier(0.34, 1.56, 0.64, 1);
-            transform-style: preserve-3d;
-            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.04);
         }
 
-        .flow-step:hover {
-            transform: translateY(-4px) rotateX(0deg);
-            box-shadow: 0 12px 32px rgba(0, 0, 0, 0.08);
-            border-color: var(--immy-orange);
+        /* Belgium Map */
+        .belgium-map-container {
+            position: relative;
+            width: 100%;
+            max-width: 400px;
+            aspect-ratio: 1;
+            margin: 0 auto;
         }
 
-        .horizontal-flow.animated .flow-step {
-            opacity: 1;
-            transform: translateY(0) rotateX(0deg);
+        .belgium-map {
+            width: 100%;
+            height: 100%;
         }
 
-        .horizontal-flow.animated .flow-step:nth-child(1) { transition-delay: 0.1s; }
-        .horizontal-flow.animated .flow-step:nth-child(3) { transition-delay: 0.3s; }
-        .horizontal-flow.animated .flow-step:nth-child(5) { transition-delay: 0.5s; }
-
-        /* Step number badge */
-        .flow-step-number {
-            width: 28px;
-            height: 28px;
-            border-radius: 50%;
-            background: linear-gradient(135deg, var(--immy-orange), var(--immy-coral));
-            color: white;
-            font-size: 13px;
-            font-weight: 700;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            box-shadow: 0 4px 12px rgba(255, 68, 5, 0.25);
+        .belgium-map .map-shape {
+            fill: var(--cream);
+            stroke: var(--border);
+            stroke-width: 2;
+            transition: fill 0.3s ease;
         }
 
-        /* Step icon */
-        .flow-step-icon {
-            width: 48px;
-            height: 48px;
-            border-radius: 12px;
-            background: var(--cream);
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            transition: all 0.3s ease;
+        .belgium-map:hover .map-shape {
+            fill: rgba(255, 68, 5, 0.05);
         }
 
-        .flow-step:hover .flow-step-icon {
-            background: rgba(255, 68, 5, 0.1);
-        }
-
-        .flow-step-icon svg {
+        /* Map pins */
+        .map-pin {
+            position: absolute;
             width: 24px;
             height: 24px;
+            transform: translate(-50%, -100%);
+            opacity: 0;
+            animation: pinDrop 0.5s cubic-bezier(0.34, 1.56, 0.64, 1) forwards;
+        }
+
+        .map-pin svg {
+            width: 100%;
+            height: 100%;
+            fill: var(--immy-orange);
+            filter: drop-shadow(0 2px 4px rgba(255, 68, 5, 0.3));
+        }
+
+        .map-pin::after {
+            content: '';
+            position: absolute;
+            bottom: -4px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 8px;
+            height: 4px;
+            background: rgba(0, 0, 0, 0.15);
+            border-radius: 50%;
+        }
+
+        /* Pin positions (major Belgian cities) */
+        .map-pin.brussels { top: 48%; left: 52%; animation-delay: 0.2s; }
+        .map-pin.antwerp { top: 30%; left: 55%; animation-delay: 0.4s; }
+        .map-pin.ghent { top: 38%; left: 35%; animation-delay: 0.6s; }
+        .map-pin.liege { top: 45%; left: 78%; animation-delay: 0.8s; }
+        .map-pin.bruges { top: 32%; left: 22%; animation-delay: 1s; }
+        .map-pin.leuven { top: 42%; left: 60%; animation-delay: 1.2s; }
+        .map-pin.namur { top: 58%; left: 62%; animation-delay: 1.4s; }
+        .map-pin.mons { top: 62%; left: 38%; animation-delay: 1.6s; }
+
+        @keyframes pinDrop {
+            0% { opacity: 0; transform: translate(-50%, -150%); }
+            60% { transform: translate(-50%, -95%); }
+            80% { transform: translate(-50%, -102%); }
+            100% { opacity: 1; transform: translate(-50%, -100%); }
+        }
+
+        /* Pulse effect on pins */
+        .map-pin::before {
+            content: '';
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            width: 40px;
+            height: 40px;
+            border: 2px solid var(--immy-orange);
+            border-radius: 50%;
+            transform: translate(-50%, -50%);
+            opacity: 0;
+            animation: pinPulse 2s ease-out infinite;
+            animation-delay: inherit;
+        }
+
+        @keyframes pinPulse {
+            0% { transform: translate(-50%, -50%) scale(0.5); opacity: 0.6; }
+            100% { transform: translate(-50%, -50%) scale(1.5); opacity: 0; }
+        }
+
+        /* Map text section */
+        .marketplace-text {
+            max-width: 480px;
+        }
+
+        .marketplace-text h3 {
+            font-size: 28px;
+            font-weight: 800;
+            color: var(--ink);
+            margin-bottom: 16px;
+            line-height: 1.3;
+        }
+
+        .marketplace-text h3 span {
+            color: var(--immy-orange);
+        }
+
+        .marketplace-text p {
+            font-size: 16px;
+            color: var(--ink-muted);
+            line-height: 1.7;
+            margin-bottom: 24px;
+        }
+
+        .marketplace-features {
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+        }
+
+        .marketplace-feature {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            font-size: 14px;
+            color: var(--ink);
+        }
+
+        .marketplace-feature svg {
+            width: 20px;
+            height: 20px;
             stroke: var(--immy-orange);
             stroke-width: 2;
             fill: none;
+            flex-shrink: 0;
         }
 
-        /* Icon animations */
-        .flow-step:nth-child(1) .flow-step-icon svg path:first-child {
-            animation: arrowBounce 1.5s ease-in-out infinite;
-            transform-origin: center;
+        /* --- Section 2: Home Staging --- */
+        .home-staging-section {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 32px;
         }
 
-        @keyframes arrowBounce {
-            0%, 100% { transform: translateY(0); }
-            50% { transform: translateY(-3px); }
-        }
-
-        .flow-step:nth-child(3) .flow-step-icon svg circle,
-        .flow-step:nth-child(3) .flow-step-icon svg path:nth-child(2) {
-            animation: peoplePulse 2s ease-in-out infinite;
-            transform-origin: center;
-        }
-
-        .flow-step:nth-child(3) .flow-step-icon svg path:nth-child(3),
-        .flow-step:nth-child(3) .flow-step-icon svg path:nth-child(4) {
-            animation: peoplePulse 2s ease-in-out infinite 0.3s;
-            transform-origin: center;
-        }
-
-        @keyframes peoplePulse {
-            0%, 100% { opacity: 1; transform: scale(1); }
-            50% { opacity: 0.7; transform: scale(0.95); }
-        }
-
-        .flow-step:nth-child(5) .flow-step-icon svg path:last-child {
-            stroke-dasharray: 20;
-            stroke-dashoffset: 20;
-            animation: checkDraw 1.8s ease-in-out infinite;
-        }
-
-        @keyframes checkDraw {
-            0%, 20% { stroke-dashoffset: 20; }
-            50%, 70% { stroke-dashoffset: 0; }
-            100% { stroke-dashoffset: 20; }
-        }
-
-        /* Step text */
-        .flow-step-text {
+        .home-staging-header {
             text-align: center;
+            max-width: 600px;
         }
 
-        .flow-step-text h4 {
-            font-size: 15px;
-            font-weight: 700;
+        .home-staging-header h3 {
+            font-size: 24px;
+            font-weight: 800;
             color: var(--ink);
-            margin: 0 0 4px;
+            margin-bottom: 12px;
         }
 
-        .flow-step-text p {
-            font-size: 12px;
+        .home-staging-header h3 span {
+            color: var(--immy-orange);
+        }
+
+        .home-staging-header p {
+            font-size: 15px;
             color: var(--ink-muted);
-            margin: 0;
-            line-height: 1.4;
+            line-height: 1.6;
         }
 
-        /* Arrow connector */
-        .flow-arrow {
+        /* Style selector */
+        .staging-styles {
+            display: flex;
+            gap: 10px;
+            flex-wrap: wrap;
+            justify-content: center;
+        }
+
+        .staging-style-btn {
+            padding: 10px 20px;
+            background: var(--card);
+            border: 1px solid var(--border);
+            border-radius: 100px;
+            font-size: 13px;
+            font-weight: 600;
+            color: var(--ink-muted);
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .staging-style-btn:hover {
+            border-color: var(--immy-orange);
+            color: var(--immy-orange);
+        }
+
+        .staging-style-btn.active {
+            background: var(--immy-orange);
+            border-color: var(--immy-orange);
+            color: white;
+        }
+
+        /* Before/After Slider */
+        .staging-slider-container {
+            position: relative;
+            width: 100%;
+            max-width: 700px;
+            border-radius: 20px;
+            overflow: hidden;
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.1);
+            border: 1px solid var(--border);
+        }
+
+        .staging-slider {
+            position: relative;
+            width: 100%;
+            aspect-ratio: 16/10;
+            overflow: hidden;
+            cursor: ew-resize;
+        }
+
+        .staging-image {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .staging-image.before {
+            z-index: 1;
+        }
+
+        .staging-image.after {
+            z-index: 2;
+            clip-path: inset(0 50% 0 0);
+        }
+
+        /* Slider handle */
+        .staging-handle {
+            position: absolute;
+            top: 0;
+            bottom: 0;
+            left: 50%;
+            width: 4px;
+            background: white;
+            z-index: 10;
+            transform: translateX(-50%);
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
+        }
+
+        .staging-handle::before,
+        .staging-handle::after {
+            content: '';
+            position: absolute;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 40px;
+            height: 40px;
+            background: white;
+            border-radius: 50%;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.2);
+        }
+
+        .staging-handle::before {
+            top: 50%;
+            transform: translate(-50%, -50%);
             display: flex;
             align-items: center;
-            opacity: 0;
-            transform: scaleX(0);
-            transition: all 0.4s ease;
+            justify-content: center;
         }
 
-        .horizontal-flow.animated .flow-arrow {
-            opacity: 1;
-            transform: scaleX(1);
+        .staging-handle-icon {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            z-index: 11;
+            width: 40px;
+            height: 40px;
+            background: white;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.2);
         }
 
-        .horizontal-flow.animated .flow-arrow:nth-child(2) { transition-delay: 0.25s; }
-        .horizontal-flow.animated .flow-arrow:nth-child(4) { transition-delay: 0.45s; }
-
-        .flow-arrow svg {
-            width: 32px;
-            height: 16px;
-            stroke: var(--border);
+        .staging-handle-icon svg {
+            width: 20px;
+            height: 20px;
+            stroke: var(--ink);
             stroke-width: 2;
             fill: none;
         }
 
+        /* Labels */
+        .staging-label {
+            position: absolute;
+            bottom: 16px;
+            padding: 8px 16px;
+            background: rgba(0, 0, 0, 0.7);
+            color: white;
+            font-size: 12px;
+            font-weight: 600;
+            border-radius: 100px;
+            z-index: 5;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        .staging-label.before {
+            left: 16px;
+        }
+
+        .staging-label.after {
+            right: 16px;
+            background: var(--immy-orange);
+        }
+
         /* Responsive */
-        @media (max-width: 700px) {
-            .flow-container {
-                flex-direction: column;
-                gap: 16px;
+        @media (max-width: 900px) {
+            .marketplace-map-section {
+                grid-template-columns: 1fr;
+                gap: 40px;
             }
-            .flow-step {
-                min-width: 200px;
-                flex-direction: row;
-                gap: 16px;
-                padding: 16px 20px;
+            .belgium-map-container {
+                max-width: 300px;
             }
-            .flow-step-text {
-                text-align: left;
+            .marketplace-text {
+                text-align: center;
+                margin: 0 auto;
             }
-            .flow-arrow {
-                transform: rotate(90deg) scaleX(0);
-            }
-            .horizontal-flow.animated .flow-arrow {
-                transform: rotate(90deg) scaleX(1);
+            .marketplace-features {
+                align-items: center;
             }
         }
 
-        @media (max-width: 400px) {
-            .flow-step {
-                min-width: 100%;
-                padding: 14px 16px;
+        @media (max-width: 600px) {
+            .marketplace-showcase {
+                gap: 60px;
             }
-            .flow-step-icon {
-                width: 40px;
-                height: 40px;
+            .marketplace-text h3 {
+                font-size: 24px;
             }
-            .flow-step-icon svg {
-                width: 20px;
-                height: 20px;
+            .home-staging-header h3 {
+                font-size: 20px;
             }
-            .flow-step-text h4 {
-                font-size: 14px;
+            .staging-styles {
+                gap: 8px;
+            }
+            .staging-style-btn {
+                padding: 8px 16px;
+                font-size: 12px;
+            }
+            .staging-label {
+                padding: 6px 12px;
+                font-size: 10px;
             }
         }
 
@@ -6235,69 +6398,148 @@
         <div class="marketplace-container">
             <div class="marketplace-header reveal">
                 <span class="section-label">Marketplace</span>
-                <h2 class="section-title-unified"><span class="lang-fr">Relouez plus</span><span class="lang-nl">Sneller</span><span class="lang-en">Relet</span> <span class="serif highlight-word lang-fr">vite.</span><span class="serif highlight-word lang-nl">herverhuren.</span><span class="serif highlight-word lang-en">faster.</span></h2>
-                <p class="subtitle lang-fr">Vos données sont déjà dans immy. Un clic suffit.</p>
-                <p class="subtitle lang-nl">Uw gegevens staan al in immy. Eén klik is voldoende.</p>
-                <p class="subtitle lang-en">Your data is already in immy. One click is all it takes.</p>
+                <h2 class="section-title-unified"><span class="lang-fr">Votre vitrine</span><span class="lang-nl">Uw</span><span class="lang-en">Your</span> <span class="serif highlight-word lang-fr">immobilière.</span><span class="serif highlight-word lang-nl">vastgoedvitrine.</span><span class="serif highlight-word lang-en">property showcase.</span></h2>
+                <p class="subtitle lang-fr">Publiez vos annonces sur notre marketplace intégrée.</p>
+                <p class="subtitle lang-nl">Publiceer uw advertenties op onze geïntegreerde marktplaats.</p>
+                <p class="subtitle lang-en">Publish your listings on our integrated marketplace.</p>
             </div>
-            
-            <div class="horizontal-flow reveal" id="horizontalFlow">
-                <div class="flow-container">
-                    <!-- Step 1: Publiez -->
-                    <div class="flow-step">
-                        <div class="flow-step-number">1</div>
-                        <div class="flow-step-icon">
-                            <svg viewBox="0 0 24 24"><path d="M12 19V5M5 12l7-7 7 7"/><rect x="4" y="17" width="16" height="2" rx="1"/></svg>
+
+            <div class="marketplace-showcase reveal" id="marketplaceShowcase">
+                <!-- Section 1: Map + Text -->
+                <div class="marketplace-map-section">
+                    <div class="belgium-map-container">
+                        <!-- Stylized Belgium Map SVG -->
+                        <svg class="belgium-map" viewBox="0 0 400 400">
+                            <path class="map-shape" d="M120,80 L180,60 L240,55 L300,70 L340,100 L355,140 L360,180 L350,220 L340,260 L310,300 L260,330 L200,340 L140,330 L100,300 L70,250 L60,200 L70,150 L90,110 Z"/>
+                        </svg>
+                        <!-- Animated pins for major cities -->
+                        <div class="map-pin brussels">
+                            <svg viewBox="0 0 24 24"><path d="M12 0C7.58 0 4 3.58 4 8c0 5.25 8 13 8 13s8-7.75 8-13c0-4.42-3.58-8-8-8zm0 11c-1.66 0-3-1.34-3-3s1.34-3 3-3 3 1.34 3 3-1.34 3-3 3z"/></svg>
                         </div>
-                        <div class="flow-step-text">
-                            <h4 class="lang-fr">Publiez</h4>
-                            <h4 class="lang-nl">Publiceer</h4>
-                            <h4 class="lang-en">Publish</h4>
-                            <p class="lang-fr">1 clic pour diffuser</p>
-                            <p class="lang-nl">1 klik om te publiceren</p>
-                            <p class="lang-en">1 click to broadcast</p>
+                        <div class="map-pin antwerp">
+                            <svg viewBox="0 0 24 24"><path d="M12 0C7.58 0 4 3.58 4 8c0 5.25 8 13 8 13s8-7.75 8-13c0-4.42-3.58-8-8-8zm0 11c-1.66 0-3-1.34-3-3s1.34-3 3-3 3 1.34 3 3-1.34 3-3 3z"/></svg>
+                        </div>
+                        <div class="map-pin ghent">
+                            <svg viewBox="0 0 24 24"><path d="M12 0C7.58 0 4 3.58 4 8c0 5.25 8 13 8 13s8-7.75 8-13c0-4.42-3.58-8-8-8zm0 11c-1.66 0-3-1.34-3-3s1.34-3 3-3 3 1.34 3 3-1.34 3-3 3z"/></svg>
+                        </div>
+                        <div class="map-pin liege">
+                            <svg viewBox="0 0 24 24"><path d="M12 0C7.58 0 4 3.58 4 8c0 5.25 8 13 8 13s8-7.75 8-13c0-4.42-3.58-8-8-8zm0 11c-1.66 0-3-1.34-3-3s1.34-3 3-3 3 1.34 3 3-1.34 3-3 3z"/></svg>
+                        </div>
+                        <div class="map-pin bruges">
+                            <svg viewBox="0 0 24 24"><path d="M12 0C7.58 0 4 3.58 4 8c0 5.25 8 13 8 13s8-7.75 8-13c0-4.42-3.58-8-8-8zm0 11c-1.66 0-3-1.34-3-3s1.34-3 3-3 3 1.34 3 3-1.34 3-3 3z"/></svg>
+                        </div>
+                        <div class="map-pin leuven">
+                            <svg viewBox="0 0 24 24"><path d="M12 0C7.58 0 4 3.58 4 8c0 5.25 8 13 8 13s8-7.75 8-13c0-4.42-3.58-8-8-8zm0 11c-1.66 0-3-1.34-3-3s1.34-3 3-3 3 1.34 3 3-1.34 3-3 3z"/></svg>
+                        </div>
+                        <div class="map-pin namur">
+                            <svg viewBox="0 0 24 24"><path d="M12 0C7.58 0 4 3.58 4 8c0 5.25 8 13 8 13s8-7.75 8-13c0-4.42-3.58-8-8-8zm0 11c-1.66 0-3-1.34-3-3s1.34-3 3-3 3 1.34 3 3-1.34 3-3 3z"/></svg>
+                        </div>
+                        <div class="map-pin mons">
+                            <svg viewBox="0 0 24 24"><path d="M12 0C7.58 0 4 3.58 4 8c0 5.25 8 13 8 13s8-7.75 8-13c0-4.42-3.58-8-8-8zm0 11c-1.66 0-3-1.34-3-3s1.34-3 3-3 3 1.34 3 3-1.34 3-3 3z"/></svg>
                         </div>
                     </div>
 
-                    <!-- Arrow 1 -->
-                    <div class="flow-arrow">
-                        <svg viewBox="0 0 32 16"><path d="M0,8 L24,8 M20,4 L26,8 L20,12"/></svg>
+                    <div class="marketplace-text">
+                        <h3 class="lang-fr">Marketplace <span>intégrée</span></h3>
+                        <h3 class="lang-nl">Geïntegreerde <span>marktplaats</span></h3>
+                        <h3 class="lang-en">Integrated <span>marketplace</span></h3>
+                        <p class="lang-fr">Publiez vos logements étudiants directement sur notre plateforme. Comme Immoweb, mais intégré à votre gestion quotidienne. Vos annonces atteignent des milliers d'étudiants en Belgique.</p>
+                        <p class="lang-nl">Publiceer uw studentenwoningen rechtstreeks op ons platform. Net als Immoweb, maar geïntegreerd in uw dagelijks beheer. Uw advertenties bereiken duizenden studenten in België.</p>
+                        <p class="lang-en">Publish your student housing directly on our platform. Like Immoweb, but integrated into your daily management. Your listings reach thousands of students across Belgium.</p>
+                        <div class="marketplace-features">
+                            <div class="marketplace-feature">
+                                <svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg>
+                                <span class="lang-fr">Publication en 1 clic</span>
+                                <span class="lang-nl">Publiceren met 1 klik</span>
+                                <span class="lang-en">1-click publishing</span>
+                            </div>
+                            <div class="marketplace-feature">
+                                <svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg>
+                                <span class="lang-fr">Visibilité nationale</span>
+                                <span class="lang-nl">Nationale zichtbaarheid</span>
+                                <span class="lang-en">Nationwide visibility</span>
+                            </div>
+                            <div class="marketplace-feature">
+                                <svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg>
+                                <span class="lang-fr">Candidatures centralisées</span>
+                                <span class="lang-nl">Gecentraliseerde aanvragen</span>
+                                <span class="lang-en">Centralized applications</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Section 2: Home Staging -->
+                <div class="home-staging-section">
+                    <div class="home-staging-header">
+                        <h3 class="lang-fr">Home Staging <span>virtuel</span></h3>
+                        <h3 class="lang-nl">Virtuele <span>Home Staging</span></h3>
+                        <h3 class="lang-en">Virtual <span>Home Staging</span></h3>
+                        <p class="lang-fr">Aidez vos locataires à se projeter. Visualisez chaque logement dans différents styles de décoration.</p>
+                        <p class="lang-nl">Help uw huurders zich voor te stellen. Visualiseer elke woning in verschillende inrichtingsstijlen.</p>
+                        <p class="lang-en">Help your tenants envision their space. Visualize each property in different decoration styles.</p>
                     </div>
 
-                    <!-- Step 2: Recevez -->
-                    <div class="flow-step">
-                        <div class="flow-step-number">2</div>
-                        <div class="flow-step-icon">
-                            <svg viewBox="0 0 24 24"><circle cx="9" cy="7" r="4"/><path d="M3 21v-2a4 4 0 0 1 4-4h4a4 4 0 0 1 4 4v2"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/><path d="M21 21v-2a4 4 0 0 0-3-3.87"/></svg>
-                        </div>
-                        <div class="flow-step-text">
-                            <h4 class="lang-fr">Recevez</h4>
-                            <h4 class="lang-nl">Ontvang</h4>
-                            <h4 class="lang-en">Receive</h4>
-                            <p class="lang-fr">Candidatures en direct</p>
-                            <p class="lang-nl">Live aanvragen</p>
-                            <p class="lang-en">Live applications</p>
-                        </div>
+                    <!-- Style selector -->
+                    <div class="staging-styles">
+                        <button class="staging-style-btn active" data-style="scandinavian">
+                            <span class="lang-fr">Scandinave</span>
+                            <span class="lang-nl">Scandinavisch</span>
+                            <span class="lang-en">Scandinavian</span>
+                        </button>
+                        <button class="staging-style-btn" data-style="modern">
+                            <span class="lang-fr">Moderne</span>
+                            <span class="lang-nl">Modern</span>
+                            <span class="lang-en">Modern</span>
+                        </button>
+                        <button class="staging-style-btn" data-style="bohemian">
+                            <span class="lang-fr">Bohème Chic</span>
+                            <span class="lang-nl">Boho Chic</span>
+                            <span class="lang-en">Bohemian Chic</span>
+                        </button>
+                        <button class="staging-style-btn" data-style="minimalist">
+                            <span class="lang-fr">Minimaliste</span>
+                            <span class="lang-nl">Minimalistisch</span>
+                            <span class="lang-en">Minimalist</span>
+                        </button>
                     </div>
 
-                    <!-- Arrow 2 -->
-                    <div class="flow-arrow">
-                        <svg viewBox="0 0 32 16"><path d="M0,8 L24,8 M20,4 L26,8 L20,12"/></svg>
-                    </div>
-
-                    <!-- Step 3: Signez -->
-                    <div class="flow-step">
-                        <div class="flow-step-number">3</div>
-                        <div class="flow-step-icon">
-                            <svg viewBox="0 0 24 24"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><path d="M14 2v6h6"/><path d="M9 15l2 2 4-4"/></svg>
-                        </div>
-                        <div class="flow-step-text">
-                            <h4 class="lang-fr">Signez</h4>
-                            <h4 class="lang-nl">Onderteken</h4>
-                            <h4 class="lang-en">Sign</h4>
-                            <p class="lang-fr">100% digital</p>
-                            <p class="lang-nl">100% digitaal</p>
-                            <p class="lang-en">100% digital</p>
+                    <!-- Before/After Slider -->
+                    <div class="staging-slider-container">
+                        <div class="staging-slider" id="stagingSlider">
+                            <!-- Before image (empty room) -->
+                            <div class="staging-image before" style="background: linear-gradient(135deg, #e8e4df 0%, #d4cfc7 100%); display: flex; align-items: center; justify-content: center;">
+                                <svg width="80" height="80" viewBox="0 0 24 24" fill="none" stroke="#999" stroke-width="1">
+                                    <rect x="2" y="4" width="20" height="16" rx="2"/>
+                                    <path d="M2 8h20"/>
+                                    <circle cx="12" cy="14" r="3"/>
+                                </svg>
+                            </div>
+                            <!-- After image (staged room) -->
+                            <div class="staging-image after" style="background: linear-gradient(135deg, #faf8f5 0%, #f0ebe3 100%); display: flex; align-items: center; justify-content: center;">
+                                <svg width="80" height="80" viewBox="0 0 24 24" fill="none" stroke="#FF4405" stroke-width="1">
+                                    <rect x="2" y="4" width="20" height="16" rx="2"/>
+                                    <path d="M2 8h20"/>
+                                    <path d="M7 12h10M7 16h6"/>
+                                    <circle cx="17" cy="14" r="2"/>
+                                </svg>
+                            </div>
+                            <!-- Slider handle -->
+                            <div class="staging-handle"></div>
+                            <div class="staging-handle-icon">
+                                <svg viewBox="0 0 24 24"><path d="M8 5l-5 7 5 7M16 5l5 7-5 7"/></svg>
+                            </div>
+                            <!-- Labels -->
+                            <div class="staging-label before">
+                                <span class="lang-fr">Avant</span>
+                                <span class="lang-nl">Voor</span>
+                                <span class="lang-en">Before</span>
+                            </div>
+                            <div class="staging-label after">
+                                <span class="lang-fr">Après</span>
+                                <span class="lang-nl">Na</span>
+                                <span class="lang-en">After</span>
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -7523,27 +7765,86 @@
             messagingObserver.observe(messagingSection);
         })();
 
-        // 10. Horizontal Flow Animation
+        // 10. Marketplace Showcase Animation
         (function() {
-            const horizontalFlow = document.getElementById('horizontalFlow');
-            if (!horizontalFlow) return;
+            const showcase = document.getElementById('marketplaceShowcase');
+            if (!showcase) return;
 
             let hasAnimated = false;
 
-            const flowObserver = new IntersectionObserver((entries) => {
+            const showcaseObserver = new IntersectionObserver((entries) => {
                 entries.forEach(entry => {
                     if (entry.isIntersecting && !hasAnimated) {
-                        horizontalFlow.classList.add('animated');
+                        showcase.classList.add('animated');
                         hasAnimated = true;
                     }
-                    if (!entry.isIntersecting) {
-                        hasAnimated = false;
-                        horizontalFlow.classList.remove('animated');
-                    }
                 });
-            }, { threshold: 0.15 });
+            }, { threshold: 0.1 });
 
-            flowObserver.observe(horizontalFlow);
+            showcaseObserver.observe(showcase);
+        })();
+
+        // 11. Before/After Slider
+        (function() {
+            const slider = document.getElementById('stagingSlider');
+            if (!slider) return;
+
+            const afterImage = slider.querySelector('.staging-image.after');
+            const handle = slider.querySelector('.staging-handle');
+            const handleIcon = slider.querySelector('.staging-handle-icon');
+
+            let isDragging = false;
+
+            function updateSlider(x) {
+                const rect = slider.getBoundingClientRect();
+                let percent = ((x - rect.left) / rect.width) * 100;
+                percent = Math.max(0, Math.min(100, percent));
+
+                afterImage.style.clipPath = `inset(0 ${100 - percent}% 0 0)`;
+                handle.style.left = percent + '%';
+                handleIcon.style.left = percent + '%';
+            }
+
+            function startDrag(e) {
+                isDragging = true;
+                e.preventDefault();
+            }
+
+            function endDrag() {
+                isDragging = false;
+            }
+
+            function drag(e) {
+                if (!isDragging) return;
+                const x = e.type.includes('touch') ? e.touches[0].clientX : e.clientX;
+                updateSlider(x);
+            }
+
+            // Mouse events
+            slider.addEventListener('mousedown', startDrag);
+            window.addEventListener('mouseup', endDrag);
+            window.addEventListener('mousemove', drag);
+
+            // Touch events
+            slider.addEventListener('touchstart', startDrag);
+            window.addEventListener('touchend', endDrag);
+            window.addEventListener('touchmove', drag);
+
+            // Click to move
+            slider.addEventListener('click', (e) => {
+                updateSlider(e.clientX);
+            });
+        })();
+
+        // 12. Style buttons
+        (function() {
+            const buttons = document.querySelectorAll('.staging-style-btn');
+            buttons.forEach(btn => {
+                btn.addEventListener('click', () => {
+                    buttons.forEach(b => b.classList.remove('active'));
+                    btn.classList.add('active');
+                });
+            });
         })();
     </script>
 </body>
