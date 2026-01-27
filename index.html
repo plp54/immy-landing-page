@@ -1430,15 +1430,16 @@
             border-radius: 50%;
         }
 
-        /* Pin positions (major Belgian cities - adjusted for realistic map) */
-        .map-pin.brussels { top: 42%; left: 48%; animation-delay: 0.2s; }
-        .map-pin.antwerp { top: 28%; left: 58%; animation-delay: 0.4s; }
-        .map-pin.ghent { top: 32%; left: 32%; animation-delay: 0.6s; }
-        .map-pin.liege { top: 48%; left: 82%; animation-delay: 0.8s; }
-        .map-pin.bruges { top: 24%; left: 18%; animation-delay: 1s; }
-        .map-pin.leuven { top: 38%; left: 58%; animation-delay: 1.2s; }
-        .map-pin.namur { top: 62%; left: 58%; animation-delay: 1.4s; }
-        .map-pin.mons { top: 68%; left: 32%; animation-delay: 1.6s; }
+        /* Pin positions (major Belgian cities - accurate positions) */
+        .map-pin.brussels { top: 35%; left: 45%; animation-delay: 0.2s; }
+        .map-pin.antwerp { top: 18%; left: 55%; animation-delay: 0.4s; }
+        .map-pin.ghent { top: 22%; left: 30%; animation-delay: 0.6s; }
+        .map-pin.liege { top: 38%; left: 80%; animation-delay: 0.8s; }
+        .map-pin.bruges { top: 18%; left: 18%; animation-delay: 1s; }
+        .map-pin.leuven { top: 32%; left: 55%; animation-delay: 1.2s; }
+        .map-pin.namur { top: 55%; left: 52%; animation-delay: 1.4s; }
+        .map-pin.mons { top: 62%; left: 28%; animation-delay: 1.6s; }
+        .map-pin.arlon { top: 88%; left: 72%; animation-delay: 1.8s; }
 
         @keyframes pinDrop {
             0% { opacity: 0; transform: translate(-50%, -150%); }
@@ -6413,11 +6414,12 @@
                 <!-- Section 1: Map + Text -->
                 <div class="marketplace-map-section">
                     <div class="belgium-map-container">
-                        <!-- Realistic Belgium Map SVG -->
-                        <svg class="belgium-map" viewBox="0 0 400 350">
-                            <path class="map-shape" d="M25,95 L35,85 L55,80 L75,75 L85,65 L105,60 L125,55 L145,50 L165,48 L185,52 L205,50 L225,48 L245,52 L265,55 L285,52 L305,58 L325,65 L340,75 L350,90 L355,105 L360,120 L358,140 L350,155 L345,170 L350,185 L360,200 L365,220 L360,235 L345,245 L330,250 L320,265 L310,280 L295,290 L280,295 L265,305 L250,315 L235,325 L220,330 L200,325 L185,315 L170,305 L160,290 L145,280 L130,270 L115,255 L100,245 L85,235 L70,220 L60,200 L50,180 L40,160 L30,140 L25,120 L22,105 Z"/>
+                        <!-- Accurate Belgium Map SVG -->
+                        <svg class="belgium-map" viewBox="0 0 450 400">
+                            <!-- Real Belgium border path -->
+                            <path class="map-shape" d="M58,62 L63,58 L71,55 L82,52 L95,48 L108,42 L118,38 L130,35 L142,33 L155,32 L168,30 L180,28 L192,27 L205,28 L218,30 L232,28 L245,26 L258,25 L272,27 L285,30 L298,32 L310,30 L322,28 L335,32 L348,38 L358,45 L368,55 L378,68 L385,82 L390,98 L392,115 L390,132 L385,148 L382,165 L385,182 L392,198 L398,215 L402,232 L400,248 L395,262 L388,275 L378,288 L365,298 L352,308 L340,320 L328,332 L318,345 L308,355 L295,362 L280,368 L265,372 L248,375 L232,372 L218,365 L205,355 L195,342 L188,328 L178,315 L165,305 L152,298 L138,292 L125,288 L112,282 L98,275 L85,265 L72,252 L62,238 L55,222 L50,205 L48,188 L50,170 L52,152 L50,135 L48,118 L50,100 L52,82 L55,72 Z"/>
                         </svg>
-                        <!-- Animated pins for major cities -->
+                        <!-- Animated pins for major Belgian cities -->
                         <div class="map-pin brussels">
                             <svg viewBox="0 0 24 24"><path d="M12 0C7.58 0 4 3.58 4 8c0 5.25 8 13 8 13s8-7.75 8-13c0-4.42-3.58-8-8-8zm0 11c-1.66 0-3-1.34-3-3s1.34-3 3-3 3 1.34 3 3-1.34 3-3 3z"/></svg>
                         </div>
@@ -6440,6 +6442,9 @@
                             <svg viewBox="0 0 24 24"><path d="M12 0C7.58 0 4 3.58 4 8c0 5.25 8 13 8 13s8-7.75 8-13c0-4.42-3.58-8-8-8zm0 11c-1.66 0-3-1.34-3-3s1.34-3 3-3 3 1.34 3 3-1.34 3-3 3z"/></svg>
                         </div>
                         <div class="map-pin mons">
+                            <svg viewBox="0 0 24 24"><path d="M12 0C7.58 0 4 3.58 4 8c0 5.25 8 13 8 13s8-7.75 8-13c0-4.42-3.58-8-8-8zm0 11c-1.66 0-3-1.34-3-3s1.34-3 3-3 3 1.34 3 3-1.34 3-3 3z"/></svg>
+                        </div>
+                        <div class="map-pin arlon">
                             <svg viewBox="0 0 24 24"><path d="M12 0C7.58 0 4 3.58 4 8c0 5.25 8 13 8 13s8-7.75 8-13c0-4.42-3.58-8-8-8zm0 11c-1.66 0-3-1.34-3-3s1.34-3 3-3 3 1.34 3 3-1.34 3-3 3z"/></svg>
                         </div>
                     </div>
