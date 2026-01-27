@@ -86,6 +86,13 @@
         @keyframes barGrow { from { transform: scaleY(0); } to { transform: scaleY(1); } }
         @keyframes fadeInScale { from { opacity: 0; transform: scale(0.9); } to { opacity: 1; transform: scale(1); } }
         @keyframes typing { from { width: 0; } to { width: 100%; } }
+        @keyframes gradientMove { 0% { background-position: 0% 50%; } 50% { background-position: 100% 50%; } 100% { background-position: 0% 50%; } }
+        @keyframes floatSlow { 0%, 100% { transform: translateY(0) rotate(0deg); } 50% { transform: translateY(-20px) rotate(2deg); } }
+        @keyframes slideUp { from { opacity: 0; transform: translateY(20px); } to { opacity: 1; transform: translateY(0); } }
+        @keyframes slideInRight { from { opacity: 0; transform: translateX(100%); } to { opacity: 1; transform: translateX(0); } }
+        @keyframes slideOutRight { from { opacity: 1; transform: translateX(0); } to { opacity: 0; transform: translateX(100%); } }
+        @keyframes bounce { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(-5px); } }
+        @keyframes glow { 0%, 100% { box-shadow: 0 0 30px rgba(255, 68, 5, 0.3); } 50% { box-shadow: 0 0 50px rgba(255, 68, 5, 0.5); } }
 
         /* Page Loader */
         .loader { position: fixed; inset: 0; background: var(--cream); z-index: 10000; display: flex; align-items: center; justify-content: center; transition: opacity 0.6s ease, visibility 0.6s ease; }
@@ -397,14 +404,41 @@
         }
 
         /* ==================== HERO - BOLD & AUDACIOUS ==================== */
-        .hero { 
-            min-height: 100vh; 
-            padding: 100px 48px 80px; 
-            position: relative; 
-            display: flex; 
+        .hero {
+            min-height: 100vh;
+            padding: 100px 48px 80px;
+            position: relative;
+            display: flex;
             flex-direction: column;
             overflow: hidden;
             background: var(--cream);
+        }
+
+        /* Animated gradient mesh background */
+        .hero::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background:
+                radial-gradient(ellipse at 20% 20%, rgba(255, 68, 5, 0.08) 0%, transparent 50%),
+                radial-gradient(ellipse at 80% 80%, rgba(255, 122, 89, 0.06) 0%, transparent 50%),
+                radial-gradient(ellipse at 50% 50%, rgba(255, 68, 5, 0.03) 0%, transparent 70%);
+            background-size: 200% 200%;
+            animation: gradientMove 15s ease infinite;
+            pointer-events: none;
+            z-index: 0;
+        }
+
+        [data-theme="dark"] .hero::before {
+            background:
+                radial-gradient(ellipse at 20% 20%, rgba(255, 68, 5, 0.15) 0%, transparent 50%),
+                radial-gradient(ellipse at 80% 80%, rgba(255, 122, 89, 0.1) 0%, transparent 50%),
+                radial-gradient(ellipse at 50% 50%, rgba(255, 68, 5, 0.05) 0%, transparent 70%);
+            background-size: 200% 200%;
+            animation: gradientMove 15s ease infinite;
         }
         
         /* Subtle gradient orbs */
@@ -2765,10 +2799,21 @@
             box-shadow:
                 0 50px 100px rgba(0, 0, 0, 0.2),
                 0 0 0 1px rgba(255, 255, 255, 0.08) inset,
-                inset 0 0 2px rgba(255, 255, 255, 0.1);
+                inset 0 0 2px rgba(255, 255, 255, 0.1),
+                0 0 0 rgba(255, 68, 5, 0);
             position: relative;
             transform: perspective(1000px) rotateY(-5deg) rotateX(2deg);
-            transition: transform 0.5s ease;
+            transition: all 0.5s cubic-bezier(0.16, 1, 0.3, 1);
+            animation: floatSlow 6s ease-in-out infinite;
+        }
+
+        .resident-phone:hover {
+            transform: perspective(1000px) rotateY(0deg) rotateX(0deg) translateY(-10px);
+            box-shadow:
+                0 60px 120px rgba(0, 0, 0, 0.25),
+                0 0 0 1px rgba(255, 255, 255, 0.1) inset,
+                inset 0 0 2px rgba(255, 255, 255, 0.1),
+                0 0 60px rgba(255, 68, 5, 0.3);
         }
 
         .resident-phone::before {
@@ -2791,10 +2836,6 @@
             height: 60px;
             background: #333;
             border-radius: 0 2px 2px 0;
-        }
-
-        .resident-phone:hover {
-            transform: perspective(1000px) rotateY(0deg) rotateX(0deg);
         }
 
         .resident-phone-screen {
@@ -3438,6 +3479,307 @@
             .hub-btn span {
                 font-size: 8px;
             }
+        }
+
+        /* ==================== SOCIAL PROOF SECTION ==================== */
+        .social-proof-section {
+            padding: 80px 48px;
+            background: var(--cream);
+            border-top: 1px solid var(--border);
+        }
+
+        .social-proof-container {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .social-proof-label {
+            text-align: center;
+            font-size: 13px;
+            font-weight: 600;
+            color: var(--ink-subtle);
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            margin-bottom: 40px;
+        }
+
+        .university-logos {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 60px;
+            flex-wrap: wrap;
+            margin-bottom: 60px;
+            opacity: 0.6;
+            transition: opacity 0.3s ease;
+        }
+
+        .university-logos:hover {
+            opacity: 0.9;
+        }
+
+        .university-logo {
+            font-size: 18px;
+            font-weight: 700;
+            color: var(--ink-muted);
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            transition: all 0.3s ease;
+        }
+
+        .university-logo:hover {
+            color: var(--immy-orange);
+            transform: scale(1.05);
+        }
+
+        .university-logo svg {
+            width: 32px;
+            height: 32px;
+            fill: currentColor;
+        }
+
+        /* Stats counters */
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 40px;
+            max-width: 900px;
+            margin: 0 auto;
+        }
+
+        .stat-item {
+            text-align: center;
+            padding: 30px 20px;
+            background: var(--card);
+            border-radius: 20px;
+            border: 1px solid var(--border);
+            transition: all 0.3s ease;
+        }
+
+        .stat-item:hover {
+            transform: translateY(-5px);
+            border-color: var(--immy-orange);
+            box-shadow: 0 20px 40px rgba(255, 68, 5, 0.1);
+        }
+
+        .stat-number {
+            font-size: 42px;
+            font-weight: 800;
+            color: var(--immy-orange);
+            line-height: 1;
+            margin-bottom: 8px;
+        }
+
+        .stat-number span {
+            font-size: 28px;
+        }
+
+        .stat-label {
+            font-size: 14px;
+            color: var(--ink-muted);
+            font-weight: 500;
+        }
+
+        @media (max-width: 768px) {
+            .stats-grid {
+                grid-template-columns: repeat(2, 1fr);
+                gap: 20px;
+            }
+            .university-logos {
+                gap: 30px;
+            }
+            .stat-number {
+                font-size: 32px;
+            }
+        }
+
+        /* ==================== ACTIVITY FEED POPUP ==================== */
+        .activity-feed {
+            position: fixed;
+            bottom: 24px;
+            left: 24px;
+            z-index: 1000;
+            pointer-events: none;
+        }
+
+        .activity-toast {
+            background: var(--card);
+            border: 1px solid var(--border);
+            border-radius: 16px;
+            padding: 16px 20px;
+            display: flex;
+            align-items: center;
+            gap: 14px;
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.15);
+            opacity: 0;
+            transform: translateX(-100%);
+            transition: all 0.5s cubic-bezier(0.16, 1, 0.3, 1);
+            max-width: 340px;
+            backdrop-filter: blur(10px);
+        }
+
+        .activity-toast.show {
+            opacity: 1;
+            transform: translateX(0);
+        }
+
+        .activity-toast.hide {
+            opacity: 0;
+            transform: translateX(-100%);
+        }
+
+        .activity-avatar {
+            width: 44px;
+            height: 44px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, var(--immy-orange), var(--immy-coral));
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-shrink: 0;
+        }
+
+        .activity-avatar svg {
+            width: 22px;
+            height: 22px;
+            stroke: white;
+            stroke-width: 2;
+            fill: none;
+        }
+
+        .activity-content {
+            flex: 1;
+        }
+
+        .activity-text {
+            font-size: 14px;
+            font-weight: 600;
+            color: var(--ink);
+            margin-bottom: 2px;
+        }
+
+        .activity-time {
+            font-size: 12px;
+            color: var(--ink-subtle);
+        }
+
+        .activity-badge {
+            background: var(--success-bg);
+            color: var(--success);
+            font-size: 10px;
+            font-weight: 700;
+            padding: 4px 8px;
+            border-radius: 6px;
+            text-transform: uppercase;
+        }
+
+        @media (max-width: 500px) {
+            .activity-feed {
+                left: 12px;
+                right: 12px;
+                bottom: 12px;
+            }
+            .activity-toast {
+                max-width: 100%;
+            }
+        }
+
+        /* ==================== APP STORE BADGES ==================== */
+        .app-badges {
+            display: flex;
+            gap: 16px;
+            justify-content: center;
+            margin-top: 32px;
+        }
+
+        .app-badge {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            padding: 12px 20px;
+            background: #000;
+            color: white;
+            border-radius: 12px;
+            text-decoration: none;
+            transition: all 0.3s ease;
+        }
+
+        .app-badge:hover {
+            transform: scale(1.05);
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+        }
+
+        .app-badge svg {
+            width: 28px;
+            height: 28px;
+            fill: white;
+        }
+
+        .app-badge-text {
+            display: flex;
+            flex-direction: column;
+            line-height: 1.2;
+        }
+
+        .app-badge-small {
+            font-size: 10px;
+            opacity: 0.8;
+        }
+
+        .app-badge-big {
+            font-size: 16px;
+            font-weight: 600;
+        }
+
+        /* ==================== ENHANCED CTA BUTTONS ==================== */
+        .cta-enhanced {
+            position: relative;
+            overflow: hidden;
+        }
+
+        .cta-enhanced::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
+            transition: left 0.5s ease;
+        }
+
+        .cta-enhanced:hover::before {
+            left: 100%;
+        }
+
+        .cta-enhanced .cta-arrow {
+            transition: transform 0.3s ease;
+        }
+
+        .cta-enhanced:hover .cta-arrow {
+            transform: translateX(5px);
+            animation: bounce 0.6s ease infinite;
+        }
+
+        /* ==================== GLASSMORPHISM EFFECTS ==================== */
+        .glass-card {
+            background: rgba(255, 255, 255, 0.7);
+            backdrop-filter: blur(20px);
+            border: 1px solid rgba(255, 255, 255, 0.3);
+        }
+
+        [data-theme="dark"] .glass-card {
+            background: rgba(30, 30, 30, 0.7);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        /* ==================== GRADIENT TEXT ==================== */
+        .gradient-text {
+            background: linear-gradient(135deg, var(--immy-orange), var(--immy-coral));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
         }
 
         /* ==================== PRICING SECTION - Calculator ==================== */
@@ -4408,6 +4750,87 @@
         .footer-separator { color: rgba(255,255,255,0.3); }
         .footer-heart { font-size: 14px; color: rgba(255,255,255,0.4); display: flex; align-items: center; gap: 6px; }
         .footer-heart .heart { color: var(--immy-orange); animation: heartbeat 1.5s ease-in-out infinite; display: inline-block; }
+
+        /* Newsletter in footer */
+        .footer-newsletter {
+            margin-top: 24px;
+        }
+
+        .footer-newsletter p {
+            font-size: 13px;
+            color: rgba(255, 255, 255, 0.5);
+            margin-bottom: 12px;
+        }
+
+        .newsletter-form {
+            display: flex;
+            gap: 8px;
+        }
+
+        .newsletter-input {
+            flex: 1;
+            padding: 12px 16px;
+            background: rgba(255, 255, 255, 0.1);
+            border: 1px solid rgba(255, 255, 255, 0.15);
+            border-radius: 10px;
+            color: white;
+            font-size: 14px;
+            outline: none;
+            transition: all 0.3s ease;
+        }
+
+        .newsletter-input::placeholder {
+            color: rgba(255, 255, 255, 0.4);
+        }
+
+        .newsletter-input:focus {
+            border-color: var(--immy-orange);
+            background: rgba(255, 255, 255, 0.15);
+        }
+
+        .newsletter-btn {
+            padding: 12px 20px;
+            background: var(--immy-orange);
+            border: none;
+            border-radius: 10px;
+            color: white;
+            font-size: 14px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            white-space: nowrap;
+        }
+
+        .newsletter-btn:hover {
+            background: var(--immy-orange-light);
+            transform: translateY(-2px);
+        }
+
+        /* Social icons enhanced */
+        .footer-social a {
+            width: 40px;
+            height: 40px;
+            border-radius: 10px;
+            background: rgba(255, 255, 255, 0.1);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: rgba(255, 255, 255, 0.6);
+            text-decoration: none;
+            transition: all 0.3s ease;
+        }
+
+        .footer-social a:hover {
+            background: var(--immy-orange);
+            color: white;
+            transform: translateY(-3px);
+        }
+
+        .footer-social svg {
+            width: 20px;
+            height: 20px;
+            fill: currentColor;
+        }
 
         /* ==================== FEATURES SECTION ==================== */
         .features-section {
@@ -7333,6 +7756,67 @@
     </section>
 
 
+    <!-- Social Proof Section -->
+    <section class="social-proof-section">
+        <div class="social-proof-container">
+            <div class="social-proof-label lang-fr">Ils nous font confiance</div>
+            <div class="social-proof-label lang-nl">Ze vertrouwen ons</div>
+            <div class="social-proof-label lang-en">Trusted by leading institutions</div>
+
+            <!-- University Logos -->
+            <div class="university-logos reveal">
+                <div class="university-logo">
+                    <svg viewBox="0 0 24 24"><path d="M12 3L1 9l11 6 9-4.91V17h2V9L12 3z"/><path d="M12 13.5l-7-3.82V17c0 2.21 3.13 4 7 4s7-1.79 7-4V9.68l-7 3.82z"/></svg>
+                    <span>ULB</span>
+                </div>
+                <div class="university-logo">
+                    <svg viewBox="0 0 24 24"><path d="M12 3L1 9l11 6 9-4.91V17h2V9L12 3z"/><path d="M12 13.5l-7-3.82V17c0 2.21 3.13 4 7 4s7-1.79 7-4V9.68l-7 3.82z"/></svg>
+                    <span>UCLouvain</span>
+                </div>
+                <div class="university-logo">
+                    <svg viewBox="0 0 24 24"><path d="M12 3L1 9l11 6 9-4.91V17h2V9L12 3z"/><path d="M12 13.5l-7-3.82V17c0 2.21 3.13 4 7 4s7-1.79 7-4V9.68l-7 3.82z"/></svg>
+                    <span>KU Leuven</span>
+                </div>
+                <div class="university-logo">
+                    <svg viewBox="0 0 24 24"><path d="M12 3L1 9l11 6 9-4.91V17h2V9L12 3z"/><path d="M12 13.5l-7-3.82V17c0 2.21 3.13 4 7 4s7-1.79 7-4V9.68l-7 3.82z"/></svg>
+                    <span>VUB</span>
+                </div>
+                <div class="university-logo">
+                    <svg viewBox="0 0 24 24"><path d="M12 3L1 9l11 6 9-4.91V17h2V9L12 3z"/><path d="M12 13.5l-7-3.82V17c0 2.21 3.13 4 7 4s7-1.79 7-4V9.68l-7 3.82z"/></svg>
+                    <span>UGent</span>
+                </div>
+            </div>
+
+            <!-- Stats -->
+            <div class="stats-grid reveal reveal-delay-1">
+                <div class="stat-item">
+                    <div class="stat-number" data-target="500">0<span>+</span></div>
+                    <div class="stat-label lang-fr">Logements gérés</div>
+                    <div class="stat-label lang-nl">Woningen beheerd</div>
+                    <div class="stat-label lang-en">Properties managed</div>
+                </div>
+                <div class="stat-item">
+                    <div class="stat-number" data-target="2000">0<span>+</span></div>
+                    <div class="stat-label lang-fr">Étudiants logés</div>
+                    <div class="stat-label lang-nl">Studenten gehuisvest</div>
+                    <div class="stat-label lang-en">Students housed</div>
+                </div>
+                <div class="stat-item">
+                    <div class="stat-number" data-target="98">0<span>%</span></div>
+                    <div class="stat-label lang-fr">Taux de satisfaction</div>
+                    <div class="stat-label lang-nl">Tevredenheidsgraad</div>
+                    <div class="stat-label lang-en">Satisfaction rate</div>
+                </div>
+                <div class="stat-item">
+                    <div class="stat-number" data-target="24">0<span>h</span></div>
+                    <div class="stat-label lang-fr">Temps de réponse</div>
+                    <div class="stat-label lang-nl">Reactietijd</div>
+                    <div class="stat-label lang-en">Response time</div>
+                </div>
+            </div>
+        </div>
+    </section>
+
 
     <!-- Features Section -->
     <section class="features-section" id="features">
@@ -7852,6 +8336,28 @@
                             <span class="lang-en">Direct communication</span>
                         </div>
                     </div>
+
+                    <!-- App Store Badges -->
+                    <div class="app-badges">
+                        <a href="#" class="app-badge">
+                            <svg viewBox="0 0 24 24"><path d="M17.05 20.28c-.98.95-2.05.8-3.08.35-1.09-.46-2.09-.48-3.24 0-1.44.62-2.2.44-3.06-.35C2.79 15.25 3.51 7.59 9.05 7.31c1.35.07 2.29.74 3.08.8 1.18-.24 2.31-.93 3.57-.84 1.51.12 2.65.72 3.4 1.8-3.12 1.87-2.38 5.98.48 7.13-.57 1.5-1.31 2.99-2.54 4.09l.01-.01zM12.03 7.25c-.15-2.23 1.66-4.07 3.74-4.25.29 2.58-2.34 4.5-3.74 4.25z"/></svg>
+                            <div class="app-badge-text">
+                                <span class="app-badge-small lang-fr">Bientôt sur</span>
+                                <span class="app-badge-small lang-nl">Binnenkort op</span>
+                                <span class="app-badge-small lang-en">Coming soon on</span>
+                                <span class="app-badge-big">App Store</span>
+                            </div>
+                        </a>
+                        <a href="#" class="app-badge">
+                            <svg viewBox="0 0 24 24"><path d="M3.609 1.814L13.792 12 3.61 22.186a.996.996 0 0 1-.61-.92V2.734a1 1 0 0 1 .609-.92zm10.89 10.893l2.302 2.302-10.937 6.333 8.635-8.635zm3.199-3.198l2.807 1.626a1 1 0 0 1 0 1.73l-2.808 1.626L15.206 12l2.492-2.491zM5.864 2.658L16.8 8.99l-2.302 2.302-8.634-8.634z"/></svg>
+                            <div class="app-badge-text">
+                                <span class="app-badge-small lang-fr">Bientôt sur</span>
+                                <span class="app-badge-small lang-nl">Binnenkort op</span>
+                                <span class="app-badge-small lang-en">Coming soon on</span>
+                                <span class="app-badge-big">Google Play</span>
+                            </div>
+                        </a>
+                    </div>
                 </div>
 
                 <!-- Phone mockup side -->
@@ -7893,7 +8399,7 @@
                                         <svg viewBox="0 0 24 24"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
                                     </div>
                                     <div>
-                                        <div class="app-user-name">Louis Côte</div>
+                                        <div class="app-user-name">Kot de Louis</div>
                                         <div class="app-user-label lang-fr">Résident</div>
                                         <div class="app-user-label lang-nl">Bewoner</div>
                                         <div class="app-user-label lang-en">Resident</div>
@@ -8367,10 +8873,21 @@
                     <p class="footer-desc lang-nl">Het alles-in-één platform om uw studentenkoten te beheren en opnieuw te verhuren. Vereenvoudig vandaag nog uw vastgoedbeheer.</p>
                     <p class="footer-desc lang-en">The all-in-one platform to manage and relet your student rooms. Simplify your property management today.</p>
                     <div class="footer-social">
-                        <a href="https://www.linkedin.com/company/immy-technologies/" target="_blank" class="social-link" aria-label="LinkedIn"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z"/><rect x="2" y="9" width="4" height="12"/><circle cx="4" cy="4" r="2"/></svg></a>
-                        <a href="https://instagram.com/immy_be" target="_blank" class="social-link" aria-label="Instagram"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="2" width="20" height="20" rx="5" ry="5"/><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"/><line x1="17.5" y1="6.5" x2="17.51" y2="6.5"/></svg></a>
-                        <a href="https://tiktok.com/@immy.be" target="_blank" class="social-link" aria-label="TikTok"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 12a4 4 0 1 0 4 4V4a5 5 0 0 0 5 5"/></svg></a>
-                        <a href="https://www.facebook.com/people/immybe/61583064202036/" target="_blank" class="social-link" aria-label="Facebook"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3z"/></svg></a>
+                        <a href="https://www.linkedin.com/company/immy-technologies/" target="_blank" aria-label="LinkedIn"><svg viewBox="0 0 24 24"><path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z"/><rect x="2" y="9" width="4" height="12"/><circle cx="4" cy="4" r="2"/></svg></a>
+                        <a href="https://instagram.com/immy_be" target="_blank" aria-label="Instagram"><svg viewBox="0 0 24 24"><rect x="2" y="2" width="20" height="20" rx="5" ry="5"/><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"/><line x1="17.5" y1="6.5" x2="17.51" y2="6.5"/></svg></a>
+                        <a href="https://tiktok.com/@immy.be" target="_blank" aria-label="TikTok"><svg viewBox="0 0 24 24"><path d="M9 12a4 4 0 1 0 4 4V4a5 5 0 0 0 5 5"/></svg></a>
+                        <a href="https://www.facebook.com/people/immybe/61583064202036/" target="_blank" aria-label="Facebook"><svg viewBox="0 0 24 24"><path d="M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3z"/></svg></a>
+                    </div>
+                    <div class="footer-newsletter">
+                        <p class="lang-fr">Restez informé des dernières nouvelles</p>
+                        <p class="lang-nl">Blijf op de hoogte van het laatste nieuws</p>
+                        <p class="lang-en">Stay updated with the latest news</p>
+                        <form class="newsletter-form" onsubmit="return false;">
+                            <input type="email" class="newsletter-input" placeholder="votre@email.com">
+                            <button type="submit" class="newsletter-btn lang-fr">S'inscrire</button>
+                            <button type="submit" class="newsletter-btn lang-nl">Inschrijven</button>
+                            <button type="submit" class="newsletter-btn lang-en">Subscribe</button>
+                        </form>
                     </div>
                 </div>
                 <div class="footer-column">
@@ -9034,6 +9551,113 @@
             screens.forEach(screen => {
                 screen.style.transition = 'opacity 0.15s ease';
             });
+        })();
+
+        // 14. Animated Stats Counter
+        (function() {
+            const statNumbers = document.querySelectorAll('.stat-number[data-target]');
+            if (!statNumbers.length) return;
+
+            const animateCounter = (el) => {
+                const target = parseInt(el.dataset.target);
+                const suffix = el.querySelector('span')?.textContent || '';
+                const duration = 2000;
+                const start = performance.now();
+
+                const updateCounter = (currentTime) => {
+                    const elapsed = currentTime - start;
+                    const progress = Math.min(elapsed / duration, 1);
+                    const easeOut = 1 - Math.pow(1 - progress, 3);
+                    const current = Math.floor(easeOut * target);
+                    el.innerHTML = current + '<span>' + suffix + '</span>';
+
+                    if (progress < 1) {
+                        requestAnimationFrame(updateCounter);
+                    }
+                };
+                requestAnimationFrame(updateCounter);
+            };
+
+            const observer = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        animateCounter(entry.target);
+                        observer.unobserve(entry.target);
+                    }
+                });
+            }, { threshold: 0.5 });
+
+            statNumbers.forEach(el => observer.observe(el));
+        })();
+
+        // 15. Activity Feed Popup
+        (function() {
+            const activities = [
+                { name: 'Pierre', action: 'vient de signer un bail', city: 'Bruxelles', actionNl: 'heeft net een huurcontract getekend', actionEn: 'just signed a lease', cityNl: 'Brussel', cityEn: 'Brussels' },
+                { name: 'Sophie', action: 'a payé son loyer', city: 'Louvain-la-Neuve', actionNl: 'heeft haar huur betaald', actionEn: 'paid her rent', cityNl: 'Louvain-la-Neuve', cityEn: 'Louvain-la-Neuve' },
+                { name: 'Lucas', action: 'vient de réserver un kot', city: 'Gand', actionNl: 'heeft net een kot gereserveerd', actionEn: 'just booked a room', cityNl: 'Gent', cityEn: 'Ghent' },
+                { name: 'Emma', action: 'a complété son Move-in', city: 'Liège', actionNl: 'heeft haar Move-in voltooid', actionEn: 'completed her Move-in', cityNl: 'Luik', cityEn: 'Liège' },
+                { name: 'Thomas', action: 'vient de signer un bail', city: 'Anvers', actionNl: 'heeft net een huurcontract getekend', actionEn: 'just signed a lease', cityNl: 'Antwerpen', cityEn: 'Antwerp' }
+            ];
+
+            // Create activity feed container
+            const feedContainer = document.createElement('div');
+            feedContainer.className = 'activity-feed';
+            feedContainer.innerHTML = `
+                <div class="activity-toast">
+                    <div class="activity-avatar">
+                        <svg viewBox="0 0 24 24"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
+                    </div>
+                    <div class="activity-content">
+                        <div class="activity-text"></div>
+                        <div class="activity-time"></div>
+                    </div>
+                    <div class="activity-badge lang-fr">Nouveau</div>
+                    <div class="activity-badge lang-nl">Nieuw</div>
+                    <div class="activity-badge lang-en">New</div>
+                </div>
+            `;
+            document.body.appendChild(feedContainer);
+
+            const toast = feedContainer.querySelector('.activity-toast');
+            const textEl = feedContainer.querySelector('.activity-text');
+            const timeEl = feedContainer.querySelector('.activity-time');
+            let activityIndex = 0;
+
+            const showActivity = () => {
+                const lang = document.documentElement.getAttribute('data-lang') || 'fr';
+                const activity = activities[activityIndex];
+
+                let text, city;
+                if (lang === 'nl') {
+                    text = `${activity.name} ${activity.actionNl}`;
+                    city = activity.cityNl;
+                } else if (lang === 'en') {
+                    text = `${activity.name} ${activity.actionEn}`;
+                    city = activity.cityEn;
+                } else {
+                    text = `${activity.name} ${activity.action}`;
+                    city = activity.city;
+                }
+
+                textEl.textContent = text;
+                timeEl.textContent = lang === 'nl' ? `${city} · Nu` : lang === 'en' ? `${city} · Now` : `${city} · Maintenant`;
+
+                toast.classList.add('show');
+                toast.classList.remove('hide');
+
+                setTimeout(() => {
+                    toast.classList.remove('show');
+                    toast.classList.add('hide');
+                }, 5000);
+
+                activityIndex = (activityIndex + 1) % activities.length;
+            };
+
+            // Show first activity after 5 seconds
+            setTimeout(showActivity, 5000);
+            // Then every 15 seconds
+            setInterval(showActivity, 15000);
         })();
     </script>
 </body>
