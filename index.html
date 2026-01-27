@@ -1430,15 +1430,15 @@
             border-radius: 50%;
         }
 
-        /* Pin positions (major Belgian cities) */
-        .map-pin.brussels { top: 48%; left: 52%; animation-delay: 0.2s; }
-        .map-pin.antwerp { top: 30%; left: 55%; animation-delay: 0.4s; }
-        .map-pin.ghent { top: 38%; left: 35%; animation-delay: 0.6s; }
-        .map-pin.liege { top: 45%; left: 78%; animation-delay: 0.8s; }
-        .map-pin.bruges { top: 32%; left: 22%; animation-delay: 1s; }
-        .map-pin.leuven { top: 42%; left: 60%; animation-delay: 1.2s; }
-        .map-pin.namur { top: 58%; left: 62%; animation-delay: 1.4s; }
-        .map-pin.mons { top: 62%; left: 38%; animation-delay: 1.6s; }
+        /* Pin positions (major Belgian cities - adjusted for realistic map) */
+        .map-pin.brussels { top: 42%; left: 48%; animation-delay: 0.2s; }
+        .map-pin.antwerp { top: 28%; left: 58%; animation-delay: 0.4s; }
+        .map-pin.ghent { top: 32%; left: 32%; animation-delay: 0.6s; }
+        .map-pin.liege { top: 48%; left: 82%; animation-delay: 0.8s; }
+        .map-pin.bruges { top: 24%; left: 18%; animation-delay: 1s; }
+        .map-pin.leuven { top: 38%; left: 58%; animation-delay: 1.2s; }
+        .map-pin.namur { top: 62%; left: 58%; animation-delay: 1.4s; }
+        .map-pin.mons { top: 68%; left: 32%; animation-delay: 1.6s; }
 
         @keyframes pinDrop {
             0% { opacity: 0; transform: translate(-50%, -150%); }
@@ -1694,6 +1694,225 @@
             right: 16px;
             background: var(--immy-orange);
         }
+
+        /* CSS Room Illustrations */
+        .room-illustration {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            overflow: hidden;
+        }
+
+        /* Room base elements */
+        .room-wall {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            height: 70%;
+        }
+
+        .room-floor {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            height: 30%;
+        }
+
+        .room-window {
+            position: absolute;
+            top: 15%;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 30%;
+            height: 35%;
+            border: 4px solid;
+            border-radius: 4px;
+            background: linear-gradient(180deg, #87CEEB 0%, #E0F4FF 100%);
+        }
+
+        .room-window::before {
+            content: '';
+            position: absolute;
+            top: 50%;
+            left: 0;
+            right: 0;
+            height: 4px;
+            background: inherit;
+        }
+
+        .room-window::after {
+            content: '';
+            position: absolute;
+            left: 50%;
+            top: 0;
+            bottom: 0;
+            width: 4px;
+            background: inherit;
+        }
+
+        /* Furniture elements */
+        .room-bed {
+            position: absolute;
+            bottom: 30%;
+            left: 10%;
+            width: 35%;
+            height: 25%;
+            border-radius: 8px 8px 0 0;
+        }
+
+        .room-bed::before {
+            content: '';
+            position: absolute;
+            top: -20%;
+            left: 5%;
+            width: 40%;
+            height: 30%;
+            border-radius: 4px;
+        }
+
+        .room-desk {
+            position: absolute;
+            bottom: 30%;
+            right: 10%;
+            width: 28%;
+            height: 20%;
+        }
+
+        .room-desk::before {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 10%;
+            width: 8%;
+            height: 100%;
+        }
+
+        .room-desk::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            right: 10%;
+            width: 8%;
+            height: 100%;
+        }
+
+        .room-chair {
+            position: absolute;
+            bottom: 30%;
+            right: 18%;
+            width: 12%;
+            height: 18%;
+        }
+
+        .room-lamp {
+            position: absolute;
+            bottom: 50%;
+            right: 12%;
+            width: 6%;
+            height: 12%;
+        }
+
+        .room-plant {
+            position: absolute;
+            bottom: 30%;
+            left: 48%;
+            width: 8%;
+            height: 15%;
+            border-radius: 0 0 30% 30%;
+        }
+
+        .room-rug {
+            position: absolute;
+            bottom: 10%;
+            left: 20%;
+            width: 40%;
+            height: 15%;
+            border-radius: 50%;
+        }
+
+        /* BEFORE: Empty room style */
+        .room-before .room-wall { background: #E8E4DF; }
+        .room-before .room-floor { background: linear-gradient(180deg, #C4B8A8 0%, #A89888 100%); }
+        .room-before .room-window { border-color: #999; }
+        .room-before .room-window::before,
+        .room-before .room-window::after { background: #999; }
+
+        /* AFTER: Styled rooms */
+        /* Scandinavian */
+        .room-scandinavian .room-wall { background: #FAFAF8; }
+        .room-scandinavian .room-floor { background: linear-gradient(180deg, #DEC9A8 0%, #C4B088 100%); }
+        .room-scandinavian .room-window { border-color: #E8DED0; }
+        .room-scandinavian .room-window::before,
+        .room-scandinavian .room-window::after { background: #E8DED0; }
+        .room-scandinavian .room-bed { background: #F5F5F0; box-shadow: 0 4px 15px rgba(0,0,0,0.1); }
+        .room-scandinavian .room-bed::before { background: #E0D5C5; }
+        .room-scandinavian .room-desk { background: #DEC9A8; }
+        .room-scandinavian .room-desk::before,
+        .room-scandinavian .room-desk::after { background: #C4B088; }
+        .room-scandinavian .room-chair { background: #2C2C2C; border-radius: 4px 4px 0 0; }
+        .room-scandinavian .room-lamp { background: linear-gradient(180deg, #F5E6D3 50%, #2C2C2C 50%); border-radius: 50% 50% 0 0; }
+        .room-scandinavian .room-plant { background: #7CB083; }
+        .room-scandinavian .room-rug { background: #E8E4E0; opacity: 0.7; }
+
+        /* Modern */
+        .room-modern .room-wall { background: #F0F0F0; }
+        .room-modern .room-floor { background: linear-gradient(180deg, #404040 0%, #2A2A2A 100%); }
+        .room-modern .room-window { border-color: #333; }
+        .room-modern .room-window::before,
+        .room-modern .room-window::after { background: #333; }
+        .room-modern .room-bed { background: #1A1A1A; box-shadow: 0 4px 15px rgba(0,0,0,0.2); }
+        .room-modern .room-bed::before { background: #FF4405; }
+        .room-modern .room-desk { background: #F5F5F5; }
+        .room-modern .room-desk::before,
+        .room-modern .room-desk::after { background: #333; }
+        .room-modern .room-chair { background: #FF4405; border-radius: 4px; }
+        .room-modern .room-lamp { background: linear-gradient(180deg, #FFD700 50%, #333 50%); border-radius: 2px; }
+        .room-modern .room-plant { background: #2D5A27; }
+        .room-modern .room-rug { background: linear-gradient(135deg, #333 25%, #444 25%, #444 50%, #333 50%, #333 75%, #444 75%); background-size: 20px 20px; }
+
+        /* Bohemian */
+        .room-bohemian .room-wall { background: #FDF6EC; }
+        .room-bohemian .room-floor { background: linear-gradient(180deg, #8B7355 0%, #6B5344 100%); }
+        .room-bohemian .room-window { border-color: #C9A86C; }
+        .room-bohemian .room-window::before,
+        .room-bohemian .room-window::after { background: #C9A86C; }
+        .room-bohemian .room-bed { background: #F5E6D3; box-shadow: 0 4px 15px rgba(0,0,0,0.1); }
+        .room-bohemian .room-bed::before { background: linear-gradient(90deg, #D4A574, #C9A86C, #E8C088); }
+        .room-bohemian .room-desk { background: #A0522D; }
+        .room-bohemian .room-desk::before,
+        .room-bohemian .room-desk::after { background: #8B4513; }
+        .room-bohemian .room-chair { background: #DEB887; border-radius: 50% 50% 0 0; }
+        .room-bohemian .room-lamp { background: linear-gradient(180deg, #FFE4B5 50%, #8B4513 50%); border-radius: 50%; }
+        .room-bohemian .room-plant { background: #556B2F; }
+        .room-bohemian .room-rug { background: linear-gradient(45deg, #D4A574 25%, #C9A86C 25%, #C9A86C 50%, #D4A574 50%, #D4A574 75%, #C9A86C 75%); background-size: 15px 15px; border-radius: 4px; }
+
+        /* Minimalist */
+        .room-minimalist .room-wall { background: #FFFFFF; }
+        .room-minimalist .room-floor { background: linear-gradient(180deg, #F5F5F5 0%, #E8E8E8 100%); }
+        .room-minimalist .room-window { border-color: #DDD; }
+        .room-minimalist .room-window::before,
+        .room-minimalist .room-window::after { background: #DDD; }
+        .room-minimalist .room-bed { background: #F8F8F8; box-shadow: 0 2px 10px rgba(0,0,0,0.05); border: 1px solid #EEE; }
+        .room-minimalist .room-bed::before { background: #F0F0F0; }
+        .room-minimalist .room-desk { background: #FFF; border: 1px solid #EEE; }
+        .room-minimalist .room-desk::before,
+        .room-minimalist .room-desk::after { background: #333; }
+        .room-minimalist .room-chair { background: #333; border-radius: 2px; }
+        .room-minimalist .room-lamp { background: linear-gradient(180deg, #FFF 50%, #333 50%); }
+        .room-minimalist .room-plant { display: none; }
+        .room-minimalist .room-rug { display: none; }
+
+        /* Hide furniture in before state */
+        .room-before .room-bed,
+        .room-before .room-desk,
+        .room-before .room-chair,
+        .room-before .room-lamp,
+        .room-before .room-plant,
+        .room-before .room-rug { display: none; }
 
         /* Responsive */
         @media (max-width: 900px) {
@@ -6408,9 +6627,9 @@
                 <!-- Section 1: Map + Text -->
                 <div class="marketplace-map-section">
                     <div class="belgium-map-container">
-                        <!-- Stylized Belgium Map SVG -->
-                        <svg class="belgium-map" viewBox="0 0 400 400">
-                            <path class="map-shape" d="M120,80 L180,60 L240,55 L300,70 L340,100 L355,140 L360,180 L350,220 L340,260 L310,300 L260,330 L200,340 L140,330 L100,300 L70,250 L60,200 L70,150 L90,110 Z"/>
+                        <!-- Realistic Belgium Map SVG -->
+                        <svg class="belgium-map" viewBox="0 0 400 350">
+                            <path class="map-shape" d="M25,95 L35,85 L55,80 L75,75 L85,65 L105,60 L125,55 L145,50 L165,48 L185,52 L205,50 L225,48 L245,52 L265,55 L285,52 L305,58 L325,65 L340,75 L350,90 L355,105 L360,120 L358,140 L350,155 L345,170 L350,185 L360,200 L365,220 L360,235 L345,245 L330,250 L320,265 L310,280 L295,290 L280,295 L265,305 L250,315 L235,325 L220,330 L200,325 L185,315 L170,305 L160,290 L145,280 L130,270 L115,255 L100,245 L85,235 L70,220 L60,200 L50,180 L40,160 L30,140 L25,120 L22,105 Z"/>
                         </svg>
                         <!-- Animated pins for major cities -->
                         <div class="map-pin brussels">
@@ -6507,22 +6726,34 @@
                     <!-- Before/After Slider -->
                     <div class="staging-slider-container">
                         <div class="staging-slider" id="stagingSlider">
-                            <!-- Before image (empty room) -->
-                            <div class="staging-image before" style="background: linear-gradient(135deg, #e8e4df 0%, #d4cfc7 100%); display: flex; align-items: center; justify-content: center;">
-                                <svg width="80" height="80" viewBox="0 0 24 24" fill="none" stroke="#999" stroke-width="1">
-                                    <rect x="2" y="4" width="20" height="16" rx="2"/>
-                                    <path d="M2 8h20"/>
-                                    <circle cx="12" cy="14" r="3"/>
-                                </svg>
+                            <!-- Before: Empty room -->
+                            <div class="staging-image before">
+                                <div class="room-illustration room-before">
+                                    <div class="room-wall"></div>
+                                    <div class="room-floor"></div>
+                                    <div class="room-window"></div>
+                                    <div class="room-bed"></div>
+                                    <div class="room-bed-pillow"></div>
+                                    <div class="room-desk"></div>
+                                    <div class="room-chair"></div>
+                                    <div class="room-lamp"></div>
+                                    <div class="room-plant"></div>
+                                    <div class="room-rug"></div>
+                                </div>
                             </div>
-                            <!-- After image (staged room) -->
-                            <div class="staging-image after" style="background: linear-gradient(135deg, #faf8f5 0%, #f0ebe3 100%); display: flex; align-items: center; justify-content: center;">
-                                <svg width="80" height="80" viewBox="0 0 24 24" fill="none" stroke="#FF4405" stroke-width="1">
-                                    <rect x="2" y="4" width="20" height="16" rx="2"/>
-                                    <path d="M2 8h20"/>
-                                    <path d="M7 12h10M7 16h6"/>
-                                    <circle cx="17" cy="14" r="2"/>
-                                </svg>
+                            <!-- After: Staged room (changes based on style) -->
+                            <div class="staging-image after">
+                                <div class="room-illustration room-scandinavian" id="roomAfter">
+                                    <div class="room-wall"></div>
+                                    <div class="room-floor"></div>
+                                    <div class="room-window"></div>
+                                    <div class="room-bed"></div>
+                                    <div class="room-desk"></div>
+                                    <div class="room-chair"></div>
+                                    <div class="room-lamp"></div>
+                                    <div class="room-plant"></div>
+                                    <div class="room-rug"></div>
+                                </div>
                             </div>
                             <!-- Slider handle -->
                             <div class="staging-handle"></div>
@@ -7836,13 +8067,28 @@
             });
         })();
 
-        // 12. Style buttons
+        // 12. Style buttons - change room illustration
         (function() {
             const buttons = document.querySelectorAll('.staging-style-btn');
+            const roomAfter = document.getElementById('roomAfter');
+            if (!roomAfter) return;
+
+            const styleMap = {
+                'scandinavian': 'room-scandinavian',
+                'modern': 'room-modern',
+                'bohemian': 'room-bohemian',
+                'minimalist': 'room-minimalist'
+            };
+
             buttons.forEach(btn => {
                 btn.addEventListener('click', () => {
+                    // Update active button
                     buttons.forEach(b => b.classList.remove('active'));
                     btn.classList.add('active');
+
+                    // Change room style
+                    const style = btn.dataset.style;
+                    roomAfter.className = 'room-illustration ' + styleMap[style];
                 });
             });
         })();
